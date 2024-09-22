@@ -1,35 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nafis Niloy</title>
-    <style>
-        body{
-            background-color: black;
-            color: aliceblue;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          
-        }
-        
-        h1{
-            font-size: 25vw;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nafis Niloy- Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="logo.png" type="image/x-icon">
 </head>
+
 <body>
-    <div class="container">
-        <h1>Hi I am Nafis Niloy</h1>
+  <div id="top" class="top-container">
+    <nav class="navbar">
+      <h4 class="nav-title">
+        <img src="/logo.png" alt="Logo" style="width: 40px;" />
+      </h4>
+
+      <input id="menu-toggle" type="checkbox" />
+      <label class="menu-button-container" for="menu-toggle">
+        <div class="menu-button"></div>
+      </label>
+
+      <ul class="nav-list">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li class="hello-btn"><a href="#contact">Say Hello</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero">
+      <h1>Full Stack Web Developer</h1>
+      <h2>I love to code and create new things</h2>
+      <img src="/myLogo.png" alt="hero" />
     </div>
+  </div>
+
+  <div class="about-container" id="about">
+    <div class="about-content">
+      <h2>About Me</h2>
+      <p>
+        Hi! I'm Nafis Niloy, a passionate Full Stack Web Developer. I enjoy building dynamic user interfaces and solving problems. I strive to deliver high-quality, scalable solutions through code.
+      </p>
+      <p>
+        With expertise in modern web technologies like HTML, CSS, JavaScript, React, and Node.js, I'm always eager to take on new challenges.
+      </p>
+      <div class="contact-btn">
+        <a href="#contact">Get in Touch</a>
+      </div>
+    </div>
+    <img class="webImg" src="/web.png" alt="about" />
+  </div>
+
+  <div class="projects-container" id="projects">
+    <h2>My Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-image">
+          <img src="/mychat.png" alt="My Chat">
+        </div>
+        <h3>My Chat</h3>
+        <div class="tech-stack">
+          <span class="tech">React</span>
+          <span class="tech">Firebase</span>
+          <span class="tech">JavaScript</span>
+          <span class="tech">MUI</span>
+        </div>
+        <p>A real-time chat application allowing users to chat in real-time.</p>
+        <div class="project-buttons">
+          <a href="https://github.com/Nafisniloy/MyChat" class="btn">Show Code</a>
+          <a href="https://mychat-eta-pied.vercel.app/" class="btn">Preview Project</a>
+        </div>
+      </div>
+
+      <!-- More project cards here -->
+
+      <div class="project-card">
+        <div class="project-image">
+          <img src="/quiz.png" alt="Quiz">
+        </div>
+        <h3>Quiz</h3>
+        <div class="tech-stack">
+          <span class="tech">HTML</span>
+          <span class="tech">CSS</span>
+          <span class="tech">JavaScript</span>
+          <span class="tech">API</span>
+        </div>
+        <p>A quiz application that lets users take quizzes and view their results.</p>
+        <div class="project-buttons">
+          <a href="https://github.com/Nafisniloy/quiz" class="btn">Show Code</a>
+          <a href="https://nafisniloy.github.io/quiz/" class="btn">Preview Project</a>
+        </div>
+      </div>
+
+      <!-- Additional projects -->
+
+    </div>
+    <button id="load-more" class="load-more-btn">Load More Projects</button>
+  </div>
+
+  <section class="contact-section" id="contact">
+    <h2 class="section-title">Contact Me</h2>
+    <form id="contact-form" class="contact-form">
+      <div class="form-group">
+        <input type="text" id="name" name="name" placeholder="Your Name" required />
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" name="email" placeholder="Your Email" required />
+      </div>
+      <div class="form-group">
+        <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+      </div>
+      <button type="submit" id="submit-btn">Send Message</button>
+      <div id="status"></div>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2024 Nafis Niloy. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+ 
 </body>
+
 </html>
