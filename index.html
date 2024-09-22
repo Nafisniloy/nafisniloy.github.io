@@ -4,47 +4,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nafis Niloy- Portfolio</title>
+  <title>Nafis Niloy - Portfolio</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+  <link rel="shortcut icon" href="myLogo.png" type="image/x-icon">
 </head>
 
 <body>
   <div id="top" class="top-container">
-    <nav class="navbar">
-      <h4 class="nav-title">
-        <img src="/logo.png" alt="Logo" style="width: 40px;" />
-      </h4>
+  <nav class="navbar">
+    <h4 style="display: flex;" class="nav-title">
+      <img style="width: 40px;" src="/logo.png" />
 
-      <input id="menu-toggle" type="checkbox" />
-      <label class="menu-button-container" for="menu-toggle">
-        <div class="menu-button"></div>
-      </label>
+    </h4>
 
-      <ul class="nav-list">
-        <li class="active"><a href="/">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li class="hello-btn"><a href="#contact">Say Hello</a></li>
-      </ul>
-    </nav>
+    <input id="menu-toggle" type="checkbox" />
+    <label class='menu-button-container' for="menu-toggle">
+      <div class='menu-button'></div>
+    </label>
 
-    <div class="hero">
-      <h1>Full Stack Web Developer</h1>
-      <h2>I love to code and create new things</h2>
-      <img src="/myLogo.png" alt="hero" />
-    </div>
+    <ul class="nav-list">
+      <li class="active"><a href="/">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li class="hello-btn"><a href="#contact">Say Hello</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <h1>Full Stack Web Developer</h1>
+    <h2>I love to code and create new things</h2>
+    <img src="/myLogo.png" alt="hero" />
   </div>
-
+  </div>
   <div class="about-container" id="about">
     <div class="about-content">
       <h2>About Me</h2>
-      <p>
-        Hi! I'm Nafis Niloy, a passionate Full Stack Web Developer. I enjoy building dynamic user interfaces and solving problems. I strive to deliver high-quality, scalable solutions through code.
-      </p>
-      <p>
-        With expertise in modern web technologies like HTML, CSS, JavaScript, React, and Node.js, I'm always eager to take on new challenges.
-      </p>
+      <p>Hi! I'm Nafis Niloy, a passionate Full Stack Web Developer with a love for creating interactive and efficient websites. I enjoy problem-solving, building dynamic user interfaces, and continuously learning new technologies. Whether working on personal projects or collaborating on a team, I strive to deliver high-quality, scalable solutions that make a difference.</p>
+      <p>With expertise in HTML, CSS, JavaScript, React, Node.js, and other modern web technologies, I'm always eager to take on new challenges and create meaningful experiences through code.</p>
       <div class="contact-btn">
         <a href="#contact">Get in Touch</a>
       </div>
@@ -52,53 +48,105 @@
     <img class="webImg" src="/web.png" alt="about" />
   </div>
 
+
   <div class="projects-container" id="projects">
     <h2>My Projects</h2>
     <div class="projects-grid">
       <div class="project-card">
         <div class="project-image">
-          <img src="/mychat.png" alt="My Chat">
+          <img src="/mychat.png" alt="Project 1">
         </div>
         <h3>My Chat</h3>
         <div class="tech-stack">
           <span class="tech">React</span>
           <span class="tech">Firebase</span>
           <span class="tech">JavaScript</span>
-          <span class="tech">MUI</span>
+          <span class="tech fourth">MUI</span>
         </div>
-        <p>A real-time chat application allowing users to chat in real-time.</p>
+        <p>A real-time chat application that allows users to chat with each other in real-time.</p>
         <div class="project-buttons">
           <a href="https://github.com/Nafisniloy/MyChat" class="btn">Show Code</a>
           <a href="https://mychat-eta-pied.vercel.app/" class="btn">Preview Project</a>
         </div>
       </div>
-
-      <!-- More project cards here -->
-
+  
+      <!-- More projects here -->
       <div class="project-card">
         <div class="project-image">
-          <img src="/quiz.png" alt="Quiz">
+          <img src="/quiz.png" alt="Project 2">
         </div>
         <h3>Quiz</h3>
         <div class="tech-stack">
           <span class="tech">HTML</span>
           <span class="tech">CSS</span>
           <span class="tech">JavaScript</span>
-          <span class="tech">API</span>
+          <span class="tech fourth">API</span>
+
         </div>
-        <p>A quiz application that lets users take quizzes and view their results.</p>
+        <p>A quiz application that allows users to take a quiz and see their results.</p>
         <div class="project-buttons">
           <a href="https://github.com/Nafisniloy/quiz" class="btn">Show Code</a>
           <a href="https://nafisniloy.github.io/quiz/" class="btn">Preview Project</a>
         </div>
       </div>
+      <div class="project-card">
+        <div class="project-image">
+          <img src="/weather.png" alt="Project 2">
+        </div>
+        <h3>Weather</h3>
+        <div class="tech-stack">
+          <span class="tech">HTML</span>
+          <span class="tech">CSS</span>
+          <span class="tech">JavaScript</span>
+          <span class="tech fourth">API</span>
+        </div>
+        <p>An application that allows users to check the weather of any city.</p>
+        <div class="project-buttons">
+          <a href="https://github.com/Nafisniloy/weather" class="btn">Show Code</a>
+          <a href="https://nafisniloy.github.io/weather" class="btn">Preview Project</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-image">
+          <img src="/textconverter.png" alt="Project 2">
+        </div>
+        <h3>Text Converter</h3>
+        <div class="tech-stack">
+          <span class="tech">React</span>
+          <span class="tech">JavaScript</span>
+          <span class="tech">CSS</span>
+        </div>
+        <p>A text converter application that allows users to convert text to different formats.</p>
+        <div class="project-buttons">
+          <a href="https://github.com/Nafisniloy/text-converter" class="btn">Show Code</a>
+          <a href="https://nafisniloy.github.io/text-converter/" class="btn">Preview Project</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-image">
+          <img src="/portfolio.png" alt="Project 2">
+        </div>
+        <h3>Portfolio</h3>
+        <div class="tech-stack">
+          <span class="tech">HTML</span>
+          <span class="tech">CSS</span>
+          <span class="tech">JavaScript</span>
+        </div>
+        <p>My personal portfolio website that showcases my projects and skills.</p>
+        <div class="project-buttons">
+          <a href="https://github.com/Nafisniloy/nafisniloy.github.io" class="btn">Show Code</a>
+          <a href="/" class="btn">Preview Project</a>
+        </div>
+      </div>
 
-      <!-- Additional projects -->
-
+        
+    
+        
+  
     </div>
     <button id="load-more" class="load-more-btn">Load More Projects</button>
   </div>
-
+  
   <section class="contact-section" id="contact">
     <h2 class="section-title">Contact Me</h2>
     <form id="contact-form" class="contact-form">
@@ -115,16 +163,25 @@
       <div id="status"></div>
     </form>
   </section>
-
+  
+  
+  
+  
   <footer>
     <div class="footer-content">
       <p>&copy; 2024 Nafis Niloy. All Rights Reserved.</p>
+      <!-- <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul> -->
     </div>
   </footer>
+  
+ <script src="script.js"></script>
+ <script type="text/javascript"
+ src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
 
-  <script src="script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
- 
 </body>
 
 </html>

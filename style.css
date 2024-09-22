@@ -587,3 +587,10 @@ footer {
 .footer-content p {
   margin-bottom: 10px;
 }
+
+
+@media (max-width : 350px){
+  .fourth{
+    display: none;
+  }
+}
