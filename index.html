@@ -7,180 +7,302 @@
   <title>Nafis Niloy - Portfolio</title>
   <link rel="stylesheet" href="style.css">
   <link rel="shortcut icon" href="myLogo.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div id="scroll-progress" class="scroll-progress"></div>
+  </div>
+
   <div id="top" class="top-container">
-  <nav class="navbar">
-    <h4 style="display: flex;" class="nav-title">
-      <img style="width: 40px;" src="/logo.png" />
+    <!-- Particles JS Background -->
+    <div id="particles-js"></div>
+    
+    <nav class="navbar">
+      <h4 style="display: flex;" class="nav-title">
+        <img style="width: 40px;" src="/logo.png" />
+      </h4>
 
-    </h4>
+      <input id="menu-toggle" type="checkbox" />
+      <label class='menu-button-container' for="menu-toggle">
+        <div class='menu-button'></div>
+      </label>
 
-    <input id="menu-toggle" type="checkbox" />
-    <label class='menu-button-container' for="menu-toggle">
-      <div class='menu-button'></div>
-    </label>
+      <ul class="nav-list">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li class="hello-btn"><a href="#contact">Say Hello</a></li>
+        <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button></li>
+      </ul>
+    </nav>
 
-    <ul class="nav-list">
-      <li class="active"><a href="/">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li class="hello-btn"><a href="#contact">Say Hello</a></li>
-    </ul>
-  </nav>
-
-  <div class="hero">
-    <h1>Full Stack Web Developer</h1>
-    <h2>I love to code and create new things</h2>
-    <img src="/myLogo.png" alt="hero" />
-  </div>
-  </div>
-  <div class="about-container" id="about">
-    <div class="about-content">
-      <h2>About Me</h2>
-      <p>Hi! I'm Nafis Niloy, a passionate Full Stack Web Developer with a love for creating interactive and efficient websites. I enjoy problem-solving, building dynamic user interfaces, and continuously learning new technologies. Whether working on personal projects or collaborating on a team, I strive to deliver high-quality, scalable solutions that make a difference.</p>
-      <p>With expertise in HTML, CSS, JavaScript, React, Node.js, and other modern web technologies, I'm always eager to take on new challenges and create meaningful experiences through code.</p>
-      <div class="contact-btn">
-        <a href="#contact">Get in Touch</a>
+    <div class="hero">
+      <h1 class="typing-text" data-words='["Full Stack Web Developer", "UI/UX Designer", "Problem Solver", "JavaScript Expert"]' data-wait="2000">Full Stack Web Developer</h1>
+      <h2 class="hero-subtitle">I love to code and create new things</h2>
+      <img src="/myLogo.png" alt="hero" class="hero-image" />
+      <div class="scroll-down-arrow">
+        <a href="#about">
+          <i class="fas fa-chevron-down"></i>
+        </a>
       </div>
     </div>
-    <img class="webImg" src="/web.png" alt="about" />
+  </div>
+  <div class="about-container" id="about">
+    <div class="about-content scroll-reveal">
+      <h2 class="section-title">About <span class="highlight">Me</span></h2>
+      <div class="about-text">
+        <p>Hi! I'm <span class="highlight">Nafis Niloy</span>, a passionate Full Stack Web Developer with a love for creating interactive and efficient websites. I enjoy problem-solving, building dynamic user interfaces, and continuously learning new technologies. Whether working on personal projects or collaborating on a team, I strive to deliver high-quality, scalable solutions that make a difference.</p>
+        <p>With expertise in <span class="skill-tag">HTML</span> <span class="skill-tag">CSS</span> <span class="skill-tag">JavaScript</span> <span class="skill-tag">React</span> <span class="skill-tag">Node.js</span> and other modern web technologies, I'm always eager to take on new challenges and create meaningful experiences through code.</p>
+      </div>
+      <div class="contact-btn">
+        <a href="#contact">Get in Touch <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="about-image-container scroll-reveal">
+      <div class="image-frame">
+        <img class="webImg" src="/web.png" alt="about" />
+        <div class="corner-decoration top-left"></div>
+        <div class="corner-decoration top-right"></div>
+        <div class="corner-decoration bottom-left"></div>
+        <div class="corner-decoration bottom-right"></div>
+      </div>
+    </div>
   </div>
 
 
   <div class="projects-container" id="projects">
-    <h2>My Projects</h2>
+    <h2 class="section-title scroll-reveal">My <span class="highlight">Projects</span></h2>
     <div class="projects-grid">
-      <div class="project-card">
+      <div class="project-card scroll-reveal">
         <div class="project-image">
           <img src="/mychat.png" alt="Project 1">
+          <div class="project-overlay">
+            <div class="project-links">
+              <a href="https://github.com/Nafisniloy/MyChat" class="project-link" target="_blank"><i class="fab fa-github"></i></a>
+              <a href="https://mychat-eta-pied.vercel.app/" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
         </div>
-        <h3>My Chat</h3>
-        <div class="tech-stack">
-          <span class="tech">React</span>
-          <span class="tech">Firebase</span>
-          <span class="tech">JavaScript</span>
-          <span class="tech fourth">MUI</span>
-        </div>
-        <p>A real-time chat application that allows users to chat with each other in real-time.</p>
-        <div class="project-buttons">
-          <a href="https://github.com/Nafisniloy/MyChat" class="btn">Show Code</a>
-          <a href="https://mychat-eta-pied.vercel.app/" class="btn">Preview Project</a>
+        <div class="project-content">
+          <h3>My Chat</h3>
+          <div class="tech-stack">
+            <span class="tech">React</span>
+            <span class="tech">Firebase</span>
+            <span class="tech">JavaScript</span>
+            <span class="tech fourth">MUI</span>
+          </div>
+          <p>A real-time chat application that allows users to chat with each other in real-time.</p>
+          <div class="project-buttons">
+            <a href="https://github.com/Nafisniloy/MyChat" class="btn">Show Code</a>
+            <a href="https://mychat-eta-pied.vercel.app/" class="btn">Preview Project</a>
+          </div>
         </div>
       </div>
   
       <!-- More projects here -->
-      <div class="project-card">
+      <div class="project-card scroll-reveal">
         <div class="project-image">
           <img src="/quiz.png" alt="Project 2">
+          <div class="project-overlay">
+            <div class="project-links">
+              <a href="https://github.com/Nafisniloy/quiz" class="project-link" target="_blank"><i class="fab fa-github"></i></a>
+              <a href="https://nafisniloy.github.io/quiz/" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
         </div>
-        <h3>Quiz</h3>
-        <div class="tech-stack">
-          <span class="tech">HTML</span>
-          <span class="tech">CSS</span>
-          <span class="tech">JavaScript</span>
-          <span class="tech fourth">API</span>
-
-        </div>
-        <p>A quiz application that allows users to take a quiz and see their results.</p>
-        <div class="project-buttons">
-          <a href="https://github.com/Nafisniloy/quiz" class="btn">Show Code</a>
-          <a href="https://nafisniloy.github.io/quiz/" class="btn">Preview Project</a>
+        <div class="project-content">
+          <h3>Quiz</h3>
+          <div class="tech-stack">
+            <span class="tech">HTML</span>
+            <span class="tech">CSS</span>
+            <span class="tech">JavaScript</span>
+            <span class="tech fourth">API</span>
+          </div>
+          <p>A quiz application that allows users to take a quiz and see their results.</p>
+          <div class="project-buttons">
+            <a href="https://github.com/Nafisniloy/quiz" class="btn">Show Code</a>
+            <a href="https://nafisniloy.github.io/quiz/" class="btn">Preview Project</a>
+          </div>
         </div>
       </div>
-      <div class="project-card">
+      
+      <div class="project-card scroll-reveal">
         <div class="project-image">
-          <img src="/weather.png" alt="Project 2">
+          <img src="/weather.png" alt="Project 3">
+          <div class="project-overlay">
+            <div class="project-links">
+              <a href="https://github.com/Nafisniloy/weather" class="project-link" target="_blank"><i class="fab fa-github"></i></a>
+              <a href="https://nafisniloy.github.io/weather" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
         </div>
-        <h3>Weather</h3>
-        <div class="tech-stack">
-          <span class="tech">HTML</span>
-          <span class="tech">CSS</span>
-          <span class="tech">JavaScript</span>
-          <span class="tech fourth">API</span>
-        </div>
-        <p>An application that allows users to check the weather of any city.</p>
-        <div class="project-buttons">
-          <a href="https://github.com/Nafisniloy/weather" class="btn">Show Code</a>
-          <a href="https://nafisniloy.github.io/weather" class="btn">Preview Project</a>
+        <div class="project-content">
+          <h3>Weather</h3>
+          <div class="tech-stack">
+            <span class="tech">HTML</span>
+            <span class="tech">CSS</span>
+            <span class="tech">JavaScript</span>
+            <span class="tech fourth">API</span>
+          </div>
+          <p>An application that allows users to check the weather of any city.</p>
+          <div class="project-buttons">
+            <a href="https://github.com/Nafisniloy/weather" class="btn">Show Code</a>
+            <a href="https://nafisniloy.github.io/weather" class="btn">Preview Project</a>
+          </div>
         </div>
       </div>
-      <div class="project-card">
+      
+      <div class="project-card scroll-reveal">
         <div class="project-image">
-          <img src="/textconverter.png" alt="Project 2">
+          <img src="/textconverter.png" alt="Project 4">
+          <div class="project-overlay">
+            <div class="project-links">
+              <a href="https://github.com/Nafisniloy/text-converter" class="project-link" target="_blank"><i class="fab fa-github"></i></a>
+              <a href="https://nafisniloy.github.io/text-converter/" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
         </div>
-        <h3>Text Converter</h3>
-        <div class="tech-stack">
-          <span class="tech">React</span>
-          <span class="tech">JavaScript</span>
-          <span class="tech">CSS</span>
-        </div>
-        <p>A text converter application that allows users to convert text to different formats.</p>
-        <div class="project-buttons">
-          <a href="https://github.com/Nafisniloy/text-converter" class="btn">Show Code</a>
-          <a href="https://nafisniloy.github.io/text-converter/" class="btn">Preview Project</a>
+        <div class="project-content">
+          <h3>Text Converter</h3>
+          <div class="tech-stack">
+            <span class="tech">React</span>
+            <span class="tech">JavaScript</span>
+            <span class="tech">CSS</span>
+          </div>
+          <p>A text converter application that allows users to convert text to different formats.</p>
+          <div class="project-buttons">
+            <a href="https://github.com/Nafisniloy/text-converter" class="btn">Show Code</a>
+            <a href="https://nafisniloy.github.io/text-converter/" class="btn">Preview Project</a>
+          </div>
         </div>
       </div>
-      <div class="project-card">
+      
+      <div class="project-card scroll-reveal">
         <div class="project-image">
-          <img src="/portfolio.png" alt="Project 2">
+          <img src="/portfolio.png" alt="Project 5">
+          <div class="project-overlay">
+            <div class="project-links">
+              <a href="https://github.com/Nafisniloy/nafisniloy.github.io" class="project-link" target="_blank"><i class="fab fa-github"></i></a>
+              <a href="/" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
         </div>
-        <h3>Portfolio</h3>
-        <div class="tech-stack">
-          <span class="tech">HTML</span>
-          <span class="tech">CSS</span>
-          <span class="tech">JavaScript</span>
-        </div>
-        <p>My personal portfolio website that showcases my projects and skills.</p>
-        <div class="project-buttons">
-          <a href="https://github.com/Nafisniloy/nafisniloy.github.io" class="btn">Show Code</a>
-          <a href="/" class="btn">Preview Project</a>
+        <div class="project-content">
+          <h3>Portfolio</h3>
+          <div class="tech-stack">
+            <span class="tech">HTML</span>
+            <span class="tech">CSS</span>
+            <span class="tech">JavaScript</span>
+          </div>
+          <p>My personal portfolio website that showcases my projects and skills.</p>
+          <div class="project-buttons">
+            <a href="https://github.com/Nafisniloy/nafisniloy.github.io" class="btn">Show Code</a>
+            <a href="/" class="btn">Preview Project</a>
+          </div>
         </div>
       </div>
-
-        
-    
-        
-  
     </div>
-    <button id="load-more" class="load-more-btn">Load More Projects</button>
+    <button id="load-more" class="load-more-btn">Load More Projects <i class="fas fa-angle-down"></i></button>
   </div>
   
   <section class="contact-section" id="contact">
-    <h2 class="section-title">Contact Me</h2>
-    <form id="contact-form" class="contact-form">
-      <div class="form-group">
-        <input type="text" id="name" name="name" placeholder="Your Name" required />
+    <div class="contact-container">
+      <h2 class="section-title">Contact <span class="highlight">Me</span></h2>
+      <div class="contact-content">
+        <div class="contact-info scroll-reveal">
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <h3>Email</h3>
+            <p>niloy@example.com</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3>Location</h3>
+            <p>Dhaka, Bangladesh</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <h3>Phone</h3>
+            <p>+880 123 456 7890</p>
+          </div>
+        </div>
+        <form id="contact-form" class="contact-form scroll-reveal">
+          <div class="form-group">
+            <div class="input-container">
+              <i class="fas fa-user input-icon"></i>
+              <input type="text" id="name" name="name" placeholder="Your Name" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-container">
+              <i class="fas fa-envelope input-icon"></i>
+              <input type="email" id="email" name="email" placeholder="Your Email" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-container">
+              <i class="fas fa-comment input-icon"></i>
+              <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+            </div>
+          </div>
+          <button type="submit" id="submit-btn">
+            <span>Send Message</span>
+            <i class="fas fa-paper-plane"></i>
+          </button>
+          <div id="status" class="form-status"></div>
+        </form>
       </div>
-      <div class="form-group">
-        <input type="email" id="email" name="email" placeholder="Your Email" required />
-      </div>
-      <div class="form-group">
-        <textarea id="message" name="message" placeholder="Your Message" required></textarea>
-      </div>
-      <button type="submit" id="submit-btn">Send Message</button>
-      <div id="status"></div>
-    </form>
+    </div>
   </section>
   
-  
-  
-  
   <footer>
-    <div class="footer-content">
-      <p>&copy; 2024 Nafis Niloy. All Rights Reserved.</p>
-      <!-- <ul class="footer-links">
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms of Service</a></li>
-      </ul> -->
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="/logo.png" alt="Logo" />
+          <h3>Nafis Niloy</h3>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="social-links">
+          <h4>Connect With Me</h4>
+          <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Nafis Niloy. All Rights Reserved.</p>
+        <a href="#top" class="back-to-top">
+          <i class="fas fa-arrow-up"></i>
+        </a>
+      </div>
     </div>
   </footer>
   
- <script src="script.js"></script>
- <script type="text/javascript"
- src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
+  <script src="script.js"></script>
+  <script src="typing.js"></script>
+  <script src="particles.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 </body>
 
