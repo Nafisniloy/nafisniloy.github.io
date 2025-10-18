@@ -6,9 +6,9 @@ class PortfolioApp {
   }
 
   init() {
+    this.setupThemeToggle(); // Load theme first before other effects
     this.setupNavigation();
     this.setupScrollEffects();
-    this.setupThemeToggle();
     this.setupProjectsLogic();
     this.setupContactForm();
     this.setupMobileMenu();
@@ -24,11 +24,12 @@ class PortfolioApp {
     // Smooth scrolling with navbar offset
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href');
+        const targetHref = link.getAttribute('href');
         
-        if (targetId.startsWith('#')) {
-          const targetElement = document.querySelector(targetId);
+        // Only prevent default for anchor links
+        if (targetHref && targetHref.startsWith('#')) {
+          e.preventDefault();
+          const targetElement = document.querySelector(targetHref);
           if (targetElement) {
             const navbarHeight = document.querySelector('.navbar').offsetHeight;
             const targetPosition = targetElement.offsetTop - navbarHeight - 20;
@@ -41,6 +42,14 @@ class PortfolioApp {
             // Close mobile menu if open
             this.closeMobileMenu();
           }
+        } else if (targetHref === '/' || targetHref === '') {
+          // Handle home link
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+          this.closeMobileMenu();
         }
       });
     });
@@ -52,19 +61,24 @@ class PortfolioApp {
   }
 
   updateActiveNavigation() {
-    const sections = ['#top', '#about', '#projects', '#contact'];
+    const sections = [
+      { id: '.top-container', href: '/' },
+      { id: '#about', href: '#about' },
+      { id: '#projects', href: '#projects' },
+      { id: '#contact', href: '#contact' }
+    ];
     const navLinks = document.querySelectorAll('.nav-list a');
-    const scrollPosition = window.scrollY + 100;
+    const scrollPosition = window.scrollY + 150;
 
-    sections.forEach((sectionId, index) => {
-      const section = document.querySelector(sectionId === '#top' ? '.top-container' : sectionId);
-      if (section) {
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
+    sections.forEach((section) => {
+      const sectionElement = document.querySelector(section.id);
+      if (sectionElement) {
+        const sectionTop = sectionElement.offsetTop;
+        const sectionBottom = sectionTop + sectionElement.offsetHeight;
 
         if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
           navLinks.forEach(link => link.parentElement.classList.remove('active'));
-          const activeLink = document.querySelector(`a[href="${sectionId === '#top' ? '/' : sectionId}"]`);
+          const activeLink = document.querySelector(`a[href="${section.href}"]`);
           if (activeLink) {
             activeLink.parentElement.classList.add('active');
           }
@@ -86,7 +100,7 @@ class PortfolioApp {
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.navbar') && menuToggle.checked) {
+      if (!e.target.closest('.navbar') && menuToggle && menuToggle.checked) {
         this.closeMobileMenu();
       }
     });
@@ -117,7 +131,7 @@ class PortfolioApp {
           
           // Scroll progress
           if (scrollProgress) {
-            const totalScroll = document.body.scrollHeight - window.innerHeight;
+            const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
             const progress = (window.pageYOffset / totalScroll) * 100;
             scrollProgress.style.width = `${Math.min(progress, 100)}%`;
           }
@@ -133,37 +147,50 @@ class PortfolioApp {
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
     
-    // Load saved theme
+    if (!themeToggle) return;
+    
+    // Load saved theme immediately (before page renders)
     const savedTheme = localStorage.getItem('portfolio-theme');
-    if (savedTheme === 'dark') {
+    const isDarkMode = savedTheme === 'dark';
+    
+    // Apply theme immediately
+    if (isDarkMode) {
       body.classList.add('dark-mode');
-      if (themeToggle) {
-        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-      }
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+      body.classList.remove('dark-mode');
+      themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
     }
     
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        const isDark = body.classList.contains('dark-mode');
-        
-        // Update button icon
-        themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-        
-        // Save preference
-        localStorage.setItem('portfolio-theme', isDark ? 'dark' : 'light');
-        
-        // Add transition effect
-        themeToggle.style.transform = 'rotate(360deg) scale(1.2)';
-        setTimeout(() => {
-          themeToggle.style.transform = '';
-        }, 300);
-      });
-    }
+    // Theme toggle click handler
+    themeToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      body.classList.toggle('dark-mode');
+      const isNowDark = body.classList.contains('dark-mode');
+      
+      // Update button icon with smooth transition
+      themeToggle.innerHTML = isNowDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+      
+      // Save preference to localStorage
+      localStorage.setItem('portfolio-theme', isNowDark ? 'dark' : 'light');
+      
+      // Add rotation animation
+      themeToggle.style.transition = 'transform 0.3s ease';
+      themeToggle.style.transform = 'rotate(360deg) scale(1.2)';
+      
+      setTimeout(() => {
+        themeToggle.style.transform = '';
+      }, 300);
+      
+      // Log for debugging
+      console.log('Theme toggled:', isNowDark ? 'dark' : 'light');
+    });
   }
 
   handleInitialLoad() {
-    // Initially show projects
+    // Initially show/hide projects
     const allProjects = document.querySelectorAll('.project-card');
     allProjects.forEach((project, index) => {
       if (index >= this.visibleProjects) {
@@ -172,6 +199,12 @@ class PortfolioApp {
         project.classList.add('scroll-reveal');
       }
     });
+    
+    // Check if load more button should be hidden
+    const loadMoreBtn = document.getElementById('load-more');
+    if (loadMoreBtn && allProjects.length <= this.visibleProjects) {
+      loadMoreBtn.style.display = 'none';
+    }
     
     // Trigger initial scroll animations
     setTimeout(() => {
@@ -204,10 +237,14 @@ class PortfolioApp {
         }
         
         // Update button with loading animation
+        const originalText = loadMoreBtn.innerHTML;
         loadMoreBtn.innerHTML = '<span>Loading...</span> <i class="fas fa-spinner fa-spin"></i>';
+        loadMoreBtn.disabled = true;
+        
         setTimeout(() => {
           if (this.visibleProjects < allProjects.length) {
-            loadMoreBtn.innerHTML = 'Load More Projects <i class="fas fa-angle-down"></i>';
+            loadMoreBtn.innerHTML = originalText;
+            loadMoreBtn.disabled = false;
           }
         }, 1000);
       });
@@ -260,12 +297,17 @@ class PortfolioApp {
         submitBtn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
         submitBtn.disabled = true;
 
-        // Simulate form submission (replace with actual implementation)
+        // Simulate form submission (replace with actual EmailJS or backend implementation)
         setTimeout(() => {
-          this.showFormStatus('Message sent successfully! I\'ll get back to you soon.', 'success');
+          this.showFormStatus('Message sent successfully! I\'ll get back to you soon.', 'sent');
           submitBtn.innerHTML = originalBtnText;
           submitBtn.disabled = false;
           contactForm.reset();
+          
+          // Remove validation classes
+          contactForm.querySelectorAll('.error, .success').forEach(el => {
+            el.classList.remove('error', 'success');
+          });
           
           // Success animation
           submitBtn.style.transform = 'scale(1.05)';
@@ -323,7 +365,7 @@ class PortfolioApp {
       status.className = `form-status ${type}`;
       status.style.display = 'block';
       
-      if (type === 'success' || type === 'error') {
+      if (type === 'sent' || type === 'error') {
         setTimeout(() => {
           status.style.display = 'none';
         }, 5000);
@@ -334,9 +376,9 @@ class PortfolioApp {
   shakeForm() {
     const form = document.getElementById('contact-form');
     if (form) {
-      form.style.animation = 'shake 0.5s ease-in-out';
+      form.classList.add('shake');
       setTimeout(() => {
-        form.style.animation = '';
+        form.classList.remove('shake');
       }, 500);
     }
   }
@@ -379,15 +421,78 @@ class PortfolioApp {
   }
 }
 
+// Apply theme IMMEDIATELY before DOM loads to prevent flash
+(function() {
+  const savedTheme = localStorage.getItem('portfolio-theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.classList.add('dark-mode');
+    document.body.classList.add('dark-mode');
+  }
+})();
+
 // Initialize the enhanced portfolio app
 document.addEventListener('DOMContentLoaded', () => {
   new PortfolioApp();
   
   // Initialize particles.js if available
   if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js')) {
-    particlesJS.load('particles-js', 'particles.json', () => {
-      console.log('Particles.js loaded successfully');
+    particlesJS('particles-js', {
+      particles: {
+        number: {
+          value: 80,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: '#6366f1'
+        },
+        shape: {
+          type: 'circle'
+        },
+        opacity: {
+          value: 0.5,
+          random: false
+        },
+        size: {
+          value: 3,
+          random: true
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: '#6366f1',
+          opacity: 0.4,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 2,
+          direction: 'none',
+          random: false,
+          straight: false,
+          out_mode: 'out',
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onhover: {
+            enable: true,
+            mode: 'repulse'
+          },
+          onclick: {
+            enable: true,
+            mode: 'push'
+          },
+          resize: true
+        }
+      },
+      retina_detect: true
     });
+    console.log('Particles.js loaded successfully');
   }
   
   // Remove loading class after everything is loaded
@@ -402,13 +507,15 @@ window.addEventListener('load', () => {
   document.body.classList.add('loaded');
   
   // Performance logging
-  if ('performance' in window) {
+  if ('performance' in window && window.performance.getEntriesByType) {
     setTimeout(() => {
       const perfData = performance.getEntriesByType('navigation')[0];
-      console.log('Portfolio Performance:', {
-        domContentLoaded: Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart),
-        loadComplete: Math.round(perfData.loadEventEnd - perfData.loadEventStart)
-      });
+      if (perfData) {
+        console.log('Portfolio Performance:', {
+          domContentLoaded: Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart) + 'ms',
+          loadComplete: Math.round(perfData.loadEventEnd - perfData.loadEventStart) + 'ms'
+        });
+      }
     }, 0);
   }
 });
@@ -427,7 +534,7 @@ window.addEventListener('error', (event) => {
   console.error('Portfolio Error:', event.error);
 });
 
-// Intersection Observer for better scroll performance
+// Intersection Observer for better scroll performance (backup method)
 if ('IntersectionObserver' in window) {
   const observerOptions = {
     threshold: 0.1,
@@ -443,11 +550,10 @@ if ('IntersectionObserver' in window) {
     });
   }, observerOptions);
 
-  // Observe all scroll-reveal elements
-  document.addEventListener('DOMContentLoaded', () => {
+  // Observe all scroll-reveal elements after DOM loads
+  window.addEventListener('load', () => {
     document.querySelectorAll('.scroll-reveal').forEach(el => {
       observer.observe(el);
     });
   });
 }
-
