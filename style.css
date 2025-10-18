@@ -90,6 +90,12 @@ button {
   --dark-text-primary: #f8fafc;
   --dark-text-secondary: #cbd5e1;
   --dark-border: #475569;
+  
+  /* Theme-aware variables */
+  --nav-bg: rgba(15, 23, 42, 0.95);
+  --hero-text-start: #ffffff;
+  --hero-text-end: #e2e8f0;
+  --footer-bg: var(--bg-accent);
 }
 
 .dark-mode {
@@ -100,6 +106,13 @@ button {
   --bg-accent: var(--dark-bg-accent);
   --glass-bg: rgba(0, 0, 0, 0.2);
   --glass-border: rgba(255, 255, 255, 0.1);
+  
+  /* Dark mode overrides */
+  --nav-bg: rgba(30, 41, 59, 0.95);
+  --hero-text-start: #f8fafc;
+  --hero-text-end: #cbd5e1;
+  --footer-bg: var(--dark-bg-accent);
+  --text-light: #cbd5e1;
 }
 
 /* Scroll Progress Bar */
@@ -184,7 +197,7 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: rgba(15, 23, 42, 0.95);
+  background: var(--nav-bg);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
@@ -424,7 +437,7 @@ button {
   }
   
   .theme-toggle {
-    margin: 1.5rem auto;
+    margin-left: auto;
     background: rgba(255, 255, 255, 0.1);
     width: 45px;
     height: 45px;
@@ -446,17 +459,26 @@ button {
   .projects-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    padding: 0 0.5rem;
+    padding: 0;
+    width: 90%;
+    max-width: 320px;
+    margin: 0 auto;
   }
   
   .project-card {
     margin-bottom: 1rem;
   }
   
+  .project-image {
+    height: 120px;
+  }
+  
   /* Mobile contact improvements */
   .contact-content {
     flex-direction: column;
     gap: 2rem;
+    max-width: 400px;
+    margin: 0 auto;
   }
   
   .contact-form {
@@ -811,7 +833,9 @@ button {
   .contact-section {
     padding: 3rem 1rem;
   }
-  
+.contact-form{
+  min-width: 250px;
+}
   .project-card {
     margin: 0;
   }
@@ -976,7 +1000,7 @@ button {
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  background: linear-gradient(135deg, var(--hero-text-start) 0%, var(--hero-text-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1300,6 +1324,7 @@ button {
 
 .projects-grid {
   display: grid;
+  /* default desktop: keep cards reasonably wide */
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   margin-top: 3rem;
@@ -1333,6 +1358,150 @@ button {
   position: relative;
   overflow: hidden;
   height: 200px;
+}
+
+/* Extra responsive adjustments for very small screens */
+@media (max-width: 420px) {
+  .projects-container {
+    padding: 3rem 1rem;
+  }
+
+  .projects-grid {
+    width: 94%;
+    max-width: 360px;
+    gap: 1rem;
+    margin: 0 auto;
+  }
+
+  .project-image {
+    height: 140px;
+  }
+
+  /* Contact adjustments to avoid excessive vertical space on narrow phones */
+  .contact-section {
+    padding: 2.4rem 0.8rem; /* reduce vertical padding */
+  }
+
+  .contact-section::before,
+  .contact-section::after {
+    width: 160px;
+    height: 160px;
+    opacity: 0.03;
+  }
+
+  .contact-content {
+    max-width: 360px;
+    width: 94%;
+    margin: 0 auto;
+    gap: 1rem;
+  }
+
+  .contact-card {
+    padding: 0.9rem;
+  }
+
+  .contact-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .contact-form {
+    min-width: 0; /* ensure form is fluid */
+    padding: 1rem;
+  }
+
+  .form-group textarea {
+    min-height: 110px; /* reduce textarea height */
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.75rem 0.75rem 0.75rem 2.6rem;
+  }
+
+  .form-status {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .projects-grid {
+    max-width: 220px;
+    width: 92%;
+  }
+
+  .project-image {
+    height: 110px;
+  }
+
+  .contact-section {
+    padding: 2rem 0.6rem;
+  }
+
+  .contact-section::before,
+  .contact-section::after {
+    width: 140px;
+    height: 140px;
+  }
+
+  .contact-content {
+    max-width: 300px;
+    width: 92%;
+    gap: 0.8rem;
+  }
+
+  .contact-card {
+    padding: 0.7rem;
+  }
+
+  .contact-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-form {
+    padding: 0.75rem;
+  }
+
+  .form-group textarea {
+    min-height: 90px;
+  }
+}
+
+/* Restore desktop/layout rules for larger screens so mobile tweaks don't break laptops */
+@media (min-width: 721px) {
+  .projects-container {
+    padding: 6rem 2rem;
+  }
+
+  .projects-grid {
+    /* ensure desktop keeps wider cards */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    width: auto;
+    max-width: none;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .project-image {
+    height: 200px;
+  }
+
+  .contact-content {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    gap: 2rem;
+    flex-direction: row;
+  }
+
+  .contact-info {
+    min-width: 300px; /* restore desktop column behavior */
+  }
 }
 
 .project-image img {
@@ -1586,7 +1755,8 @@ button {
 
 .contact-info {
   flex: 1;
-  min-width: 300px;
+  /* allow shrink on small devices via media queries below */
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -1795,8 +1965,8 @@ button {
 
 /* Enhanced Footer */
 footer {
-  background: var(--dark-bg-primary);
-  color: white;
+  background: var(--footer-bg);
+  color: var(--text-primary);
   padding: 4rem 2rem 2rem;
   position: relative;
   overflow: hidden;
@@ -1904,15 +2074,15 @@ footer {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: var(--text-primary);
   text-decoration: none;
   font-size: 1.2rem;
   transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--glass-border);
 }
 
 .social-icon:hover {

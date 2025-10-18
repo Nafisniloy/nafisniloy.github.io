@@ -217,9 +217,17 @@ class PortfolioApp {
     
     if (loadMoreBtn) {
       loadMoreBtn.addEventListener('click', () => {
+        // prevent double clicks while loading
+        if (loadMoreBtn.disabled) return;
+
         const allProjects = document.querySelectorAll('.project-card');
         const hiddenProjects = Array.from(allProjects).slice(this.visibleProjects, this.visibleProjects + 3);
-        
+
+        // store original markup so we can restore it later
+        loadMoreBtn.dataset.origHtml = loadMoreBtn.innerHTML;
+        loadMoreBtn.innerHTML = '<span>Loading...</span> <i class="fas fa-spinner fa-spin"></i>';
+        loadMoreBtn.disabled = true;
+
         // Show projects with staggered animation
         hiddenProjects.forEach((project, index) => {
           setTimeout(() => {
@@ -228,25 +236,22 @@ class PortfolioApp {
             project.style.animationDelay = `${index * 0.1}s`;
           }, index * 100);
         });
-        
-        this.visibleProjects += 3;
-        
-        // Hide button if all projects are visible
-        if (this.visibleProjects >= allProjects.length) {
-          loadMoreBtn.style.display = 'none';
-        }
-        
-        // Update button with loading animation
-        const originalText = loadMoreBtn.innerHTML;
-        loadMoreBtn.innerHTML = '<span>Loading...</span> <i class="fas fa-spinner fa-spin"></i>';
-        loadMoreBtn.disabled = true;
-        
+
+        this.visibleProjects += hiddenProjects.length;
+
+        // After the reveal animation completes, either hide the button (if done) or restore it
+        const revealDelay = Math.max(600, hiddenProjects.length * 120 + 200);
         setTimeout(() => {
-          if (this.visibleProjects < allProjects.length) {
-            loadMoreBtn.innerHTML = originalText;
+          if (this.visibleProjects >= allProjects.length) {
+            // all projects visible: hide the button
+            loadMoreBtn.style.display = 'none';
+          } else {
+            // restore original button state
+            loadMoreBtn.innerHTML = loadMoreBtn.dataset.origHtml || 'Load More Projects';
             loadMoreBtn.disabled = false;
           }
-        }, 1000);
+          delete loadMoreBtn.dataset.origHtml;
+        }, revealDelay);
       });
     }
 
@@ -557,3 +562,8 @@ if ('IntersectionObserver' in window) {
     });
   });
 }
+
+// Initialize the app when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  new PortfolioApp();
+});
