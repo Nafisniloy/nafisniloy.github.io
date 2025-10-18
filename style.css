@@ -1426,52 +1426,6 @@ button {
   }
 }
 
-@media (max-width: 375px) {
-  .projects-grid {
-    max-width: 220px;
-    width: 92%;
-  }
-
-  .project-image {
-    height: 110px;
-  }
-
-  .contact-section {
-    padding: 2rem 0.6rem;
-  }
-
-  .contact-section::before,
-  .contact-section::after {
-    width: 140px;
-    height: 140px;
-  }
-
-  .contact-content {
-    max-width: 300px;
-    width: 92%;
-    gap: 0.8rem;
-  }
-
-  .contact-card {
-    padding: 0.7rem;
-  }
-
-  .contact-icon {
-    width: 44px;
-    height: 44px;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .contact-form {
-    padding: 0.75rem;
-  }
-
-  .form-group textarea {
-    min-height: 90px;
-  }
-}
-
 /* Restore desktop/layout rules for larger screens so mobile tweaks don't break laptops */
 @media (min-width: 721px) {
   .projects-container {
@@ -1491,16 +1445,57 @@ button {
     height: 200px;
   }
 
+  .project-content {
+    padding: 1.5rem;
+  }
+
+  .project-buttons .btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+
   .contact-content {
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
     gap: 2rem;
     flex-direction: row;
+    align-items: flex-start;
   }
 
   .contact-info {
-    min-width: 300px; /* restore desktop column behavior */
+    flex: 1;
+    min-width: 300px;
+    width: auto;
+    max-width: none;
+  }
+
+  .contact-card {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .contact-form {
+    flex: 2;
+    min-width: 350px;
+    padding: 2rem;
+    width: auto;
+    max-width: none;
+  }
+
+  .form-group textarea {
+    min-height: 150px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 1rem 1rem 1rem 3rem;
+  }
+
+  #submit-btn {
+    width: auto;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
   }
 }
 
@@ -1805,7 +1800,7 @@ button {
 
 .contact-form {
   flex: 2;
-  min-width: 350px;
+  min-width: 0; /* allow form to shrink on small screens */
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -2122,4 +2117,185 @@ footer {
 .back-to-top:hover {
   transform: translateY(-5px) scale(1.1);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* RESPONSIVE DESIGN: Small devices (<= 480px) */
+@media (max-width: 480px) {
+  /* Projects Section */
+  .projects-grid {
+    grid-template-columns: 1fr;
+    width: 94%;
+    max-width: 340px;
+    margin: 0 auto;
+    gap: 1rem;
+  }
+
+  .project-card {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .project-image {
+    height: 140px;
+  }
+
+  .project-content {
+    padding: 1rem;
+  }
+
+  .project-buttons .btn {
+    padding: 0.7rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  /* Contact Section */
+  .contact-content {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    gap: 1.5rem;
+  }
+
+  .contact-info {
+    width: 94%;
+    max-width: 350px;
+    flex: none;
+    align-items: center;
+  }
+
+  .contact-card {
+    width: 100%;
+    max-width: 280px;
+    padding: 1.2rem;
+  }
+
+  .contact-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .contact-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .contact-form {
+    width: 94%;
+    max-width: 350px;
+    padding: 1.5rem;
+    flex: none;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.9rem 0.9rem 0.9rem 2.6rem;
+    font-size: 1rem;
+  }
+
+  .form-group textarea {
+    min-height: 120px;
+  }
+
+  #submit-btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Extra narrow-screen fixes for very small devices (<= 375px) */
+@media (max-width: 375px) {
+  .projects-grid {
+    width: 90%;
+    max-width: 280px;
+    gap: 0.8rem;
+  }
+
+  .project-card {
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .project-image {
+    height: 110px;
+  }
+
+  .project-content {
+    padding: 0.9rem;
+  }
+
+  .project-buttons .btn {
+    padding: 0.65rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  /* Contact Section - Ensure proper centering */
+  .contact-content {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .contact-info {
+    width: 90%;
+    max-width: 300px;
+    margin: 0 auto;
+    flex: none;
+  }
+
+  .contact-card {
+    width: 100%;
+    max-width: 260px;
+    padding: 1rem;
+    margin: 0 auto;
+  }
+
+  .contact-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .contact-card h3 {
+    font-size: 1rem;
+  }
+
+  .contact-form {
+    width: 90%;
+    max-width: 300px;
+    padding: 1.2rem;
+    margin: 0 auto;
+    flex: none;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.85rem 0.85rem 0.85rem 2.4rem;
+    font-size: 0.95rem;
+  }
+
+  .form-group textarea {
+    min-height: 100px;
+  }
+
+  .input-icon {
+    left: 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  #submit-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .form-status {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
 }

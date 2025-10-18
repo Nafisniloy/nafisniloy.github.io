@@ -66,32 +66,6 @@ function init() {
   }
 }
 
-// Theme toggle functionality
-const themeToggle = document.getElementById('theme-toggle');
-if (themeToggle) {
-  themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    
-    // Save preference to localStorage
-    if (document.body.classList.contains('dark-mode')) {
-      localStorage.setItem('theme', 'dark');
-      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-    } else {
-      localStorage.setItem('theme', 'light');
-      themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    }
-  });
-
-  // Check for saved theme preference
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') {
-    document.body.classList.add('dark-mode');
-    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-  } else {
-    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-  }
-}
-
 // Progress indicator
 window.addEventListener('scroll', () => {
   const scrollIndicator = document.getElementById('scroll-progress');
@@ -107,7 +81,7 @@ const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
 const elementInView = (el, scrollOffset = 150) => {
   const elementTop = el.getBoundingClientRect().top;
   return (
-    elementTop <= 
+    elementTop <=
     ((window.innerHeight || document.documentElement.clientHeight) - scrollOffset)
   );
 };
@@ -133,7 +107,7 @@ projectCards.forEach(card => {
   card.addEventListener('mouseenter', () => {
     card.classList.add('floating');
   });
-  
+
   card.addEventListener('mouseleave', () => {
     card.classList.remove('floating');
   });
