@@ -35,13 +35,15 @@
                     },
                     animation: {
                         'float': 'float 10s ease-in-out infinite',
-                        'spin-slow': 'spin 15s linear infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0) scale(1)' },
                             '50%': { transform: 'translateY(-20px) scale(1.05)' },
                         }
+                    },
+                    screens: {
+                        'xs': '375px', // iPhone SE / Mini target
                     }
                 }
             }
@@ -53,7 +55,7 @@
             background-color: #020204;
             color: #ffffff;
             cursor: none; /* Custom cursor */
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         /* 1. Cinematic Background */
@@ -75,7 +77,7 @@
             animation: float 10s infinite ease-in-out;
         }
 
-        /* 2. Custom Cursor */
+        /* 2. Custom Cursor (Hidden on touch devices) */
         .cursor-ring {
             position: fixed;
             top: 0; left: 0;
@@ -98,6 +100,12 @@
             z-index: 9999;
         }
         body:hover .cursor-ring { width: 50px; height: 50px; border-color: rgba(255,255,255,0.8); }
+        
+        /* Hide custom cursor on mobile */
+        @media (max-width: 768px) {
+            .cursor-ring, .cursor-dot { display: none !important; }
+            body { cursor: auto; }
+        }
 
         /* 3. Glass Card Styling */
         .glass-card {
@@ -113,11 +121,7 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        /* 4. Text Reveal Effect */
-        .word-split { overflow: hidden; display: inline-block; vertical-align: top; }
-        .char-reveal { transform: translateY(100%); display: inline-block; }
-
-        /* 5. Utility for Project Logic */
+        /* 4. Utility for Project Logic */
         .is-hidden { display: none !important; }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
         
@@ -131,19 +135,19 @@
 
     <!-- Ambient Background -->
     <div class="noise-bg"></div>
-    <div class="orb bg-purple-600 w-96 h-96 top-0 left-0"></div>
-    <div class="orb bg-blue-600 w-[500px] h-[500px] bottom-0 right-0 animation-delay-2000"></div>
-    <div class="orb bg-pink-600 w-64 h-64 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20"></div>
+    <div class="orb bg-purple-600 w-64 h-64 md:w-96 md:h-96 top-0 left-0"></div>
+    <div class="orb bg-blue-600 w-64 h-64 md:w-[500px] md:h-[500px] bottom-0 right-0 animation-delay-2000"></div>
 
     <!-- Custom Cursor -->
     <div class="cursor-ring hidden md:block"></div>
     <div class="cursor-dot hidden md:block"></div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 transition-all duration-300 py-6" id="navbar">
+    <nav class="fixed w-full z-50 transition-all duration-300 py-4 md:py-6 glass-card border-b-0" id="navbar">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <!-- Logo - NO FILTERS applied -->
             <a href="#" class="relative z-50 group">
-                <img src="logo.png" alt="Nafis Logo" class="h-10 w-auto invert brightness-200 transition-transform duration-500 group-hover:rotate-180" onerror="this.src='https://via.placeholder.com/40/ffffff/000000?text=N'">
+                <img src="logo.png" alt="Nafis Logo" class="h-8 md:h-10 w-auto transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/40x40?text=N'">
             </a>
 
             <!-- Desktop Menu -->
@@ -153,82 +157,79 @@
                 <a href="#contact" class="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 hover:text-white transition-colors">Contact</a>
             </div>
 
-            <div class="hidden md:block">
-                <a href="mailto:mdabunafisniloy@gmail.com" class="text-sm font-serif italic text-gray-400 hover:text-white transition-colors">Available for hire</a>
-            </div>
-
             <!-- Mobile Toggle -->
-            <button id="menu-btn" class="md:hidden text-white z-50 text-2xl"><i class="fas fa-bars"></i></button>
+            <button id="menu-btn" class="md:hidden text-white z-50 text-2xl p-2"><i class="fas fa-bars"></i></button>
         </div>
 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-40 flex flex-col justify-center items-center gap-8 opacity-0 pointer-events-none transition-opacity duration-500">
-            <a href="#about" class="text-4xl font-serif italic hover:text-accent transition-colors mobile-link">About Me</a>
-            <a href="#work" class="text-4xl font-serif italic hover:text-accent transition-colors mobile-link">Selected Work</a>
-            <a href="#contact" class="text-4xl font-serif italic hover:text-accent transition-colors mobile-link">Get in Touch</a>
+            <a href="#about" class="text-3xl font-serif italic hover:text-accent transition-colors mobile-link">About Me</a>
+            <a href="#work" class="text-3xl font-serif italic hover:text-accent transition-colors mobile-link">Selected Work</a>
+            <a href="#contact" class="text-3xl font-serif italic hover:text-accent transition-colors mobile-link">Get in Touch</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-20">
+    <section class="relative min-h-screen flex flex-col justify-center items-center px-4 md:px-6 pt-20">
         <div class="max-w-6xl w-full text-center z-10">
-            <p class="text-sm md:text-base text-accent uppercase tracking-[0.3em] mb-6 font-bold hero-anim opacity-0 translate-y-10">Web & Game Developer</p>
+            <p class="text-xs md:text-base text-accent uppercase tracking-[0.3em] mb-4 md:mb-6 font-bold hero-anim opacity-0 translate-y-10">Web & Game Developer</p>
             
-            <h1 class="font-sans font-extrabold text-6xl md:text-8xl lg:text-9xl leading-[0.9] mb-8 mix-blend-overlay opacity-90">
+            <!-- Responsive Font Size -->
+            <h1 class="font-sans font-extrabold text-5xl sm:text-6xl md:text-8xl lg:text-9xl leading-[0.9] mb-6 md:mb-8 mix-blend-overlay opacity-90">
                 <div class="overflow-hidden"><span class="block hero-title-line">NAFIS</span></div>
                 <div class="overflow-hidden"><span class="block hero-title-line text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">NILOY</span></div>
             </h1>
 
-            <div class="max-w-2xl mx-auto mb-12 hero-anim opacity-0 translate-y-10">
-                <p class="text-lg md:text-2xl font-serif italic text-gray-400 leading-relaxed">
+            <div class="max-w-xl md:max-w-2xl mx-auto mb-12 hero-anim opacity-0 translate-y-10 px-4">
+                <p class="text-base md:text-2xl font-serif italic text-gray-400 leading-relaxed">
                     "Crafting digital masterpieces where logic meets <span class="text-white not-italic decoration-accent decoration-1 underline-offset-4">pure imagination</span>."
                 </p>
             </div>
 
             <div class="hero-anim opacity-0 translate-y-10">
-                <a href="#work" class="group relative inline-flex items-center gap-4 px-8 py-4 bg-white text-black rounded-full font-bold overflow-hidden transition-all hover:pr-6">
+                <a href="#work" class="group relative inline-flex items-center gap-4 px-6 py-3 md:px-8 md:py-4 bg-white text-black rounded-full font-bold overflow-hidden transition-all hover:pr-6 text-sm md:text-base">
                     <span class="relative z-10">View Projects</span>
-                    <div class="w-8 h-8 bg-black rounded-full text-white flex items-center justify-center transition-transform group-hover:rotate-90">
-                        <i class="fas fa-arrow-down"></i>
+                    <div class="w-6 h-6 md:w-8 md:h-8 bg-black rounded-full text-white flex items-center justify-center transition-transform group-hover:rotate-90">
+                        <i class="fas fa-arrow-down text-xs md:text-sm"></i>
                     </div>
                 </a>
             </div>
         </div>
 
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+        <div class="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
             <span class="text-[10px] uppercase tracking-widest">Scroll</span>
-            <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
+            <div class="w-[1px] h-8 md:h-12 bg-gradient-to-b from-white to-transparent"></div>
         </div>
     </section>
 
     <!-- About / Stack Section -->
-    <section id="about" class="py-32 px-6">
+    <section id="about" class="py-20 md:py-32 px-4 md:px-6">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col lg:flex-row gap-16 items-start">
+            <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
                 
                 <!-- Image with Parallax -->
-                <div class="lg:w-5/12 relative group">
-                    <div class="absolute -inset-4 bg-gradient-to-br from-accent to-blue-600 rounded-xl opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-700"></div>
-                    <div class="relative h-[600px] w-full rounded-xl overflow-hidden glass-card">
+                <div class="w-full lg:w-5/12 relative group">
+                    <div class="absolute -inset-2 bg-gradient-to-br from-accent to-blue-600 rounded-xl opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-700"></div>
+                    <div class="relative h-[400px] md:h-[600px] w-full rounded-xl overflow-hidden glass-card">
                         <img src="web.png" alt="Workspace" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000'">
                         
-                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black to-transparent">
-                            <h3 class="text-3xl font-serif italic">The Architect</h3>
-                            <p class="text-sm text-gray-400 mt-2">Based in Dhaka, Bangladesh</p>
+                        <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 bg-gradient-to-t from-black to-transparent">
+                            <h3 class="text-2xl md:text-3xl font-serif italic">The Architect</h3>
+                            <p class="text-xs md:text-sm text-gray-400 mt-2">Based in Dhaka, Bangladesh</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Content -->
-                <div class="lg:w-7/12 pt-10">
-                    <h2 class="text-sm text-accent font-bold tracking-[0.2em] uppercase mb-6">About Me</h2>
-                    <h3 class="text-4xl md:text-5xl font-bold leading-tight mb-8">
+                <div class="w-full lg:w-7/12 pt-0 lg:pt-10">
+                    <h2 class="text-xs md:text-sm text-accent font-bold tracking-[0.2em] uppercase mb-4 md:mb-6">About Me</h2>
+                    <h3 class="text-3xl md:text-5xl font-bold leading-tight mb-6 md:mb-8">
                         I translate complex problems into <br>
                         <span class="font-serif italic font-normal text-gray-400">elegant, interactive solutions.</span>
                     </h3>
                     
-                    <div class="space-y-6 text-lg text-gray-400 font-light leading-relaxed mb-12">
+                    <div class="space-y-4 md:space-y-6 text-base md:text-lg text-gray-400 font-light leading-relaxed mb-8 md:mb-12">
                         <p>
                             Hello, I'm <strong class="text-white">Nafis Niloy</strong>. I exist at the intersection of creative design and technical engineering. My passion lies in building software that feels alive—whether it's a high-performance web application or an immersive game environment.
                         </p>
@@ -238,22 +239,22 @@
                     </div>
 
                     <!-- Modern Skill Grid -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
-                            <i class="fab fa-js text-2xl text-yellow-400 mb-2"></i>
-                            <div class="font-bold text-sm">JavaScript</div>
+                    <div class="grid grid-cols-2 xs:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                        <div class="p-3 md:p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                            <i class="fab fa-js text-xl md:text-2xl text-yellow-400 mb-2"></i>
+                            <div class="font-bold text-xs md:text-sm">JavaScript</div>
                         </div>
-                        <div class="p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
-                            <i class="fab fa-react text-2xl text-cyan-400 mb-2"></i>
-                            <div class="font-bold text-sm">React</div>
+                        <div class="p-3 md:p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                            <i class="fab fa-react text-xl md:text-2xl text-cyan-400 mb-2"></i>
+                            <div class="font-bold text-xs md:text-sm">React</div>
                         </div>
-                        <div class="p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
-                            <i class="fab fa-laravel text-2xl text-red-500 mb-2"></i>
-                            <div class="font-bold text-sm">Laravel</div>
+                        <div class="p-3 md:p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                            <i class="fab fa-laravel text-xl md:text-2xl text-red-500 mb-2"></i>
+                            <div class="font-bold text-xs md:text-sm">Laravel</div>
                         </div>
-                        <div class="p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
-                            <i class="fas fa-gamepad text-2xl text-green-400 mb-2"></i>
-                            <div class="font-bold text-sm">Godot</div>
+                        <div class="p-3 md:p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                            <i class="fas fa-gamepad text-xl md:text-2xl text-green-400 mb-2"></i>
+                            <div class="font-bold text-xs md:text-sm">Godot</div>
                         </div>
                     </div>
                 </div>
@@ -262,132 +263,132 @@
     </section>
 
     <!-- Selected Works -->
-    <section id="work" class="py-32 px-6 relative">
+    <section id="work" class="py-20 md:py-32 px-4 md:px-6 relative">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-4 md:gap-6">
                 <div>
-                    <h2 class="text-sm text-accent font-bold tracking-[0.2em] uppercase mb-4">Portfolio</h2>
-                    <h3 class="text-5xl md:text-6xl font-serif italic">Selected Works</h3>
+                    <h2 class="text-xs md:text-sm text-accent font-bold tracking-[0.2em] uppercase mb-2 md:mb-4">Portfolio</h2>
+                    <h3 class="text-4xl md:text-6xl font-serif italic">Selected Works</h3>
                 </div>
                 <div class="h-[1px] bg-white/10 flex-grow mx-8 mb-4 hidden md:block"></div>
-                <div class="text-right">
+                <div class="text-left md:text-right">
                     <p class="text-gray-400 text-sm">Explore my recent<br> digital creations.</p>
                 </div>
             </div>
 
-            <!-- Projects Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Projects Grid (Single column on mobile) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 
                 <!-- Project 1 (Visible) -->
                 <a href="https://knight.alphasoft.website" target="_blank" class="group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-64 overflow-hidden relative">
+                    <div class="h-56 md:h-64 overflow-hidden relative">
                         <img src="mygame.png" alt="Shelf Shuffle" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Game+Project'">
                         <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
                     </div>
-                    <div class="p-8">
+                    <div class="p-6 md:p-8">
                         <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-bold text-accent uppercase tracking-widest border border-accent/30 px-2 py-1 rounded">Game Dev</span>
+                            <span class="text-[10px] md:text-xs font-bold text-accent uppercase tracking-widest border border-accent/30 px-2 py-1 rounded">Game Dev</span>
                             <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
                         </div>
-                        <h4 class="text-2xl font-bold mb-2 group-hover:text-accent transition-colors">Shelf Shuffle</h4>
-                        <p class="text-gray-400 text-sm line-clamp-2">A strategic puzzle game built with Godot. Shuffle shelves, solve logic puzzles, and advance levels.</p>
+                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-accent transition-colors">Shelf Shuffle</h4>
+                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">A strategic puzzle game built with Godot. Shuffle shelves, solve logic puzzles, and advance levels.</p>
                     </div>
                 </a>
 
                 <!-- Project 2 (Visible) -->
                 <a href="https://alphanews.alphasoft.website" target="_blank" class="group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-64 overflow-hidden relative">
+                    <div class="h-56 md:h-64 overflow-hidden relative">
                         <img src="alphanews.png" alt="AlphaNews" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Web+App'">
                     </div>
-                    <div class="p-8">
+                    <div class="p-6 md:p-8">
                         <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest border border-blue-400/30 px-2 py-1 rounded">Web App</span>
+                            <span class="text-[10px] md:text-xs font-bold text-blue-400 uppercase tracking-widest border border-blue-400/30 px-2 py-1 rounded">Web App</span>
                             <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
                         </div>
-                        <h4 class="text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors">AlphaNews</h4>
-                        <p class="text-gray-400 text-sm line-clamp-2">A comprehensive news portal with dynamic content management capabilities powered by PHP.</p>
+                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors">AlphaNews</h4>
+                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">A comprehensive news portal with dynamic content management capabilities powered by PHP.</p>
                     </div>
                 </a>
 
                 <!-- Project 3 (Visible) -->
                 <a href="https://goodmartbd.com" target="_blank" class="group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-64 overflow-hidden relative">
+                    <div class="h-56 md:h-64 overflow-hidden relative">
                         <img src="goodmart.png" alt="GoodMart" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Ecommerce'">
                     </div>
-                    <div class="p-8">
+                    <div class="p-6 md:p-8">
                         <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-bold text-green-400 uppercase tracking-widest border border-green-400/30 px-2 py-1 rounded">Ecommerce</span>
+                            <span class="text-[10px] md:text-xs font-bold text-green-400 uppercase tracking-widest border border-green-400/30 px-2 py-1 rounded">Ecommerce</span>
                             <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
                         </div>
-                        <h4 class="text-2xl font-bold mb-2 group-hover:text-green-400 transition-colors">GoodMart BD</h4>
-                        <p class="text-gray-400 text-sm line-clamp-2">Full-stack ecommerce solution with web & mobile app integration using React Native.</p>
+                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-green-400 transition-colors">GoodMart BD</h4>
+                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">Full-stack ecommerce solution with web & mobile app integration using React Native.</p>
                     </div>
                 </a>
 
                 <!-- Project 4 (Visible) -->
                 <a href="https://alphasoft.website" target="_blank" class="group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-64 overflow-hidden relative">
+                    <div class="h-56 md:h-64 overflow-hidden relative">
                         <img src="alphasoft.png" alt="AlphaSoft" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Portfolio'">
                     </div>
-                    <div class="p-8">
+                    <div class="p-6 md:p-8">
                         <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-bold text-orange-400 uppercase tracking-widest border border-orange-400/30 px-2 py-1 rounded">Portfolio</span>
+                            <span class="text-[10px] md:text-xs font-bold text-orange-400 uppercase tracking-widest border border-orange-400/30 px-2 py-1 rounded">Portfolio</span>
                             <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
                         </div>
-                        <h4 class="text-2xl font-bold mb-2 group-hover:text-orange-400 transition-colors">AlphaSoft</h4>
-                        <p class="text-gray-400 text-sm line-clamp-2">Corporate portfolio design showcasing digital services and brand identity.</p>
+                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-orange-400 transition-colors">AlphaSoft</h4>
+                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">Corporate portfolio design showcasing digital services and brand identity.</p>
                     </div>
                 </a>
 
                 <!-- Hidden Projects (Initially is-hidden) -->
                 
                 <a href="https://juthisbloom.com" target="_blank" class="is-hidden hidden-project group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-64 overflow-hidden relative">
+                    <div class="h-56 md:h-64 overflow-hidden relative">
                         <img src="juthisbloom.png" alt="Juthis Bloom" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Laravel'">
                     </div>
-                    <div class="p-8">
+                    <div class="p-6 md:p-8">
                         <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-bold text-red-400 uppercase tracking-widest border border-red-400/30 px-2 py-1 rounded">Laravel</span>
+                            <span class="text-[10px] md:text-xs font-bold text-red-400 uppercase tracking-widest border border-red-400/30 px-2 py-1 rounded">Laravel</span>
                             <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
                         </div>
-                        <h4 class="text-2xl font-bold mb-2 group-hover:text-red-400 transition-colors">Juthis Bloom</h4>
-                        <p class="text-gray-400 text-sm line-clamp-2">Floral ecommerce platform built with robust Laravel backend architecture.</p>
+                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-red-400 transition-colors">Juthis Bloom</h4>
+                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">Floral ecommerce platform built with robust Laravel backend architecture.</p>
                     </div>
                 </a>
 
                 <a href="https://github.com/Nafisniloy/MyChat" target="_blank" class="is-hidden hidden-project group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-64 overflow-hidden relative">
+                    <div class="h-56 md:h-64 overflow-hidden relative">
                         <img src="mychat.png" alt="My Chat" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=App'">
                     </div>
-                    <div class="p-8">
+                    <div class="p-6 md:p-8">
                         <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-bold text-yellow-400 uppercase tracking-widest border border-yellow-400/30 px-2 py-1 rounded">React</span>
+                            <span class="text-[10px] md:text-xs font-bold text-yellow-400 uppercase tracking-widest border border-yellow-400/30 px-2 py-1 rounded">React</span>
                             <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
                         </div>
-                        <h4 class="text-2xl font-bold mb-2 group-hover:text-yellow-400 transition-colors">My Chat</h4>
-                        <p class="text-gray-400 text-sm line-clamp-2">Real-time messaging application powered by Firebase and React frontend.</p>
+                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-yellow-400 transition-colors">My Chat</h4>
+                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">Real-time messaging application powered by Firebase and React frontend.</p>
                     </div>
                 </a>
 
                 <a href="https://github.com/Nafisniloy/quiz" target="_blank" class="is-hidden hidden-project group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-64 overflow-hidden relative">
+                    <div class="h-56 md:h-64 overflow-hidden relative">
                         <img src="quiz.png" alt="Quiz App" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=JS+App'">
                     </div>
-                    <div class="p-8">
+                    <div class="p-6 md:p-8">
                         <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-bold text-pink-400 uppercase tracking-widest border border-pink-400/30 px-2 py-1 rounded">JavaScript</span>
+                            <span class="text-[10px] md:text-xs font-bold text-pink-400 uppercase tracking-widest border border-pink-400/30 px-2 py-1 rounded">JavaScript</span>
                             <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
                         </div>
-                        <h4 class="text-2xl font-bold mb-2 group-hover:text-pink-400 transition-colors">Quiz App</h4>
-                        <p class="text-gray-400 text-sm line-clamp-2">Interactive quiz logic built with pure JavaScript and dynamic API integration.</p>
+                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-pink-400 transition-colors">Quiz App</h4>
+                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">Interactive quiz logic built with pure JavaScript and dynamic API integration.</p>
                     </div>
                 </a>
 
             </div>
 
             <!-- Robust Load More Button -->
-            <div class="mt-20 flex justify-center">
-                <button id="load-more-btn" class="relative overflow-hidden px-10 py-4 bg-transparent border border-white/20 rounded-full text-sm font-bold uppercase tracking-widest hover:border-white transition-colors group">
+            <div class="mt-12 md:mt-20 flex justify-center">
+                <button id="load-more-btn" class="relative overflow-hidden px-8 py-3 md:px-10 md:py-4 bg-transparent border border-white/20 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest hover:border-white transition-colors group">
                     <span class="relative z-10 group-hover:text-black transition-colors">Load All Projects</span>
                     <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
                 </button>
@@ -396,54 +397,54 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-32 px-6">
-        <div class="max-w-5xl mx-auto glass-card rounded-3xl p-10 md:p-16 relative overflow-hidden">
+    <section id="contact" class="py-20 md:py-32 px-4 md:px-6">
+        <div class="max-w-5xl mx-auto glass-card rounded-3xl p-6 md:p-16 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-64 h-64 bg-accent/20 blur-[100px]"></div>
             
-            <div class="grid md:grid-cols-2 gap-12 relative z-10">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 relative z-10">
                 <div>
-                    <h2 class="text-5xl md:text-6xl font-serif italic mb-6">Let's Talk.</h2>
-                    <p class="text-gray-400 mb-8">Have a project in mind? I'm always open to discussing new ideas, creative opportunities, or just having a chat.</p>
+                    <h2 class="text-4xl md:text-6xl font-serif italic mb-4 md:mb-6">Let's Talk.</h2>
+                    <p class="text-sm md:text-base text-gray-400 mb-6 md:mb-8">Have a project in mind? I'm always open to discussing new ideas, creative opportunities, or just having a chat.</p>
                     
                     <div class="space-y-4">
-                        <a href="mailto:mdabunafisniloy@gmail.com" class="flex items-center gap-4 text-xl hover:text-accent transition-colors">
-                            <div class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center"><i class="fas fa-envelope text-sm"></i></div>
-                            mdabunafisniloy@gmail.com
+                        <a href="mailto:mdabunafisniloy@gmail.com" class="flex items-center gap-4 text-base md:text-xl hover:text-accent transition-colors">
+                            <div class="w-8 h-8 md:w-10 md:h-10 border border-white/20 rounded-full flex items-center justify-center"><i class="fas fa-envelope text-xs md:text-sm"></i></div>
+                            <span class="text-sm md:text-base break-all">mdabunafisniloy@gmail.com</span>
                         </a>
-                        <a href="tel:+8801888606568" class="flex items-center gap-4 text-xl hover:text-accent transition-colors">
-                            <div class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center"><i class="fas fa-phone text-sm"></i></div>
-                            +880 1888606568
+                        <a href="tel:+8801888606568" class="flex items-center gap-4 text-base md:text-xl hover:text-accent transition-colors">
+                            <div class="w-8 h-8 md:w-10 md:h-10 border border-white/20 rounded-full flex items-center justify-center"><i class="fas fa-phone text-xs md:text-sm"></i></div>
+                            <span class="text-sm md:text-base">+880 1888606568</span>
                         </a>
                     </div>
 
-                    <div class="mt-10 flex gap-4">
-                        <a href="https://github.com/Nafisniloy" target="_blank" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all transform hover:-translate-y-1"><i class="fab fa-github"></i></a>
-                        <a href="#" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all transform hover:-translate-y-1"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all transform hover:-translate-y-1"><i class="fab fa-instagram"></i></a>
+                    <div class="mt-8 md:mt-10 flex gap-4">
+                        <a href="https://github.com/Nafisniloy" target="_blank" class="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all transform hover:-translate-y-1"><i class="fab fa-github"></i></a>
+                        <a href="#" class="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all transform hover:-translate-y-1"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all transform hover:-translate-y-1"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
 
-                <form id="contact-form" class="space-y-6 mt-4">
+                <form id="contact-form" class="space-y-4 md:space-y-6 mt-4">
                     <div>
-                        <label class="text-xs uppercase tracking-widest text-gray-500 mb-2 block">Your Name</label>
-                        <input type="text" class="w-full bg-white/5 border border-white/10 p-4 text-white focus:outline-none focus:border-accent transition-colors" placeholder="John Doe" required>
+                        <label class="text-[10px] md:text-xs uppercase tracking-widest text-gray-500 mb-2 block">Your Name</label>
+                        <input type="text" class="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-sm md:text-base text-white focus:outline-none focus:border-accent transition-colors" placeholder="John Doe" required>
                     </div>
                     <div>
-                        <label class="text-xs uppercase tracking-widest text-gray-500 mb-2 block">Your Email</label>
-                        <input type="email" class="w-full bg-white/5 border border-white/10 p-4 text-white focus:outline-none focus:border-accent transition-colors" placeholder="john@example.com" required>
+                        <label class="text-[10px] md:text-xs uppercase tracking-widest text-gray-500 mb-2 block">Your Email</label>
+                        <input type="email" class="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-sm md:text-base text-white focus:outline-none focus:border-accent transition-colors" placeholder="john@example.com" required>
                     </div>
                     <div>
-                        <label class="text-xs uppercase tracking-widest text-gray-500 mb-2 block">Message</label>
-                        <textarea rows="4" class="w-full bg-white/5 border border-white/10 p-4 text-white focus:outline-none focus:border-accent transition-colors" placeholder="Hello..." required></textarea>
+                        <label class="text-[10px] md:text-xs uppercase tracking-widest text-gray-500 mb-2 block">Message</label>
+                        <textarea rows="4" class="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-sm md:text-base text-white focus:outline-none focus:border-accent transition-colors" placeholder="Hello..." required></textarea>
                     </div>
-                    <button type="submit" class="w-full py-4 bg-accent text-white font-bold uppercase tracking-widest hover:bg-purple-600 transition-colors">Send Message</button>
+                    <button type="submit" class="w-full py-3 md:py-4 bg-accent text-white font-bold uppercase tracking-widest hover:bg-purple-600 transition-colors text-sm md:text-base">Send Message</button>
                 </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 text-center border-t border-white/5 text-gray-600 text-sm">
+    <footer class="py-8 text-center border-t border-white/5 text-gray-600 text-xs md:text-sm px-4">
         <p>&copy; 2025 Nafis Niloy. Designed with <i class="fas fa-heart text-red-500"></i> in Bangladesh.</p>
     </footer>
 
@@ -456,17 +457,20 @@
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorRing = document.querySelector('.cursor-ring');
 
-        window.addEventListener('mousemove', (e) => {
-            const { clientX: x, clientY: y } = e;
-            cursorDot.style.left = `${x}px`;
-            cursorDot.style.top = `${y}px`;
-            
-            // Add a slight delay for the ring for visual flair
-            cursorRing.animate({
-                left: `${x}px`,
-                top: `${y}px`
-            }, { duration: 500, fill: "forwards" });
-        });
+        // Only run on non-touch devices
+        if (window.matchMedia("(pointer: fine)").matches) {
+            window.addEventListener('mousemove', (e) => {
+                const { clientX: x, clientY: y } = e;
+                cursorDot.style.left = `${x}px`;
+                cursorDot.style.top = `${y}px`;
+                
+                // Add a slight delay for the ring for visual flair
+                cursorRing.animate({
+                    left: `${x}px`,
+                    top: `${y}px`
+                }, { duration: 500, fill: "forwards" });
+            });
+        }
 
         // 2. GSAP Reveal Animations
         gsap.registerPlugin(ScrollTrigger);
@@ -494,14 +498,12 @@
 
         // 3. Robust Load More Logic
         const loadMoreBtn = document.getElementById('load-more-btn');
-        // Select elements by specific class
         const hiddenProjects = document.querySelectorAll('.hidden-project');
 
         loadMoreBtn.addEventListener('click', () => {
             hiddenProjects.forEach(project => {
                 // 1. Remove the 'display: none' utility
                 project.classList.remove('is-hidden');
-                
                 // 2. Add animation class
                 project.classList.add('fade-in-up');
             });
