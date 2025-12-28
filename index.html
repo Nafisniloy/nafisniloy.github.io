@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nafis Niloy | Creative Developer</title>
+    <title>Nafis Niloy | Digital Craftsman</title>
     <link rel="shortcut icon" href="myLogo.png" type="image/x-icon">
     
     <!-- Tailwind CSS -->
@@ -12,43 +12,35 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- GSAP for Professional Animations -->
+    <!-- GSAP (Animation Engine) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Fonts: Manrope (Modern) & Playfair Display (Elegant) -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Syne', 'sans-serif'],
+                        sans: ['Manrope', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
                     },
                     colors: {
-                        bg: '#030014', 
-                        surface: '#0f0c29', 
-                        primary: '#7000ff', 
-                        secondary: '#00c6ff', 
+                        void: '#020204',
+                        glass: 'rgba(255, 255, 255, 0.03)',
+                        accent: '#6d28d9', // Deep Purple
+                        glow: '#c084fc', // Light Purple
                     },
                     animation: {
-                        'marquee': 'marquee 25s linear infinite',
-                        'blob': 'blob 10s infinite',
+                        'float': 'float 10s ease-in-out infinite',
+                        'spin-slow': 'spin 15s linear infinite',
                     },
                     keyframes: {
-                        marquee: {
-                            '0%': { transform: 'translateX(0%)' },
-                            '100%': { transform: 'translateX(-100%)' },
-                        },
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0) scale(1)' },
+                            '50%': { transform: 'translateY(-20px) scale(1.05)' },
                         }
                     }
                 }
@@ -58,415 +50,466 @@
 
     <style>
         body {
-            background-color: #030014;
-            color: #fff;
-            cursor: none; 
+            background-color: #020204;
+            color: #ffffff;
+            cursor: none; /* Custom cursor */
+            overflow-x: hidden;
         }
-        
-        .cursor-dot, .cursor-outline {
+
+        /* 1. Cinematic Background */
+        .noise-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.04;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        /* 2. Custom Cursor */
+        .cursor-ring {
             position: fixed;
             top: 0; left: 0;
-            transform: translate(-50%, -50%);
+            width: 30px; height: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            z-index: 9999;
+            transform: translate(-50%, -50%);
             pointer-events: none;
+            z-index: 9999;
+            transition: width 0.3s, height 0.3s, border-color 0.3s;
         }
-        .cursor-dot { width: 8px; height: 8px; background-color: white; }
-        .cursor-outline {
-            width: 40px; height: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        .cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 6px; height: 6px;
+            background: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
         }
-        body:hover .cursor-outline {
-            width: 50px; height: 50px;
-            background-color: rgba(255, 255, 255, 0.03);
+        body:hover .cursor-ring { width: 50px; height: 50px; border-color: rgba(255,255,255,0.8); }
+
+        /* 3. Glass Card Styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        .text-gradient {
-            background: linear-gradient(to right, #00c6ff, #7000ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        /* 4. Text Reveal Effect */
+        .word-split { overflow: hidden; display: inline-block; vertical-align: top; }
+        .char-reveal { transform: translateY(100%); display: inline-block; }
 
-        .project-card:hover .project-img {
-            transform: scale(1.05);
-            filter: grayscale(0%);
-        }
-        .project-img {
-            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            filter: grayscale(100%);
-        }
-
-        .noise-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 90; opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
+        /* 5. Utility for Project Logic */
+        .is-hidden { display: none !important; }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
         
-        .glass-nav {
-            background: rgba(3, 0, 20, 0.5);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body class="selection:bg-accent selection:text-white">
 
+    <!-- Ambient Background -->
+    <div class="noise-bg"></div>
+    <div class="orb bg-purple-600 w-96 h-96 top-0 left-0"></div>
+    <div class="orb bg-blue-600 w-[500px] h-[500px] bottom-0 right-0 animation-delay-2000"></div>
+    <div class="orb bg-pink-600 w-64 h-64 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-ring hidden md:block"></div>
     <div class="cursor-dot hidden md:block"></div>
-    <div class="cursor-outline hidden md:block"></div>
-    <div class="noise-overlay"></div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-3 z-50">
-                <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain hover:rotate-180 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/40/7000ff/ffffff?text=N'">
-                <span class="font-display font-bold text-xl tracking-tight">Nafis<span class="text-primary">.</span></span>
+    <nav class="fixed w-full z-50 transition-all duration-300 py-6" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="relative z-50 group">
+                <img src="logo.png" alt="Nafis Logo" class="h-10 w-auto invert brightness-200 transition-transform duration-500 group-hover:rotate-180" onerror="this.src='https://via.placeholder.com/40/ffffff/000000?text=N'">
             </a>
-            <div class="hidden md:flex gap-10 items-center">
-                <a href="#about" class="text-sm uppercase tracking-widest hover:text-secondary transition-colors nav-link">About</a>
-                <a href="#work" class="text-sm uppercase tracking-widest hover:text-secondary transition-colors nav-link">Work</a>
-                <a href="#contact" class="px-6 py-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all duration-300 text-sm uppercase tracking-widest">Let's Talk</a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-12 bg-white/5 backdrop-blur-md px-8 py-3 rounded-full border border-white/10">
+                <a href="#about" class="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 hover:text-white transition-colors">About</a>
+                <a href="#work" class="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 hover:text-white transition-colors">Work</a>
+                <a href="#contact" class="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 hover:text-white transition-colors">Contact</a>
             </div>
-            <div class="md:hidden z-50">
-                <button id="menu-btn" class="text-white focus:outline-none"><i class="fas fa-bars text-2xl"></i></button>
+
+            <div class="hidden md:block">
+                <a href="mailto:mdabunafisniloy@gmail.com" class="text-sm font-serif italic text-gray-400 hover:text-white transition-colors">Available for hire</a>
             </div>
+
+            <!-- Mobile Toggle -->
+            <button id="menu-btn" class="md:hidden text-white z-50 text-2xl"><i class="fas fa-bars"></i></button>
         </div>
-        <div id="mobile-menu" class="fixed inset-0 bg-bg z-40 flex flex-col items-center justify-center gap-8 transform translate-x-full transition-transform duration-500">
-            <a href="#about" class="font-display text-4xl hover:text-primary transition-colors mobile-link">About</a>
-            <a href="#work" class="font-display text-4xl hover:text-primary transition-colors mobile-link">Work</a>
-            <a href="#contact" class="font-display text-4xl hover:text-primary transition-colors mobile-link">Contact</a>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-40 flex flex-col justify-center items-center gap-8 opacity-0 pointer-events-none transition-opacity duration-500">
+            <a href="#about" class="text-4xl font-serif italic hover:text-accent transition-colors mobile-link">About Me</a>
+            <a href="#work" class="text-4xl font-serif italic hover:text-accent transition-colors mobile-link">Selected Work</a>
+            <a href="#contact" class="text-4xl font-serif italic hover:text-accent transition-colors mobile-link">Get in Touch</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob" style="animation-delay: 2s"></div>
-
-        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
-            <div class="hero-text-container overflow-hidden mb-2">
-                <h2 class="text-lg md:text-xl text-secondary font-mono tracking-widest mb-4 hero-subtitle">HELLO, I AM NAFIS NILOY</h2>
-            </div>
+    <section class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-20">
+        <div class="max-w-6xl w-full text-center z-10">
+            <p class="text-sm md:text-base text-accent uppercase tracking-[0.3em] mb-6 font-bold hero-anim opacity-0 translate-y-10">Web & Game Developer</p>
             
-            <h1 class="font-display text-6xl md:text-8xl lg:text-9xl font-bold leading-[0.9] tracking-tighter mb-8 mix-blend-overlay opacity-90">
-                <div class="overflow-hidden"><span class="hero-line block">WEB & GAME</span></div>
-                <div class="overflow-hidden"><span class="hero-line block text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/50">DEVELOPER</span></div>
+            <h1 class="font-sans font-extrabold text-6xl md:text-8xl lg:text-9xl leading-[0.9] mb-8 mix-blend-overlay opacity-90">
+                <div class="overflow-hidden"><span class="block hero-title-line">NAFIS</span></div>
+                <div class="overflow-hidden"><span class="block hero-title-line text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">NILOY</span></div>
             </h1>
 
-            <p class="max-w-2xl mx-auto text-white/60 text-lg md:text-xl font-light leading-relaxed mb-12 hero-desc opacity-0">
-                Crafting immersive digital experiences through code. Specializing in high-performance web applications and interactive game development.
-            </p>
+            <div class="max-w-2xl mx-auto mb-12 hero-anim opacity-0 translate-y-10">
+                <p class="text-lg md:text-2xl font-serif italic text-gray-400 leading-relaxed">
+                    "Crafting digital masterpieces where logic meets <span class="text-white not-italic decoration-accent decoration-1 underline-offset-4">pure imagination</span>."
+                </p>
+            </div>
 
-            <div class="hero-btn opacity-0 translate-y-10">
-                <a href="#work" class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-white/5 font-display border border-white/10 rounded-full hover:bg-white/10 focus:outline-none ring-offset-2 focus:ring-2">
-                    <span class="mr-2">Explore Projects</span>
-                    <i class="fas fa-arrow-down transform group-hover:translate-y-1 transition-transform"></i>
+            <div class="hero-anim opacity-0 translate-y-10">
+                <a href="#work" class="group relative inline-flex items-center gap-4 px-8 py-4 bg-white text-black rounded-full font-bold overflow-hidden transition-all hover:pr-6">
+                    <span class="relative z-10">View Projects</span>
+                    <div class="w-8 h-8 bg-black rounded-full text-white flex items-center justify-center transition-transform group-hover:rotate-90">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
                 </a>
             </div>
         </div>
-        <div class="absolute bottom-0 w-full h-32 bg-gradient-to-t from-bg to-transparent z-20"></div>
-    </header>
 
-    <!-- Marquee -->
-    <div class="w-full bg-white/5 py-6 border-y border-white/5 overflow-hidden relative z-20">
-        <div class="flex animate-marquee gap-16 items-center whitespace-nowrap text-white/40 font-display font-bold text-2xl md:text-4xl uppercase tracking-widest">
-            <span>JavaScript</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>React</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>React Native</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>Python</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>Laravel</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>Godot</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>Firebase</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>PHP</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>JavaScript</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>React</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>React Native</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>Python</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>Laravel</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>Godot</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>Firebase</span> <i class="fas fa-star text-xs text-primary"></i>
-            <span>PHP</span> <i class="fas fa-star text-xs text-primary"></i>
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+            <span class="text-[10px] uppercase tracking-widest">Scroll</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
         </div>
-    </div>
+    </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-32 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
-            <div class="relative group about-img-trigger">
-                <div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-                <div class="relative rounded-2xl overflow-hidden bg-surface border border-white/10 aspect-square">
-                    <img src="web.png" alt="Coding" class="w-full h-full object-cover transform transition duration-700 hover:scale-110 grayscale hover:grayscale-0" onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop'">
-                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
-                        <div class="font-mono text-secondary text-sm mb-1">&lt;Coder /&gt;</div>
-                        <div class="text-white font-bold">Based in Dhaka, BD</div>
+    <!-- About / Stack Section -->
+    <section id="about" class="py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row gap-16 items-start">
+                
+                <!-- Image with Parallax -->
+                <div class="lg:w-5/12 relative group">
+                    <div class="absolute -inset-4 bg-gradient-to-br from-accent to-blue-600 rounded-xl opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-700"></div>
+                    <div class="relative h-[600px] w-full rounded-xl overflow-hidden glass-card">
+                        <img src="web.png" alt="Workspace" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000'">
+                        
+                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black to-transparent">
+                            <h3 class="text-3xl font-serif italic">The Architect</h3>
+                            <p class="text-sm text-gray-400 mt-2">Based in Dhaka, Bangladesh</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="about-text-trigger">
-                <h2 class="text-secondary font-mono tracking-widest mb-4">01. WHO I AM</h2>
-                <h3 class="font-display text-4xl md:text-5xl font-bold mb-8 leading-tight">
-                    Bridging the gap between <span class="text-gradient">logic</span> and <span class="text-gradient">creativity</span>.
-                </h3>
-                <div class="space-y-6 text-white/70 text-lg font-light leading-relaxed">
-                    <p>Hi, I'm <span class="text-white font-medium">Nafis Niloy</span>. I don't just write code; I build solutions. Whether it's a complex web application using Laravel and React or an immersive interactive game in Godot, I aim for perfection in every pixel and logic block.</p>
-                    <p>My workflow integrates modern tools like Supabase and Firebase to ensure scalability. I believe in clean code, intuitive UI, and performance optimization.</p>
-                </div>
-                <div class="mt-10 flex gap-6">
-                    <div class="text-center"><div class="font-display text-4xl font-bold text-white">20+</div><div class="text-sm text-white/50 uppercase tracking-wider mt-1">Projects</div></div>
-                    <div class="w-px bg-white/10 h-12"></div>
-                    <div class="text-center"><div class="font-display text-4xl font-bold text-white">3+</div><div class="text-sm text-white/50 uppercase tracking-wider mt-1">Years Exp</div></div>
+
+                <!-- Content -->
+                <div class="lg:w-7/12 pt-10">
+                    <h2 class="text-sm text-accent font-bold tracking-[0.2em] uppercase mb-6">About Me</h2>
+                    <h3 class="text-4xl md:text-5xl font-bold leading-tight mb-8">
+                        I translate complex problems into <br>
+                        <span class="font-serif italic font-normal text-gray-400">elegant, interactive solutions.</span>
+                    </h3>
+                    
+                    <div class="space-y-6 text-lg text-gray-400 font-light leading-relaxed mb-12">
+                        <p>
+                            Hello, I'm <strong class="text-white">Nafis Niloy</strong>. I exist at the intersection of creative design and technical engineering. My passion lies in building software that feels alive—whether it's a high-performance web application or an immersive game environment.
+                        </p>
+                        <p>
+                            With expertise in <span class="text-white">React, Laravel, and Godot</span>, I don't just write code; I orchestrate experiences.
+                        </p>
+                    </div>
+
+                    <!-- Modern Skill Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                            <i class="fab fa-js text-2xl text-yellow-400 mb-2"></i>
+                            <div class="font-bold text-sm">JavaScript</div>
+                        </div>
+                        <div class="p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                            <i class="fab fa-react text-2xl text-cyan-400 mb-2"></i>
+                            <div class="font-bold text-sm">React</div>
+                        </div>
+                        <div class="p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                            <i class="fab fa-laravel text-2xl text-red-500 mb-2"></i>
+                            <div class="font-bold text-sm">Laravel</div>
+                        </div>
+                        <div class="p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                            <i class="fas fa-gamepad text-2xl text-green-400 mb-2"></i>
+                            <div class="font-bold text-sm">Godot</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Work Section -->
-    <section id="work" class="py-32 bg-white/5 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-end mb-20">
+    <!-- Selected Works -->
+    <section id="work" class="py-32 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
                 <div>
-                    <h2 class="text-secondary font-mono tracking-widest mb-4">02. SELECTED WORKS</h2>
-                    <h3 class="font-display text-5xl md:text-6xl font-bold">Featured Projects</h3>
+                    <h2 class="text-sm text-accent font-bold tracking-[0.2em] uppercase mb-4">Portfolio</h2>
+                    <h3 class="text-5xl md:text-6xl font-serif italic">Selected Works</h3>
+                </div>
+                <div class="h-[1px] bg-white/10 flex-grow mx-8 mb-4 hidden md:block"></div>
+                <div class="text-right">
+                    <p class="text-gray-400 text-sm">Explore my recent<br> digital creations.</p>
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+            <!-- Projects Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- Initial Visible Projects (Class: initial-project) -->
+                <!-- Project 1 (Visible) -->
+                <a href="https://knight.alphasoft.website" target="_blank" class="group glass-card rounded-2xl overflow-hidden block">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="mygame.png" alt="Shelf Shuffle" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Game+Project'">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-accent uppercase tracking-widest border border-accent/30 px-2 py-1 rounded">Game Dev</span>
+                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold mb-2 group-hover:text-accent transition-colors">Shelf Shuffle</h4>
+                        <p class="text-gray-400 text-sm line-clamp-2">A strategic puzzle game built with Godot. Shuffle shelves, solve logic puzzles, and advance levels.</p>
+                    </div>
+                </a>
+
+                <!-- Project 2 (Visible) -->
+                <a href="https://alphanews.alphasoft.website" target="_blank" class="group glass-card rounded-2xl overflow-hidden block">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="alphanews.png" alt="AlphaNews" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Web+App'">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest border border-blue-400/30 px-2 py-1 rounded">Web App</span>
+                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors">AlphaNews</h4>
+                        <p class="text-gray-400 text-sm line-clamp-2">A comprehensive news portal with dynamic content management capabilities powered by PHP.</p>
+                    </div>
+                </a>
+
+                <!-- Project 3 (Visible) -->
+                <a href="https://goodmartbd.com" target="_blank" class="group glass-card rounded-2xl overflow-hidden block">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="goodmart.png" alt="GoodMart" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Ecommerce'">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-green-400 uppercase tracking-widest border border-green-400/30 px-2 py-1 rounded">Ecommerce</span>
+                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold mb-2 group-hover:text-green-400 transition-colors">GoodMart BD</h4>
+                        <p class="text-gray-400 text-sm line-clamp-2">Full-stack ecommerce solution with web & mobile app integration using React Native.</p>
+                    </div>
+                </a>
+
+                <!-- Project 4 (Visible) -->
+                <a href="https://alphasoft.website" target="_blank" class="group glass-card rounded-2xl overflow-hidden block">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="alphasoft.png" alt="AlphaSoft" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Portfolio'">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-orange-400 uppercase tracking-widest border border-orange-400/30 px-2 py-1 rounded">Portfolio</span>
+                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold mb-2 group-hover:text-orange-400 transition-colors">AlphaSoft</h4>
+                        <p class="text-gray-400 text-sm line-clamp-2">Corporate portfolio design showcasing digital services and brand identity.</p>
+                    </div>
+                </a>
+
+                <!-- Hidden Projects (Initially is-hidden) -->
                 
-                <!-- 1 -->
-                <a href="https://knight.alphasoft.website" target="_blank" class="initial-project group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
-                    <div class="aspect-[4/3] overflow-hidden relative">
-                        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="mygame.png" alt="Shelf Shuffle" class="project-img w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x450/0f0c29/ffffff?text=Game+Project'">
-                        <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-xs font-bold uppercase tracking-wider">Game Dev</div>
+                <a href="https://juthisbloom.com" target="_blank" class="is-hidden hidden-project group glass-card rounded-2xl overflow-hidden block">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="juthisbloom.png" alt="Juthis Bloom" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Laravel'">
                     </div>
-                    <div class="p-8 relative z-20 bg-surface">
-                        <h4 class="font-display text-2xl font-bold mb-2 group-hover:text-primary transition-colors">Shelf Shuffle</h4>
-                        <p class="text-white/60 mb-4 text-sm line-clamp-2">A fun puzzle game built with Godot engine where you shuffle shelves to solve challenges.</p>
-                        <div class="flex gap-2">
-                            <span class="text-xs font-mono text-secondary bg-secondary/10 px-2 py-1 rounded">Godot</span>
-                            <span class="text-xs font-mono text-secondary bg-secondary/10 px-2 py-1 rounded">GDScript</span>
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-red-400 uppercase tracking-widest border border-red-400/30 px-2 py-1 rounded">Laravel</span>
+                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
                         </div>
+                        <h4 class="text-2xl font-bold mb-2 group-hover:text-red-400 transition-colors">Juthis Bloom</h4>
+                        <p class="text-gray-400 text-sm line-clamp-2">Floral ecommerce platform built with robust Laravel backend architecture.</p>
                     </div>
                 </a>
 
-                <!-- 2 -->
-                <a href="https://alphanews.alphasoft.website" target="_blank" class="initial-project group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
-                    <div class="aspect-[4/3] overflow-hidden relative">
-                        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="alphanews.png" alt="AlphaNews" class="project-img w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x450/0f0c29/ffffff?text=Web+App'">
-                        <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-xs font-bold uppercase tracking-wider">Web App</div>
+                <a href="https://github.com/Nafisniloy/MyChat" target="_blank" class="is-hidden hidden-project group glass-card rounded-2xl overflow-hidden block">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="mychat.png" alt="My Chat" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=App'">
                     </div>
-                    <div class="p-8 relative z-20 bg-surface">
-                        <h4 class="font-display text-2xl font-bold mb-2 group-hover:text-primary transition-colors">AlphaNews</h4>
-                        <p class="text-white/60 mb-4 text-sm line-clamp-2">A modern news website with full admin functionality for managing content.</p>
-                        <div class="flex gap-2">
-                            <span class="text-xs font-mono text-secondary bg-secondary/10 px-2 py-1 rounded">PHP</span>
-                            <span class="text-xs font-mono text-secondary bg-secondary/10 px-2 py-1 rounded">MySQL</span>
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-yellow-400 uppercase tracking-widest border border-yellow-400/30 px-2 py-1 rounded">React</span>
+                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
                         </div>
+                        <h4 class="text-2xl font-bold mb-2 group-hover:text-yellow-400 transition-colors">My Chat</h4>
+                        <p class="text-gray-400 text-sm line-clamp-2">Real-time messaging application powered by Firebase and React frontend.</p>
                     </div>
                 </a>
 
-                <!-- 3 -->
-                <a href="https://goodmartbd.com" target="_blank" class="initial-project group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
-                    <div class="aspect-[4/3] overflow-hidden relative">
-                        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="goodmart.png" alt="GoodMart" class="project-img w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x450/0f0c29/ffffff?text=E-Commerce'">
-                        <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-xs font-bold uppercase tracking-wider">E-Commerce</div>
+                <a href="https://github.com/Nafisniloy/quiz" target="_blank" class="is-hidden hidden-project group glass-card rounded-2xl overflow-hidden block">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="quiz.png" alt="Quiz App" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=JS+App'">
                     </div>
-                    <div class="p-8 relative z-20 bg-surface">
-                        <h4 class="font-display text-2xl font-bold mb-2 group-hover:text-primary transition-colors">GoodMart BD</h4>
-                        <p class="text-white/60 mb-4 text-sm line-clamp-2">An ecommerce platform with web and mobile apps for seamless shopping.</p>
-                        <div class="flex gap-2">
-                            <span class="text-xs font-mono text-secondary bg-secondary/10 px-2 py-1 rounded">React Native</span>
-                            <span class="text-xs font-mono text-secondary bg-secondary/10 px-2 py-1 rounded">PocketBase</span>
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-pink-400 uppercase tracking-widest border border-pink-400/30 px-2 py-1 rounded">JavaScript</span>
+                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
                         </div>
+                        <h4 class="text-2xl font-bold mb-2 group-hover:text-pink-400 transition-colors">Quiz App</h4>
+                        <p class="text-gray-400 text-sm line-clamp-2">Interactive quiz logic built with pure JavaScript and dynamic API integration.</p>
                     </div>
                 </a>
 
-                <!-- 4 -->
-                <a href="https://alphasoft.website" target="_blank" class="initial-project group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
-                    <div class="aspect-[4/3] overflow-hidden relative">
-                        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="alphasoft.png" alt="AlphaSoft" class="project-img w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x450/0f0c29/ffffff?text=Portfolio'">
-                        <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-xs font-bold uppercase tracking-wider">Portfolio</div>
-                    </div>
-                    <div class="p-8 relative z-20 bg-surface">
-                        <h4 class="font-display text-2xl font-bold mb-2 group-hover:text-primary transition-colors">AlphaSoft</h4>
-                        <p class="text-white/60 mb-4 text-sm line-clamp-2">A business portfolio website showcasing services and projects.</p>
-                        <div class="flex gap-2">
-                            <span class="text-xs font-mono text-secondary bg-secondary/10 px-2 py-1 rounded">HTML</span>
-                            <span class="text-xs font-mono text-secondary bg-secondary/10 px-2 py-1 rounded">JS</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Hidden Projects (Initially hidden) -->
-                
-                <!-- Hidden 1 -->
-                <a href="https://juthisbloom.com" target="_blank" class="hidden-project hidden group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
-                    <div class="aspect-[4/3] overflow-hidden relative">
-                        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="juthisbloom.png" alt="Juthis Bloom" class="project-img w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x450/0f0c29/ffffff?text=Laravel'">
-                        <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-xs font-bold uppercase tracking-wider">Laravel</div>
-                    </div>
-                    <div class="p-8 relative z-20 bg-surface">
-                        <h4 class="font-display text-2xl font-bold mb-2 group-hover:text-primary transition-colors">Juthis Bloom</h4>
-                        <p class="text-white/60 mb-4 text-sm">An ecommerce website built with Laravel for floral products.</p>
-                        <div class="flex gap-2">
-                            <span class="text-xs font-mono text-secondary bg-secondary/10 px-2 py-1 rounded">PHP</span>
-                            <span class="text-xs font-mono text-secondary bg-secondary/10 px-2 py-1 rounded">MySQL</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Hidden 2 -->
-                <a href="https://github.com/Nafisniloy/MyChat" target="_blank" class="hidden-project hidden group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
-                    <div class="aspect-[4/3] overflow-hidden relative">
-                        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="mychat.png" alt="My Chat" class="project-img w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x450/0f0c29/ffffff?text=App'">
-                        <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-xs font-bold uppercase tracking-wider">App</div>
-                    </div>
-                    <div class="p-8 relative z-20 bg-surface">
-                        <h4 class="font-display text-2xl font-bold mb-2 group-hover:text-primary transition-colors">My Chat</h4>
-                        <p class="text-white/60 mb-4 text-sm">A real-time chat application using React and Firebase.</p>
-                        <div class="flex gap-2">
-                            <span class="text-xs font-mono text-secondary bg-secondary/10 px-2 py-1 rounded">React</span>
-                            <span class="text-xs font-mono text-secondary bg-secondary/10 px-2 py-1 rounded">Firebase</span>
-                        </div>
-                    </div>
-                </a>
             </div>
 
-            <!-- View More Button -->
-            <div class="flex justify-center mt-16">
-                <button id="load-more-btn" class="group relative px-8 py-3 bg-transparent overflow-hidden rounded-full border border-white/20 hover:border-primary transition-colors">
-                    <div class="absolute inset-0 w-0 bg-primary transition-all duration-[250ms] ease-out group-hover:w-full"></div>
-                    <span class="relative text-white font-display font-bold uppercase tracking-widest flex items-center gap-2">
-                        Load More Work <i class="fas fa-plus text-xs"></i>
-                    </span>
+            <!-- Robust Load More Button -->
+            <div class="mt-20 flex justify-center">
+                <button id="load-more-btn" class="relative overflow-hidden px-10 py-4 bg-transparent border border-white/20 rounded-full text-sm font-bold uppercase tracking-widest hover:border-white transition-colors group">
+                    <span class="relative z-10 group-hover:text-black transition-colors">Load All Projects</span>
+                    <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
                 </button>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-32 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full mix-blend-screen filter blur-[120px]"></div>
-        
-        <div class="max-w-4xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-secondary font-mono tracking-widest mb-4">03. WHAT'S NEXT?</h2>
-                <h3 class="font-display text-5xl md:text-7xl font-bold mb-6">Let's build something <br><span class="text-gradient">legendary.</span></h3>
-                <p class="text-white/60 text-lg">Interested in working together? Drop me a line.</p>
-            </div>
+    <section id="contact" class="py-32 px-6">
+        <div class="max-w-5xl mx-auto glass-card rounded-3xl p-10 md:p-16 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-accent/20 blur-[100px]"></div>
+            
+            <div class="grid md:grid-cols-2 gap-12 relative z-10">
+                <div>
+                    <h2 class="text-5xl md:text-6xl font-serif italic mb-6">Let's Talk.</h2>
+                    <p class="text-gray-400 mb-8">Have a project in mind? I'm always open to discussing new ideas, creative opportunities, or just having a chat.</p>
+                    
+                    <div class="space-y-4">
+                        <a href="mailto:mdabunafisniloy@gmail.com" class="flex items-center gap-4 text-xl hover:text-accent transition-colors">
+                            <div class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center"><i class="fas fa-envelope text-sm"></i></div>
+                            mdabunafisniloy@gmail.com
+                        </a>
+                        <a href="tel:+8801888606568" class="flex items-center gap-4 text-xl hover:text-accent transition-colors">
+                            <div class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center"><i class="fas fa-phone text-sm"></i></div>
+                            +880 1888606568
+                        </a>
+                    </div>
 
-            <div class="bg-surface/50 backdrop-blur-md border border-white/10 p-8 md:p-12 rounded-3xl">
-                <form id="contact-form" class="space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="text-sm font-mono text-white/50 ml-2">NAME</label>
-                            <input type="text" name="name" class="w-full bg-bg border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-primary transition-colors" placeholder="John Doe" required>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-sm font-mono text-white/50 ml-2">EMAIL</label>
-                            <input type="email" name="email" class="w-full bg-bg border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-primary transition-colors" placeholder="john@example.com" required>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-sm font-mono text-white/50 ml-2">MESSAGE</label>
-                        <textarea name="message" rows="4" class="w-full bg-bg border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-primary transition-colors" placeholder="Tell me about your project..." required></textarea>
-                    </div>
-                    <button type="submit" class="w-full py-5 bg-gradient-to-r from-primary to-blue-600 rounded-xl font-display font-bold text-lg uppercase tracking-widest hover:scale-[1.02] transition-transform shadow-lg shadow-primary/25">
-                        Send Message
-                    </button>
-                </form>
-                
-                <div class="mt-12 pt-12 border-t border-white/10 flex flex-wrap justify-center gap-8 md:gap-16">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-primary"><i class="fas fa-envelope"></i></div>
-                        <span class="text-white/80 font-mono text-sm">mdabunafisniloy@gmail.com</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-secondary"><i class="fas fa-phone"></i></div>
-                        <span class="text-white/80 font-mono text-sm">+880 1888606568</span>
+                    <div class="mt-10 flex gap-4">
+                        <a href="https://github.com/Nafisniloy" target="_blank" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all transform hover:-translate-y-1"><i class="fab fa-github"></i></a>
+                        <a href="#" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all transform hover:-translate-y-1"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all transform hover:-translate-y-1"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
+
+                <form id="contact-form" class="space-y-6 mt-4">
+                    <div>
+                        <label class="text-xs uppercase tracking-widest text-gray-500 mb-2 block">Your Name</label>
+                        <input type="text" class="w-full bg-white/5 border border-white/10 p-4 text-white focus:outline-none focus:border-accent transition-colors" placeholder="John Doe" required>
+                    </div>
+                    <div>
+                        <label class="text-xs uppercase tracking-widest text-gray-500 mb-2 block">Your Email</label>
+                        <input type="email" class="w-full bg-white/5 border border-white/10 p-4 text-white focus:outline-none focus:border-accent transition-colors" placeholder="john@example.com" required>
+                    </div>
+                    <div>
+                        <label class="text-xs uppercase tracking-widest text-gray-500 mb-2 block">Message</label>
+                        <textarea rows="4" class="w-full bg-white/5 border border-white/10 p-4 text-white focus:outline-none focus:border-accent transition-colors" placeholder="Hello..." required></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-accent text-white font-bold uppercase tracking-widest hover:bg-purple-600 transition-colors">Send Message</button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-10 border-t border-white/5 text-center relative z-10">
-        <div class="flex justify-center gap-8 mb-8">
-            <a href="https://github.com/Nafisniloy" class="text-white/40 hover:text-white text-2xl transition-colors"><i class="fab fa-github"></i></a>
-            <a href="#" class="text-white/40 hover:text-blue-400 text-2xl transition-colors"><i class="fab fa-linkedin"></i></a>
-            <a href="#" class="text-white/40 hover:text-pink-500 text-2xl transition-colors"><i class="fab fa-instagram"></i></a>
-        </div>
-        <p class="text-white/30 font-mono text-xs">DESIGNED & BUILT BY NAFIS NILOY © 2025</p>
+    <footer class="py-8 text-center border-t border-white/5 text-gray-600 text-sm">
+        <p>&copy; 2025 Nafis Niloy. Designed with <i class="fas fa-heart text-red-500"></i> in Bangladesh.</p>
     </footer>
 
+    <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+    <!-- Scripts -->
     <script>
-        // Custom Cursor
+        // 1. Custom Cursor
         const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
+        const cursorRing = document.querySelector('.cursor-ring');
+
         window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
+            const { clientX: x, clientY: y } = e;
+            cursorDot.style.left = `${x}px`;
+            cursorDot.style.top = `${y}px`;
+            
+            // Add a slight delay for the ring for visual flair
+            cursorRing.animate({
+                left: `${x}px`,
+                top: `${y}px`
             }, { duration: 500, fill: "forwards" });
         });
 
-        // GSAP Animations
+        // 2. GSAP Reveal Animations
         gsap.registerPlugin(ScrollTrigger);
 
-        // Hero
-        const tl = gsap.timeline();
-        tl.from(".hero-line", { y: 100, opacity: 0, duration: 1, stagger: 0.2, ease: "power4.out" })
-          .to(".hero-desc", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.5")
-          .to(".hero-btn", { opacity: 1, y: 0, duration: 0.8, ease: "back.out(1.7)" }, "-=0.5");
+        // Hero Reveal
+        const titleLines = document.querySelectorAll('.hero-title-line');
+        const heroAnim = document.querySelectorAll('.hero-anim');
 
-        // About
-        gsap.from(".about-img-trigger", {
-            scrollTrigger: { trigger: "#about", start: "top 80%" },
-            x: -50, opacity: 0, duration: 1.2, ease: "power3.out"
-        });
-        gsap.from(".about-text-trigger > *", {
-            scrollTrigger: { trigger: "#about", start: "top 80%" },
-            y: 30, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out"
+        gsap.to(titleLines, {
+            y: 0,
+            duration: 1.5,
+            stagger: 0.1,
+            ease: "power4.out",
+            delay: 0.2
         });
 
-        // Visible Projects Animation
-        gsap.from(".initial-project", {
-            scrollTrigger: { trigger: "#work", start: "top 70%" },
-            y: 50, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power2.out"
+        gsap.to(heroAnim, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out",
+            delay: 0.8
         });
 
-        // Load More Logic
+        // 3. Robust Load More Logic
         const loadMoreBtn = document.getElementById('load-more-btn');
+        // Select elements by specific class
         const hiddenProjects = document.querySelectorAll('.hidden-project');
 
         loadMoreBtn.addEventListener('click', () => {
             hiddenProjects.forEach(project => {
-                project.classList.remove('hidden');
-                // Animate them in after making them visible
-                gsap.fromTo(project, 
-                    { y: 20, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
-                );
+                // 1. Remove the 'display: none' utility
+                project.classList.remove('is-hidden');
+                
+                // 2. Add animation class
+                project.classList.add('fade-in-up');
             });
+            // Hide the button
             loadMoreBtn.style.display = 'none';
         });
 
-        // Mobile Menu
+        // 4. Mobile Menu
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -475,36 +518,37 @@
         menuBtn.addEventListener('click', () => {
             isMenuOpen = !isMenuOpen;
             if (isMenuOpen) {
-                mobileMenu.classList.remove('translate-x-full');
-                menuBtn.innerHTML = '<i class="fas fa-times text-2xl"></i>';
+                mobileMenu.style.pointerEvents = 'auto';
+                mobileMenu.style.opacity = '1';
+                menuBtn.innerHTML = '<i class="fas fa-times"></i>';
             } else {
-                mobileMenu.classList.add('translate-x-full');
-                menuBtn.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+                mobileMenu.style.pointerEvents = 'none';
+                mobileMenu.style.opacity = '0';
+                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             }
         });
+
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 isMenuOpen = false;
-                mobileMenu.classList.add('translate-x-full');
-                menuBtn.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+                mobileMenu.style.pointerEvents = 'none';
+                mobileMenu.style.opacity = '0';
+                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
 
-        // Contact Form
+        // 5. Contact Form Visual
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = this.querySelector('button');
             const originalText = btn.innerText;
-            btn.innerText = 'Sending...';
-            btn.style.background = '#10b981';
+            btn.innerText = 'Sent!';
+            btn.style.backgroundColor = '#10b981';
             setTimeout(() => {
-                btn.innerHTML = 'Message Sent <i class="fas fa-check ml-2"></i>';
                 this.reset();
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.style.background = '';
-                }, 3000);
-            }, 1500);
+                btn.innerText = originalText;
+                btn.style.backgroundColor = '';
+            }, 3000);
         });
     </script>
 </body>
