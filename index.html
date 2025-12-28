@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-    <!-- Google Fonts: Syne (Artistic) & Inter (Clean) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -30,14 +30,10 @@
                         display: ['Syne', 'sans-serif'],
                     },
                     colors: {
-                        bg: '#030014', // Deep Void
-                        surface: '#0f0c29', // Dark Surface
-                        primary: '#7000ff', // Electric Violet
-                        secondary: '#00c6ff', // Cyan
-                    },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                        'noise': "url('https://grainy-gradients.vercel.app/noise.svg')", // Subtle noise texture
+                        bg: '#030014', 
+                        surface: '#0f0c29', 
+                        primary: '#7000ff', 
+                        secondary: '#00c6ff', 
                     },
                     animation: {
                         'marquee': 'marquee 25s linear infinite',
@@ -64,45 +60,34 @@
         body {
             background-color: #030014;
             color: #fff;
-            cursor: none; /* Custom cursor */
+            cursor: none; 
         }
         
-        /* Custom Cursor */
-        .cursor-dot,
-        .cursor-outline {
+        .cursor-dot, .cursor-outline {
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             transform: translate(-50%, -50%);
             border-radius: 50%;
             z-index: 9999;
             pointer-events: none;
         }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: white;
-        }
+        .cursor-dot { width: 8px; height: 8px; background-color: white; }
         .cursor-outline {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border: 1px solid rgba(255, 255, 255, 0.5);
             transition: width 0.2s, height 0.2s, background-color 0.2s;
         }
         body:hover .cursor-outline {
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             background-color: rgba(255, 255, 255, 0.03);
         }
 
-        /* Gradient Text */
         .text-gradient {
             background: linear-gradient(to right, #00c6ff, #7000ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Image Hover Reveal */
         .project-card:hover .project-img {
             transform: scale(1.05);
             filter: grayscale(0%);
@@ -112,16 +97,9 @@
             filter: grayscale(100%);
         }
 
-        /* Noise Texture overlay */
         .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 90;
-            opacity: 0.05;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 90; opacity: 0.05;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
         
@@ -134,37 +112,26 @@
 </head>
 <body class="overflow-x-hidden">
 
-    <!-- Custom Cursor -->
     <div class="cursor-dot hidden md:block"></div>
     <div class="cursor-outline hidden md:block"></div>
-
-    <!-- Noise Texture -->
     <div class="noise-overlay"></div>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="flex items-center gap-3 z-50">
-                <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain hover:rotate-180 transition-transform duration-700">
+                <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain hover:rotate-180 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/40/7000ff/ffffff?text=N'">
                 <span class="font-display font-bold text-xl tracking-tight">Nafis<span class="text-primary">.</span></span>
             </a>
-
-            <!-- Desktop Menu -->
             <div class="hidden md:flex gap-10 items-center">
                 <a href="#about" class="text-sm uppercase tracking-widest hover:text-secondary transition-colors nav-link">About</a>
                 <a href="#work" class="text-sm uppercase tracking-widest hover:text-secondary transition-colors nav-link">Work</a>
                 <a href="#contact" class="px-6 py-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all duration-300 text-sm uppercase tracking-widest">Let's Talk</a>
             </div>
-
-            <!-- Mobile Menu Toggle -->
             <div class="md:hidden z-50">
-                <button id="menu-btn" class="text-white focus:outline-none">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
+                <button id="menu-btn" class="text-white focus:outline-none"><i class="fas fa-bars text-2xl"></i></button>
             </div>
         </div>
-
-        <!-- Mobile Menu Overlay -->
         <div id="mobile-menu" class="fixed inset-0 bg-bg z-40 flex flex-col items-center justify-center gap-8 transform translate-x-full transition-transform duration-500">
             <a href="#about" class="font-display text-4xl hover:text-primary transition-colors mobile-link">About</a>
             <a href="#work" class="font-display text-4xl hover:text-primary transition-colors mobile-link">Work</a>
@@ -174,7 +141,6 @@
 
     <!-- Hero Section -->
     <header class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <!-- Animated Gradients -->
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
         <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob" style="animation-delay: 2s"></div>
 
@@ -196,16 +162,13 @@
                 <a href="#work" class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-white/5 font-display border border-white/10 rounded-full hover:bg-white/10 focus:outline-none ring-offset-2 focus:ring-2">
                     <span class="mr-2">Explore Projects</span>
                     <i class="fas fa-arrow-down transform group-hover:translate-y-1 transition-transform"></i>
-                    <div class="absolute inset-0 rounded-full ring-2 ring-white/20 group-hover:ring-white/40 transition-all duration-300 scale-105 opacity-0 group-hover:opacity-100 group-hover:scale-100"></div>
                 </a>
             </div>
         </div>
-        
-        <!-- Bottom Fade -->
         <div class="absolute bottom-0 w-full h-32 bg-gradient-to-t from-bg to-transparent z-20"></div>
     </header>
 
-    <!-- Infinite Tech Marquee -->
+    <!-- Marquee -->
     <div class="w-full bg-white/5 py-6 border-y border-white/5 overflow-hidden relative z-20">
         <div class="flex animate-marquee gap-16 items-center whitespace-nowrap text-white/40 font-display font-bold text-2xl md:text-4xl uppercase tracking-widest">
             <span>JavaScript</span> <i class="fas fa-star text-xs text-primary"></i>
@@ -216,7 +179,6 @@
             <span>Godot</span> <i class="fas fa-star text-xs text-primary"></i>
             <span>Firebase</span> <i class="fas fa-star text-xs text-primary"></i>
             <span>PHP</span> <i class="fas fa-star text-xs text-primary"></i>
-            <!-- Duplicated for seamless loop -->
             <span>JavaScript</span> <i class="fas fa-star text-xs text-primary"></i>
             <span>React</span> <i class="fas fa-star text-xs text-primary"></i>
             <span>React Native</span> <i class="fas fa-star text-xs text-primary"></i>
@@ -231,44 +193,29 @@
     <!-- About Section -->
     <section id="about" class="py-32 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
-            
-            <!-- Image Area -->
             <div class="relative group about-img-trigger">
                 <div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
                 <div class="relative rounded-2xl overflow-hidden bg-surface border border-white/10 aspect-square">
-                    <img src="web.png" alt="Coding" class="w-full h-full object-cover transform transition duration-700 hover:scale-110 grayscale hover:grayscale-0">
+                    <img src="web.png" alt="Coding" class="w-full h-full object-cover transform transition duration-700 hover:scale-110 grayscale hover:grayscale-0" onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop'">
                     <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
                         <div class="font-mono text-secondary text-sm mb-1">&lt;Coder /&gt;</div>
                         <div class="text-white font-bold">Based in Dhaka, BD</div>
                     </div>
                 </div>
             </div>
-
-            <!-- Text Area -->
             <div class="about-text-trigger">
                 <h2 class="text-secondary font-mono tracking-widest mb-4">01. WHO I AM</h2>
                 <h3 class="font-display text-4xl md:text-5xl font-bold mb-8 leading-tight">
                     Bridging the gap between <span class="text-gradient">logic</span> and <span class="text-gradient">creativity</span>.
                 </h3>
                 <div class="space-y-6 text-white/70 text-lg font-light leading-relaxed">
-                    <p>
-                        Hi, I'm <span class="text-white font-medium">Nafis Niloy</span>. I don't just write code; I build solutions. Whether it's a complex web application using Laravel and React or an immersive interactive game in Godot, I aim for perfection in every pixel and logic block.
-                    </p>
-                    <p>
-                        My workflow integrates modern tools like Supabase and Firebase to ensure scalability. I believe in clean code, intuitive UI, and performance optimization.
-                    </p>
+                    <p>Hi, I'm <span class="text-white font-medium">Nafis Niloy</span>. I don't just write code; I build solutions. Whether it's a complex web application using Laravel and React or an immersive interactive game in Godot, I aim for perfection in every pixel and logic block.</p>
+                    <p>My workflow integrates modern tools like Supabase and Firebase to ensure scalability. I believe in clean code, intuitive UI, and performance optimization.</p>
                 </div>
-                
                 <div class="mt-10 flex gap-6">
-                    <div class="text-center">
-                        <div class="font-display text-4xl font-bold text-white">20+</div>
-                        <div class="text-sm text-white/50 uppercase tracking-wider mt-1">Projects</div>
-                    </div>
+                    <div class="text-center"><div class="font-display text-4xl font-bold text-white">20+</div><div class="text-sm text-white/50 uppercase tracking-wider mt-1">Projects</div></div>
                     <div class="w-px bg-white/10 h-12"></div>
-                    <div class="text-center">
-                        <div class="font-display text-4xl font-bold text-white">3+</div>
-                        <div class="text-sm text-white/50 uppercase tracking-wider mt-1">Years Exp</div>
-                    </div>
+                    <div class="text-center"><div class="font-display text-4xl font-bold text-white">3+</div><div class="text-sm text-white/50 uppercase tracking-wider mt-1">Years Exp</div></div>
                 </div>
             </div>
         </div>
@@ -282,15 +229,17 @@
                     <h2 class="text-secondary font-mono tracking-widest mb-4">02. SELECTED WORKS</h2>
                     <h3 class="font-display text-5xl md:text-6xl font-bold">Featured Projects</h3>
                 </div>
-                <!-- Load More Logic Integrated via Button Visibility -->
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
-                <!-- Project Card 1 -->
-                <a href="https://knight.alphasoft.website" target="_blank" class="group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
+                
+                <!-- Initial Visible Projects (Class: initial-project) -->
+                
+                <!-- 1 -->
+                <a href="https://knight.alphasoft.website" target="_blank" class="initial-project group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
                     <div class="aspect-[4/3] overflow-hidden relative">
                         <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="mygame.png" alt="Shelf Shuffle" class="project-img w-full h-full object-cover">
+                        <img src="mygame.png" alt="Shelf Shuffle" class="project-img w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x450/0f0c29/ffffff?text=Game+Project'">
                         <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-xs font-bold uppercase tracking-wider">Game Dev</div>
                     </div>
                     <div class="p-8 relative z-20 bg-surface">
@@ -303,11 +252,11 @@
                     </div>
                 </a>
 
-                <!-- Project Card 2 -->
-                <a href="https://alphanews.alphasoft.website" target="_blank" class="group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
+                <!-- 2 -->
+                <a href="https://alphanews.alphasoft.website" target="_blank" class="initial-project group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
                     <div class="aspect-[4/3] overflow-hidden relative">
                         <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="alphanews.png" alt="AlphaNews" class="project-img w-full h-full object-cover">
+                        <img src="alphanews.png" alt="AlphaNews" class="project-img w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x450/0f0c29/ffffff?text=Web+App'">
                         <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-xs font-bold uppercase tracking-wider">Web App</div>
                     </div>
                     <div class="p-8 relative z-20 bg-surface">
@@ -320,11 +269,11 @@
                     </div>
                 </a>
 
-                <!-- Project Card 3 -->
-                <a href="https://goodmartbd.com" target="_blank" class="group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
+                <!-- 3 -->
+                <a href="https://goodmartbd.com" target="_blank" class="initial-project group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
                     <div class="aspect-[4/3] overflow-hidden relative">
                         <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="goodmart.png" alt="GoodMart" class="project-img w-full h-full object-cover">
+                        <img src="goodmart.png" alt="GoodMart" class="project-img w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x450/0f0c29/ffffff?text=E-Commerce'">
                         <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-xs font-bold uppercase tracking-wider">E-Commerce</div>
                     </div>
                     <div class="p-8 relative z-20 bg-surface">
@@ -337,11 +286,11 @@
                     </div>
                 </a>
 
-                <!-- Project Card 4 -->
-                <a href="https://alphasoft.website" target="_blank" class="group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
+                <!-- 4 -->
+                <a href="https://alphasoft.website" target="_blank" class="initial-project group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
                     <div class="aspect-[4/3] overflow-hidden relative">
                         <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="alphasoft.png" alt="AlphaSoft" class="project-img w-full h-full object-cover">
+                        <img src="alphasoft.png" alt="AlphaSoft" class="project-img w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x450/0f0c29/ffffff?text=Portfolio'">
                         <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-xs font-bold uppercase tracking-wider">Portfolio</div>
                     </div>
                     <div class="p-8 relative z-20 bg-surface">
@@ -355,10 +304,12 @@
                 </a>
 
                 <!-- Hidden Projects (Initially hidden) -->
+                
+                <!-- Hidden 1 -->
                 <a href="https://juthisbloom.com" target="_blank" class="hidden-project hidden group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
                     <div class="aspect-[4/3] overflow-hidden relative">
                         <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="juthisbloom.png" alt="Juthis Bloom" class="project-img w-full h-full object-cover">
+                        <img src="juthisbloom.png" alt="Juthis Bloom" class="project-img w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x450/0f0c29/ffffff?text=Laravel'">
                         <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-xs font-bold uppercase tracking-wider">Laravel</div>
                     </div>
                     <div class="p-8 relative z-20 bg-surface">
@@ -371,10 +322,11 @@
                     </div>
                 </a>
 
+                <!-- Hidden 2 -->
                 <a href="https://github.com/Nafisniloy/MyChat" target="_blank" class="hidden-project hidden group project-card relative block bg-surface rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500">
                     <div class="aspect-[4/3] overflow-hidden relative">
                         <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="mychat.png" alt="My Chat" class="project-img w-full h-full object-cover">
+                        <img src="mychat.png" alt="My Chat" class="project-img w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x450/0f0c29/ffffff?text=App'">
                         <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-xs font-bold uppercase tracking-wider">App</div>
                     </div>
                     <div class="p-8 relative z-20 bg-surface">
@@ -456,113 +408,65 @@
         <p class="text-white/30 font-mono text-xs">DESIGNED & BUILT BY NAFIS NILOY © 2025</p>
     </footer>
 
-    <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-    <!-- Scripts -->
     <script>
-        // 1. Custom Cursor Logic
+        // Custom Cursor
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
-
         window.addEventListener('mousemove', (e) => {
             const posX = e.clientX;
             const posY = e.clientY;
-
-            // Dot follows instantly
             cursorDot.style.left = `${posX}px`;
             cursorDot.style.top = `${posY}px`;
-
-            // Outline follows with lag (created by CSS transition)
-            // But we update position via JS
             cursorOutline.animate({
                 left: `${posX}px`,
                 top: `${posY}px`
             }, { duration: 500, fill: "forwards" });
         });
 
-        // 2. GSAP Animations
+        // GSAP Animations
         gsap.registerPlugin(ScrollTrigger);
 
-        // Hero Animations
+        // Hero
         const tl = gsap.timeline();
-        
-        tl.from(".hero-line", {
-            y: 100,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power4.out"
-        })
-        .to(".hero-desc", {
-            opacity: 1,
-            duration: 1,
-            ease: "power2.out"
-        }, "-=0.5")
-        .to(".hero-btn", {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "back.out(1.7)"
-        }, "-=0.5");
+        tl.from(".hero-line", { y: 100, opacity: 0, duration: 1, stagger: 0.2, ease: "power4.out" })
+          .to(".hero-desc", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.5")
+          .to(".hero-btn", { opacity: 1, y: 0, duration: 0.8, ease: "back.out(1.7)" }, "-=0.5");
 
-        // About Image Parallax
+        // About
         gsap.from(".about-img-trigger", {
-            scrollTrigger: {
-                trigger: "#about",
-                start: "top 80%",
-            },
-            x: -50,
-            opacity: 0,
-            duration: 1.2,
-            ease: "power3.out"
+            scrollTrigger: { trigger: "#about", start: "top 80%" },
+            x: -50, opacity: 0, duration: 1.2, ease: "power3.out"
         });
-
-        // About Text Stagger
         gsap.from(".about-text-trigger > *", {
-            scrollTrigger: {
-                trigger: "#about",
-                start: "top 80%",
-            },
-            y: 30,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.1,
-            ease: "power3.out"
+            scrollTrigger: { trigger: "#about", start: "top 80%" },
+            y: 30, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out"
         });
 
-        // Project Cards Stagger
-        gsap.from(".project-card", {
-            scrollTrigger: {
-                trigger: "#work",
-                start: "top 70%",
-            },
-            y: 50,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: "power2.out"
+        // Visible Projects Animation
+        gsap.from(".initial-project", {
+            scrollTrigger: { trigger: "#work", start: "top 70%" },
+            y: 50, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power2.out"
         });
 
-        // 3. Load More Functionality
+        // Load More Logic
         const loadMoreBtn = document.getElementById('load-more-btn');
         const hiddenProjects = document.querySelectorAll('.hidden-project');
 
         loadMoreBtn.addEventListener('click', () => {
             hiddenProjects.forEach(project => {
                 project.classList.remove('hidden');
-                // Animate them in
-                gsap.from(project, {
-                    y: 20,
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "power2.out"
-                });
+                // Animate them in after making them visible
+                gsap.fromTo(project, 
+                    { y: 20, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
+                );
             });
             loadMoreBtn.style.display = 'none';
         });
 
-        // 4. Mobile Menu
+        // Mobile Menu
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -578,7 +482,6 @@
                 menuBtn.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
             }
         });
-
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 isMenuOpen = false;
@@ -587,21 +490,19 @@
             });
         });
 
-        // 5. Contact Form (Visual Feedback)
+        // Contact Form
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = this.querySelector('button');
             const originalText = btn.innerText;
-            
             btn.innerText = 'Sending...';
-            btn.style.background = '#10b981'; // Success Green
-            
+            btn.style.background = '#10b981';
             setTimeout(() => {
                 btn.innerHTML = 'Message Sent <i class="fas fa-check ml-2"></i>';
                 this.reset();
                 setTimeout(() => {
                     btn.innerText = originalText;
-                    btn.style.background = ''; // Reset gradient
+                    btn.style.background = '';
                 }, 3000);
             }, 1500);
         });
