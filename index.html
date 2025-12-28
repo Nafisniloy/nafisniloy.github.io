@@ -1,426 +1,642 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nafis Niloy - Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="shortcut icon" href="myLogo.png" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-
-<body>
-  <!-- Scroll Progress Bar -->
-  <div class="scroll-progress-container">
-    <div id="scroll-progress" class="scroll-progress"></div>
-  </div>
-
-  <div id="top" class="top-container">
-    <!-- Particles JS Background -->
-    <div id="particles-js"></div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nafis Niloy - Web & Game Developer</title>
+    <link rel="shortcut icon" href="myLogo.png" type="image/x-icon">
     
-    <nav class="navbar">
-      <h4 style="display: flex;" class="nav-title">
-        <img style="width: 40px;" src="logo.png" alt="Nafis Niloy Logo" />
-      </h4>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-      <input id="menu-toggle" type="checkbox" />
-      <label class='menu-button-container' for="menu-toggle">
-        <div class='menu-button'></div>
-      </label>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        dark: '#0f172a',
+                        darker: '#020617',
+                        primary: '#3b82f6',
+                        accent: '#06b6d4',
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
 
-      <ul class="nav-list">
-        <li class="active"><a href="/">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li class="hello-btn"><a href="#contact">Say Hello</a></li>
-      </ul>
-      
-      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-        <i class="fas fa-moon"></i>
-      </button>
+    <style>
+        body {
+            background-color: #020617;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Typing Cursor */
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: #3b82f6;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Scroll Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <img src="logo.png" alt="Nafis Niloy" class="h-10 w-auto transform group-hover:rotate-12 transition-transform duration-300">
+                    <span class="font-mono font-bold text-xl tracking-tighter">Nafis<span class="text-primary">.dev</span></span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-sm font-medium text-slate-300 hover:text-white hover:scale-105 transition-all">Home</a>
+                    <a href="#about" class="text-sm font-medium text-slate-300 hover:text-white hover:scale-105 transition-all">About</a>
+                    <a href="#projects" class="text-sm font-medium text-slate-300 hover:text-white hover:scale-105 transition-all">Projects</a>
+                    <a href="#contact" class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all">
+                        Say Hello <i class="fas fa-paper-plane ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 z-40 bg-darker/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center space-y-8">
+            <button id="close-menu-btn" class="absolute top-6 right-6 text-slate-400 hover:text-white text-3xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <a href="#home" class="mobile-link text-2xl font-bold text-white hover:text-primary transition-colors">Home</a>
+            <a href="#about" class="mobile-link text-2xl font-bold text-white hover:text-primary transition-colors">About</a>
+            <a href="#projects" class="mobile-link text-2xl font-bold text-white hover:text-primary transition-colors">Projects</a>
+            <a href="#contact" class="mobile-link text-2xl font-bold text-white hover:text-primary transition-colors">Contact</a>
+        </div>
     </nav>
 
-    <div class="hero">
-      <h1 class="typing-text" data-words='["Web & Game Developer", "Full Stack Web Developer", "Problem Solver", "JavaScript Expert"]' data-wait="2000">Web & Game Developer</h1>
-      <h2 class="hero-subtitle">I love to code and create new things</h2>
-      <img src="myLogo.png" alt="Nafis Niloy" class="hero-image" />
-      <div class="scroll-down-arrow">
-        <a href="#about">
-          <i class="fas fa-chevron-down"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="about-container" id="about">
-    <div class="about-content scroll-reveal">
-      <h2 class="section-title">About <span class="highlight">Me</span></h2>
-      <div class="about-text">
-        <p>Hi! I'm <span class="highlight">Nafis Niloy</span>, a web app and game developer from Bangladesh. I build web applications and games with an emphasis on performance, simplicity, and clean code.</p>
-        <p>I work with <span class="skill-tag">JavaScript</span> <span class="skill-tag">Python</span> <span class="skill-tag">PHP</span> <span class="skill-tag">GDScript</span> and frameworks/tools like <span class="skill-tag">React</span> <span class="skill-tag">React Native</span> <span class="skill-tag">Laravel</span> <span class="skill-tag">Django</span>, Firebase, and Supabase.</p>
-      </div>
-      <div class="contact-btn">
-        <a href="#contact">Get in Touch <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </div>
-    <div class="about-image-container scroll-reveal">
-      <div class="image-frame">
-        <img class="webImg" src="web.png" alt="Web Development" />
-        <div class="corner-decoration top-left"></div>
-        <div class="corner-decoration top-right"></div>
-        <div class="corner-decoration bottom-left"></div>
-        <div class="corner-decoration bottom-right"></div>
-      </div>
-    </div>
-  </div>
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 w-1/2 h-1/2 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-  <div class="projects-container" id="projects">
-    <h2 class="section-title scroll-reveal">My <span class="highlight">Projects</span></h2>
-    <div class="projects-grid">
-      <div class="project-card scroll-reveal">
-        <div class="project-image">
-          <img src="mygame.png" alt="Shelf Shuffle Game">
-          <div class="project-overlay">
-            <div class="project-links">
-              <a href="https://knight.alphasoft.website" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-play"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="project-content">
-          <h3>Shelf Shuffle</h3>
-          <div class="tech-stack">
-            <span class="tech">Godot</span>
-            <span class="tech">GDScript</span>
-          </div>
-          <p>A fun puzzle game where you shuffle shelves to solve challenges.</p>
-          <div class="project-buttons">
-            <a href="https://knight.alphasoft.website" class="btn">Play Now</a>
-          </div>
-        </div>
-      </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
+                
+                <!-- Text Content -->
+                <div class="lg:w-1/2 text-center lg:text-left reveal active">
+                    <div class="inline-block px-3 py-1 mb-4 border border-blue-500/30 rounded-full bg-blue-500/10 text-blue-400 font-mono text-sm">
+                        👋 Welcome to my portfolio
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-bold leading-tight mb-6">
+                        Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Nafis Niloy</span>
+                    </h1>
+                    <h2 class="text-2xl lg:text-3xl font-light text-slate-300 mb-6 h-12">
+                        I am a <span id="typing-text" class="font-bold text-white"></span><span class="cursor">&nbsp;</span>
+                    </h2>
+                    <p class="text-slate-400 text-lg mb-8 max-w-lg mx-auto lg:mx-0">
+                        I love to code and create new things. Building web applications and games with an emphasis on performance, simplicity, and clean code.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                        <a href="#projects" class="px-8 py-4 bg-white text-darker font-bold rounded-full hover:bg-slate-200 transition-colors w-full sm:w-auto">
+                            View Work
+                        </a>
+                        <a href="#contact" class="px-8 py-4 bg-transparent border border-slate-600 text-white font-bold rounded-full hover:border-white transition-colors w-full sm:w-auto">
+                            Contact Me
+                        </a>
+                    </div>
 
-      <div class="project-card scroll-reveal">
-        <div class="project-image">
-          <img src="alphanews.png" alt="AlphaNews Project">
-          <div class="project-overlay">
-            <div class="project-links">
-              <a href="https://alphanews.alphasoft.website" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="project-content">
-          <h3>AlphaNews</h3>
-          <div class="tech-stack">
-            <span class="tech">PHP</span>
-            <span class="tech">MySQL</span>
-            <span class="tech">HTML</span>
-            <span class="tech">CSS</span>
-          </div>
-          <p>A modern news website with full admin functionality for managing content.</p>
-          <div class="project-buttons">
-            <a href="https://alphanews.alphasoft.website" class="btn">Visit Site</a>
-          </div>
-        </div>
-      </div>
+                    <div class="mt-12 flex items-center justify-center lg:justify-start gap-6 text-slate-400">
+                        <a href="https://github.com/Nafisniloy" target="_blank" class="hover:text-white transition-colors text-2xl"><i class="fab fa-github"></i></a>
+                        <a href="#" class="hover:text-blue-400 transition-colors text-2xl"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="hover:text-sky-400 transition-colors text-2xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-pink-500 transition-colors text-2xl"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
 
-      <div class="project-card scroll-reveal">
-        <div class="project-image">
-          <img src="goodmart.png" alt="GoodMart Ecommerce">
-          <div class="project-overlay">
-            <div class="project-links">
-              <a href="https://goodmartbd.com" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i></a>
+                <!-- Hero Image -->
+                <div class="lg:w-1/2 flex justify-center reveal">
+                    <div class="relative w-72 h-72 lg:w-96 lg:h-96">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-full blur-2xl opacity-50 animate-pulse-slow"></div>
+                        <div class="relative w-full h-full rounded-full border-4 border-slate-800 bg-slate-900 overflow-hidden shadow-2xl">
+                            <img src="myLogo.png" alt="Nafis Niloy" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <!-- Floating Badges -->
+                        <div class="absolute -top-4 -right-4 bg-slate-800 p-3 rounded-xl border border-slate-700 shadow-xl animate-bounce-slow">
+                            <i class="fab fa-react text-cyan-400 text-3xl"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 bg-slate-800 p-3 rounded-xl border border-slate-700 shadow-xl animate-bounce-slow" style="animation-delay: 1.5s;">
+                            <i class="fas fa-gamepad text-purple-400 text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="project-content">
-          <h3>GoodMart BD</h3>
-          <div class="tech-stack">
-            <span class="tech">React</span>
-            <span class="tech">PocketBase</span>
-            <span class="tech">React Native</span>
-          </div>
-          <p>An ecommerce platform with web and mobile apps for seamless shopping.</p>
-          <div class="project-buttons">
-            <a href="https://goodmartbd.com" class="btn">Visit Site</a>
-          </div>
-        </div>
-      </div>
 
-      <div class="project-card scroll-reveal">
-        <div class="project-image">
-          <img src="alphasoft.png" alt="AlphaSoft Portfolio">
-          <div class="project-overlay">
-            <div class="project-links">
-              <a href="https://alphasoft.website" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i></a>
+            <!-- Scroll Down -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce hidden lg:block">
+                <a href="#about" class="text-slate-500 hover:text-white transition-colors">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </a>
             </div>
-          </div>
         </div>
-        <div class="project-content">
-          <h3>AlphaSoft</h3>
-          <div class="tech-stack">
-            <span class="tech">HTML</span>
-            <span class="tech">CSS</span>
-            <span class="tech">JavaScript</span>
-          </div>
-          <p>A business portfolio website showcasing services and projects.</p>
-          <div class="project-buttons">
-            <a href="https://alphasoft.website" class="btn">Visit Site</a>
-          </div>
-        </div>
-      </div>
+    </section>
 
-      <div class="project-card scroll-reveal">
-        <div class="project-image">
-          <img src="juthisbloom.png" alt="Juthis Bloom Ecommerce">
-          <div class="project-overlay">
-            <div class="project-links">
-              <a href="https://juthisbloom.com" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="project-content">
-          <h3>Juthis Bloom</h3>
-          <div class="tech-stack">
-            <span class="tech">PHP</span>
-            <span class="tech">Laravel</span>
-            <span class="tech">MySQL</span>
-          </div>
-          <p>An ecommerce website built with Laravel for floral products.</p>
-          <div class="project-buttons">
-            <a href="https://juthisbloom.com" class="btn">Visit Site</a>
-          </div>
-        </div>
-      </div>
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- About Image -->
+                <div class="lg:w-1/2 reveal">
+                    <div class="relative rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
+                        <div class="absolute inset-0 bg-blue-600/20 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                        <img src="web.png" alt="Coding Setup" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                </div>
 
-      <div class="project-card scroll-reveal">
-        <div class="project-image">
-          <img src="mychat.png" alt="My Chat Project">
-          <div class="project-overlay">
-            <div class="project-links">
-              <a href="https://github.com/Nafisniloy/MyChat" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-              <a href="https://mychat-eta-pied.vercel.app/" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="project-content">
-          <h3>My Chat</h3>
-          <div class="tech-stack">
-            <span class="tech">React</span>
-            <span class="tech">Firebase</span>
-            <span class="tech">JavaScript</span>
-            <span class="tech fourth">MUI</span>
-          </div>
-          <p>A real-time chat application that allows users to chat with each other in real-time.</p>
-          <div class="project-buttons">
-            <a href="https://github.com/Nafisniloy/MyChat" class="btn">Show Code</a>
-            <a href="https://mychat-eta-pied.vercel.app/" class="btn">Preview Project</a>
-          </div>
-        </div>
-      </div>
-  
-      <div class="project-card scroll-reveal">
-        <div class="project-image">
-          <img src="quiz.png" alt="Quiz Project">
-          <div class="project-overlay">
-            <div class="project-links">
-              <a href="https://github.com/Nafisniloy/quiz" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-              <a href="https://nafisniloy.github.io/quiz/" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="project-content">
-          <h3>Quiz</h3>
-          <div class="tech-stack">
-            <span class="tech">HTML</span>
-            <span class="tech">CSS</span>
-            <span class="tech">JavaScript</span>
-            <span class="tech fourth">API</span>
-          </div>
-          <p>A quiz application that allows users to take a quiz and see their results.</p>
-          <div class="project-buttons">
-            <a href="https://github.com/Nafisniloy/quiz" class="btn">Show Code</a>
-            <a href="https://nafisniloy.github.io/quiz/" class="btn">Preview Project</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="project-card scroll-reveal">
-        <div class="project-image">
-          <img src="weather.png" alt="Weather Project">
-          <div class="project-overlay">
-            <div class="project-links">
-              <a href="https://github.com/Nafisniloy/weather" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-              <a href="https://nafisniloy.github.io/weather" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="project-content">
-          <h3>Weather</h3>
-          <div class="tech-stack">
-            <span class="tech">HTML</span>
-            <span class="tech">CSS</span>
-            <span class="tech">JavaScript</span>
-            <span class="tech fourth">API</span>
-          </div>
-          <p>An application that allows users to check the weather of any city.</p>
-          <div class="project-buttons">
-            <a href="https://github.com/Nafisniloy/weather" class="btn">Show Code</a>
-            <a href="https://nafisniloy.github.io/weather" class="btn">Preview Project</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="project-card scroll-reveal">
-        <div class="project-image">
-          <img src="textconverter.png" alt="Text Converter Project">
-          <div class="project-overlay">
-            <div class="project-links">
-              <a href="https://github.com/Nafisniloy/text-converter" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-              <a href="https://nafisniloy.github.io/text-converter/" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="project-content">
-          <h3>Text Converter</h3>
-          <div class="tech-stack">
-            <span class="tech">React</span>
-            <span class="tech">JavaScript</span>
-            <span class="tech">CSS</span>
-          </div>
-          <p>A text converter application that allows users to convert text to different formats.</p>
-          <div class="project-buttons">
-            <a href="https://github.com/Nafisniloy/text-converter" class="btn">Show Code</a>
-            <a href="https://nafisniloy.github.io/text-converter/" class="btn">Preview Project</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="project-card scroll-reveal">
-        <div class="project-image">
-          <img src="portfolio.png" alt="Portfolio Project">
-          <div class="project-overlay">
-            <div class="project-links">
-              <a href="https://github.com/Nafisniloy/nafisniloy.github.io" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-              <a href="/" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="project-content">
-          <h3>Portfolio</h3>
-          <div class="tech-stack">
-            <span class="tech">HTML</span>
-            <span class="tech">CSS</span>
-            <span class="tech">JavaScript</span>
-          </div>
-          <p>My personal portfolio website that showcases my projects and skills.</p>
-          <div class="project-buttons">
-            <a href="https://github.com/Nafisniloy/nafisniloy.github.io" class="btn">Show Code</a>
-            <a href="/" class="btn">Preview Project</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <button id="load-more" class="load-more-btn">Load More Projects <i class="fas fa-angle-down"></i></button>
-  </div>
-  
-  <section class="contact-section" id="contact">
-    <div class="contact-container">
-      <h2 class="section-title">Contact <span class="highlight">Me</span></h2>
-      <div class="contact-content">
-        <div class="contact-info scroll-reveal">
-          <div class="contact-card">
-            <div class="contact-icon">
-              <i class="fas fa-envelope"></i>
-            </div>
-            <h3>Email</h3>
-            <p>mdabunafisniloy@gmail.com</p>
-          </div>
-          <div class="contact-card">
-            <div class="contact-icon">
-              <i class="fas fa-map-marker-alt"></i>
-            </div>
-            <h3>Location</h3>
-            <p>Dhaka, Bangladesh</p>
-          </div>
-          <div class="contact-card">
-            <div class="contact-icon">
-              <i class="fas fa-phone"></i>
-            </div>
-            <h3>Phone</h3>
-            <p>+880 1888606568</p>
-          </div>
-        </div>
-        <form id="contact-form" class="contact-form scroll-reveal">
-          <div class="form-group">
-            <div class="input-container">
-              <i class="fas fa-user input-icon"></i>
-              <input type="text" id="name" name="name" placeholder="Your Name" required />
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="input-container">
-              <i class="fas fa-envelope input-icon"></i>
-              <input type="email" id="email" name="email" placeholder="Your Email" required />
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="input-container">
-              <i class="fas fa-comment input-icon"></i>
-              <textarea id="message" name="message" placeholder="Your Message" required></textarea>
-            </div>
-          </div>
-          <button type="submit" id="submit-btn">
-            <span>Send Message</span>
-            <i class="fas fa-paper-plane"></i>
-          </button>
-          <div id="status" class="form-status"></div>
-        </form>
-      </div>
-    </div>
-  </section>
-  
-  <footer>
-    <div class="footer-container">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <img src="logo.png" alt="Logo" />
-          <h3>Nafis Niloy</h3>
-        </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-        <div class="social-links">
-          <h4>Connect With Me</h4>
-          <div class="social-icons">
-            <a href="https://github.com/Nafisniloy" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 Nafis Niloy. All Rights Reserved.</p>
-        <a href="#top" class="back-to-top">
-          <i class="fas fa-arrow-up"></i>
-        </a>
-      </div>
-    </div>
-  </footer>
-  
-  <script src="script.js"></script>
-  <script src="typing.js"></script>
-  <script src="particles.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+                <!-- About Text -->
+                <div class="lg:w-1/2 reveal">
+                    <h2 class="text-sm font-bold tracking-widest text-primary uppercase mb-2">About Me</h2>
+                    <h3 class="text-3xl lg:text-4xl font-bold text-white mb-6">Building digital experiences with passion & precision.</h3>
+                    
+                    <div class="space-y-4 text-slate-400 leading-relaxed mb-8">
+                        <p>
+                            Hi! I'm <span class="text-white font-semibold">Nafis Niloy</span>, a web app and game developer from Bangladesh. I specialize in building robust web applications and interactive games.
+                        </p>
+                        <p>
+                            My journey in tech involves working with a diverse set of technologies, always focusing on performance and writing clean, maintainable code.
+                        </p>
+                    </div>
 
+                    <!-- Tech Stack -->
+                    <div class="mb-8">
+                        <h4 class="text-white font-bold mb-4">Tech Stack</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-slate-800 text-yellow-400 text-sm font-mono rounded border border-slate-700">JavaScript</span>
+                            <span class="px-3 py-1 bg-slate-800 text-blue-400 text-sm font-mono rounded border border-slate-700">React</span>
+                            <span class="px-3 py-1 bg-slate-800 text-cyan-400 text-sm font-mono rounded border border-slate-700">React Native</span>
+                            <span class="px-3 py-1 bg-slate-800 text-purple-400 text-sm font-mono rounded border border-slate-700">PHP</span>
+                            <span class="px-3 py-1 bg-slate-800 text-red-500 text-sm font-mono rounded border border-slate-700">Laravel</span>
+                            <span class="px-3 py-1 bg-slate-800 text-green-400 text-sm font-mono rounded border border-slate-700">Python</span>
+                            <span class="px-3 py-1 bg-slate-800 text-indigo-400 text-sm font-mono rounded border border-slate-700">Godot</span>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="inline-flex items-center text-primary font-bold hover:text-white transition-colors group">
+                        Let's work together <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-darker relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-sm font-bold tracking-widest text-primary uppercase mb-2">Portfolio</h2>
+                <h3 class="text-3xl lg:text-4xl font-bold text-white">Recent Projects</h3>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                
+                <!-- Project 1 -->
+                <div class="group bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 reveal project-item">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="mygame.png" alt="Shelf Shuffle" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 z-20">
+                            <a href="https://knight.alphasoft.website" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-darker hover:scale-110 transition-transform">
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-green-400 bg-green-400/10 px-2 py-1 rounded">Godot</span>
+                            <span class="text-xs font-mono text-blue-400 bg-blue-400/10 px-2 py-1 rounded">GDScript</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Shelf Shuffle</h3>
+                        <p class="text-slate-400 text-sm mb-4">A fun puzzle game where you shuffle shelves to solve challenges.</p>
+                        <a href="https://knight.alphasoft.website" target="_blank" class="text-primary text-sm font-bold hover:text-white transition-colors">Play Now &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 reveal project-item">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="alphanews.png" alt="AlphaNews" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-purple-400 bg-purple-400/10 px-2 py-1 rounded">PHP</span>
+                            <span class="text-xs font-mono text-orange-400 bg-orange-400/10 px-2 py-1 rounded">MySQL</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">AlphaNews</h3>
+                        <p class="text-slate-400 text-sm mb-4">A modern news website with full admin functionality for managing content.</p>
+                        <a href="https://alphanews.alphasoft.website" target="_blank" class="text-primary text-sm font-bold hover:text-white transition-colors">Visit Site &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 reveal project-item">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="goodmart.png" alt="GoodMart" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-cyan-400 bg-cyan-400/10 px-2 py-1 rounded">React Native</span>
+                            <span class="text-xs font-mono text-yellow-400 bg-yellow-400/10 px-2 py-1 rounded">PocketBase</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">GoodMart BD</h3>
+                        <p class="text-slate-400 text-sm mb-4">An ecommerce platform with web and mobile apps for seamless shopping.</p>
+                        <a href="https://goodmartbd.com" target="_blank" class="text-primary text-sm font-bold hover:text-white transition-colors">Visit Site &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="group bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 reveal project-item">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="alphasoft.png" alt="AlphaSoft" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-orange-400 bg-orange-400/10 px-2 py-1 rounded">HTML</span>
+                            <span class="text-xs font-mono text-blue-400 bg-blue-400/10 px-2 py-1 rounded">CSS</span>
+                            <span class="text-xs font-mono text-yellow-400 bg-yellow-400/10 px-2 py-1 rounded">JS</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">AlphaSoft</h3>
+                        <p class="text-slate-400 text-sm mb-4">A business portfolio website showcasing services and projects.</p>
+                        <a href="https://alphasoft.website" target="_blank" class="text-primary text-sm font-bold hover:text-white transition-colors">Visit Site &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="group bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 reveal project-item">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="juthisbloom.png" alt="Juthis Bloom" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-red-500 bg-red-500/10 px-2 py-1 rounded">Laravel</span>
+                            <span class="text-xs font-mono text-purple-400 bg-purple-400/10 px-2 py-1 rounded">PHP</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Juthis Bloom</h3>
+                        <p class="text-slate-400 text-sm mb-4">An ecommerce website built with Laravel for floral products.</p>
+                        <a href="https://juthisbloom.com" target="_blank" class="text-primary text-sm font-bold hover:text-white transition-colors">Visit Site &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="group bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 reveal project-item">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="mychat.png" alt="My Chat" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-cyan-400 bg-cyan-400/10 px-2 py-1 rounded">React</span>
+                            <span class="text-xs font-mono text-yellow-500 bg-yellow-500/10 px-2 py-1 rounded">Firebase</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">My Chat</h3>
+                        <p class="text-slate-400 text-sm mb-4">Real-time chat application allowing users to connect instantly.</p>
+                        <div class="flex gap-4">
+                            <a href="https://github.com/Nafisniloy/MyChat" class="text-slate-400 hover:text-white"><i class="fab fa-github"></i> Code</a>
+                            <a href="https://mychat-eta-pied.vercel.app/" class="text-primary font-bold hover:text-white">Preview &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden Projects (Revealed by Button) -->
+                <div class="hidden-project group bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 reveal hidden">
+                    <div class="relative h-48 overflow-hidden">
+                         <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="quiz.png" alt="Quiz" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-yellow-400 bg-yellow-400/10 px-2 py-1 rounded">JS</span>
+                            <span class="text-xs font-mono text-pink-400 bg-pink-400/10 px-2 py-1 rounded">API</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Quiz App</h3>
+                        <p class="text-slate-400 text-sm mb-4">Interactive quiz application with dynamic results.</p>
+                        <div class="flex gap-4">
+                            <a href="https://github.com/Nafisniloy/quiz" class="text-slate-400 hover:text-white"><i class="fab fa-github"></i> Code</a>
+                            <a href="https://nafisniloy.github.io/quiz/" class="text-primary font-bold hover:text-white">Preview &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden-project group bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 reveal hidden">
+                    <div class="relative h-48 overflow-hidden">
+                         <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="weather.png" alt="Weather" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-blue-400 bg-blue-400/10 px-2 py-1 rounded">API</span>
+                            <span class="text-xs font-mono text-yellow-400 bg-yellow-400/10 px-2 py-1 rounded">JS</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Weather App</h3>
+                        <p class="text-slate-400 text-sm mb-4">Check the weather of any city in real-time.</p>
+                        <div class="flex gap-4">
+                            <a href="https://github.com/Nafisniloy/weather" class="text-slate-400 hover:text-white"><i class="fab fa-github"></i> Code</a>
+                            <a href="https://nafisniloy.github.io/weather" class="text-primary font-bold hover:text-white">Preview &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden-project group bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 reveal hidden">
+                    <div class="relative h-48 overflow-hidden">
+                         <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="textconverter.png" alt="Text Converter" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-cyan-400 bg-cyan-400/10 px-2 py-1 rounded">React</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Text Converter</h3>
+                        <p class="text-slate-400 text-sm mb-4">Utility app to convert text formats easily.</p>
+                        <div class="flex gap-4">
+                            <a href="https://github.com/Nafisniloy/text-converter" class="text-slate-400 hover:text-white"><i class="fab fa-github"></i> Code</a>
+                            <a href="https://nafisniloy.github.io/text-converter/" class="text-primary font-bold hover:text-white">Preview &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden-project group bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 reveal hidden">
+                    <div class="relative h-48 overflow-hidden">
+                         <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="portfolio.png" alt="Portfolio" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-orange-400 bg-orange-400/10 px-2 py-1 rounded">HTML</span>
+                             <span class="text-xs font-mono text-blue-400 bg-blue-400/10 px-2 py-1 rounded">CSS</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Old Portfolio</h3>
+                        <p class="text-slate-400 text-sm mb-4">Previous version of my personal portfolio.</p>
+                        <div class="flex gap-4">
+                            <a href="https://github.com/Nafisniloy/nafisniloy.github.io" class="text-slate-400 hover:text-white"><i class="fab fa-github"></i> Code</a>
+                            <a href="/" class="text-primary font-bold hover:text-white">Preview &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button id="load-more-btn" class="px-8 py-3 border border-slate-700 rounded-full text-slate-300 hover:bg-slate-800 hover:text-white transition-colors">
+                    Show More Projects <i class="fas fa-chevron-down ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-dark">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-slate-900 rounded-2xl p-8 lg:p-12 shadow-2xl border border-slate-800 reveal">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-white mb-4">Get In Touch</h2>
+                    <p class="text-slate-400">Have a project in mind or want to say hi? I'd love to hear from you.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Contact Info -->
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-400">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-white">Email</h4>
+                                <p class="text-slate-400">mdabunafisniloy@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center text-purple-400">
+                                <i class="fas fa-phone text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-white">Phone</h4>
+                                <p class="text-slate-400">+880 1888606568</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center text-green-400">
+                                <i class="fas fa-map-marker-alt text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-white">Location</h4>
+                                <p class="text-slate-400">Dhaka, Bangladesh</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <input type="text" placeholder="Your Name" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" required>
+                        </div>
+                        <div>
+                            <input type="email" placeholder="Your Email" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" required>
+                        </div>
+                        <div>
+                            <textarea rows="4" placeholder="Your Message" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-primary text-white font-bold rounded-lg hover:bg-blue-600 transition-all flex justify-center items-center group">
+                            Send Message <i class="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker py-8 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <img src="logo.png" alt="Logo" class="h-6 w-auto">
+                <span class="text-slate-400 text-sm">© 2025 Nafis Niloy. All Rights Reserved.</span>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-slate-500 hover:text-white transition-colors"><i class="fab fa-github"></i></a>
+                <a href="#" class="text-slate-500 hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-slate-500 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- EmailJS (Required for form functionality if you use it) -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Typing Effect
+        const words = ["Web & Game Developer", "Full Stack Developer", "Problem Solver", "JavaScript Expert"];
+        let i = 0;
+        let timer;
+
+        function typeWriter() {
+            const heading = document.getElementById("typing-text");
+            const word = words[i];
+            const current = heading.textContent;
+
+            if (heading.getAttribute("data-deleting") === "true") {
+                heading.textContent = current.substring(0, current.length - 1);
+                if (heading.textContent === "") {
+                    heading.removeAttribute("data-deleting");
+                    i = (i + 1) % words.length;
+                    timer = setTimeout(typeWriter, 500);
+                } else {
+                    timer = setTimeout(typeWriter, 50);
+                }
+            } else {
+                heading.textContent = word.substring(0, current.length + 1);
+                if (heading.textContent === word) {
+                    heading.setAttribute("data-deleting", "true");
+                    timer = setTimeout(typeWriter, 2000);
+                } else {
+                    timer = setTimeout(typeWriter, 100);
+                }
+            }
+        }
+        document.addEventListener('DOMContentLoaded', typeWriter);
+
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('close-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            menu.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        btn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+
+        links.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+
+        // Scroll Animations (Reveal)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+
+
+        // Load More Projects
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        const hiddenProjects = document.querySelectorAll('.hidden-project');
+        
+        loadMoreBtn.addEventListener('click', () => {
+            hiddenProjects.forEach(project => {
+                project.classList.remove('hidden');
+                setTimeout(() => project.classList.add('active'), 100); // Trigger animation
+            });
+            loadMoreBtn.style.display = 'none';
+        });
+
+        // Contact Form Prevention (Visual Only)
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+            btn.classList.remove('bg-primary');
+            btn.classList.add('bg-green-600');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.add('bg-primary');
+                btn.classList.remove('bg-green-600');
+                this.reset();
+            }, 3000);
+        });
+    </script>
 </body>
-
 </html>
