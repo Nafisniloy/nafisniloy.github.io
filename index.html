@@ -1,568 +1,1217 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nafis Niloy | Digital Craftsman</title>
-    <link rel="shortcut icon" href="myLogo.png" type="image/x-icon">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- GSAP (Animation Engine) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MD Abu Nafis Niloy | Technical Founder, Programmer & AI Builder</title>
+  <meta name="description" content="Self-taught programmer, entrepreneur & founder of QCodeAI. Building software, experimenting with AI, and turning ideas into working products.">
+  <meta name="keywords" content="MD Abu Nafis Niloy, QCodeAI, Alpha AI Agent, Alpha Soft, technical founder, self-taught programmer, AI builder, Godot, Bangladesh">
+  <meta name="author" content="MD Abu Nafis Niloy">
 
-    <!-- Fonts: Manrope (Modern) & Playfair Display (Elegant) -->
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- OpenGraph / Social Metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nafisniloy.github.io/">
+  <meta property="og:title" content="MD Abu Nafis Niloy | Technical Founder & AI Builder">
+  <meta property="og:description" content="Self-taught programmer, entrepreneur & founder of QCodeAI. I build software, experiment with AI, and turn ideas into working products.">
+  <meta property="og:image" content="assets/images/niloy-portrait.jpg">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Manrope', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        void: '#020204',
-                        glass: 'rgba(255, 255, 255, 0.03)',
-                        accent: '#6d28d9', // Deep Purple
-                        glow: '#c084fc', // Light Purple
-                    },
-                    animation: {
-                        'float': 'float 10s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0) scale(1)' },
-                            '50%': { transform: 'translateY(-20px) scale(1.05)' },
-                        }
-                    },
-                    screens: {
-                        'xs': '375px',
-                    }
-                }
-            }
-        }
-    </script>
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@MDAbuNafisNiloy">
+  <meta name="twitter:title" content="MD Abu Nafis Niloy | Technical Founder & AI Builder">
+  <meta name="twitter:description" content="Self-taught programmer, entrepreneur & founder of QCodeAI. Building software, experimenting with AI, and turning ideas into working products.">
+  <meta name="twitter:image" content="assets/images/niloy-portrait.jpg">
 
-    <style>
-        body {
-            background-color: #020204;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="assets/images/myLogo.png">
+  <link rel="apple-touch-icon" href="assets/images/myLogo.png">
 
-        /* Cursor Logic: Only hide default cursor on large screens */
-        @media (min-width: 768px) {
-            body {
-                cursor: none;
-            }
-        }
+  <!-- Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-        /* 1. Cinematic Background */
-        .noise-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 50;
-            opacity: 0.04;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
+  <!-- FontAwesome 6 for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-            opacity: 0.4;
-            animation: float 10s infinite ease-in-out;
-        }
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 
-        /* 2. Custom Cursor */
-        .cursor-ring {
-            position: fixed;
-            top: 0; left: 0;
-            width: 30px; height: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9999;
-            transition: width 0.3s, height 0.3s, border-color 0.3s;
-        }
-        .cursor-dot {
-            position: fixed;
-            top: 0; left: 0;
-            width: 6px; height: 6px;
-            background: white;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9999;
-        }
-        body:hover .cursor-ring { width: 50px; height: 50px; border-color: rgba(255,255,255,0.8); }
-        
-        /* Hide custom cursor on mobile */
-        @media (max-width: 768px) {
-            .cursor-ring, .cursor-dot { display: none !important; }
-        }
-
-        /* 3. Glass Card Styling */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        /* 4. Utility for Project Logic */
-        .is-hidden { display: none !important; }
-        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "MD Abu Nafis Niloy",
+    "jobTitle": "Technical Founder & Software Engineer",
+    "description": "Self-taught programmer, entrepreneur & founder of QCodeAI.",
+    "url": "https://nafisniloy.github.io/",
+    "sameAs": [
+      "https://github.com/nafisniloy",
+      "https://github.com/mdabunafisniloy",
+      "https://www.linkedin.com/in/mdabunafisniloy",
+      "https://x.com/MDAbuNafisNiloy",
+      "https://t.me/mdabunafisniloy"
+    ],
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Noakhali Science and Technology University"
+    }
+  }
+  </script>
 </head>
-<body class="selection:bg-accent selection:text-white">
+<body>
 
-    <!-- Ambient Background -->
-    <div class="noise-bg"></div>
-    <div class="orb bg-purple-600 w-64 h-64 md:w-96 md:h-96 top-0 left-0"></div>
-    <div class="orb bg-blue-600 w-64 h-64 md:w-[500px] md:h-[500px] bottom-0 right-0 animation-delay-2000"></div>
+  <!-- Ambient Light Backdrops -->
+  <div class="ambient-glow ambient-1"></div>
+  <div class="ambient-glow ambient-2"></div>
+  <div class="ambient-glow ambient-3"></div>
+  <div class="noise-overlay"></div>
 
-    <!-- Custom Cursor (Hidden on Mobile via CSS) -->
-    <div class="cursor-ring hidden md:block" id="cursor-ring"></div>
-    <div class="cursor-dot hidden md:block" id="cursor-dot"></div>
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="nav-brand">
+        <img src="assets/images/myLogo.png" alt="MD Abu Nafis Niloy" class="nav-brand-img">
+        <span>Niloy</span>
+      </a>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 transition-all duration-300 py-4 md:py-6 glass-card border-b-0" id="navbar">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <!-- Logo - NO FILTERS -->
-            <a href="#" class="relative z-50 group">
-                <img src="logo.png" alt="Nafis Logo" class="h-8 md:h-10 w-auto transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/40x40?text=N'">
+      <nav class="nav-menu-desktop">
+        <ul class="nav-links">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#journey" class="nav-link">Journey</a></li>
+          <li><a href="#work" class="nav-link">Work</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#how-i-build" class="nav-link">Approach</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          <span>Building QCodeAI</span>
+        </div>
+        <a href="#contact" class="btn btn-sm btn-primary">Contact</a>
+        <button class="menu-toggle-btn" id="menu-toggle-btn" aria-label="Open mobile menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+  <div class="mobile-nav" id="mobile-nav">
+    <button class="mobile-close-btn" id="mobile-close-btn" aria-label="Close menu">
+      <i class="fas fa-times"></i>
+    </button>
+    <ul class="mobile-links">
+      <li><a href="#about" class="mobile-nav-link">About</a></li>
+      <li><a href="#journey" class="mobile-nav-link">Journey</a></li>
+      <li><a href="#qcodeai" class="mobile-nav-link">QCodeAI</a></li>
+      <li><a href="#alpha-ai" class="mobile-nav-link">Alpha AI Agent</a></li>
+      <li><a href="#alphasoft" class="mobile-nav-link">Alpha Soft</a></li>
+      <li><a href="#work" class="mobile-nav-link">Selected Work</a></li>
+      <li><a href="#skills" class="mobile-nav-link">Technical Stack</a></li>
+      <li><a href="#how-i-build" class="mobile-nav-link">How I Build</a></li>
+      <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+    </ul>
+    <div>
+      <div class="status-pill" style="margin-bottom: 20px;">
+        <span class="status-dot"></span>
+        <span>Building QCodeAI</span>
+      </div>
+      <div class="hero-socials">
+        <a href="https://github.com/nafisniloy" target="_blank" rel="noopener noreferrer" class="social-pill" title="GitHub Profile 1"><i class="fab fa-github"></i></a>
+        <a href="https://github.com/mdabunafisniloy" target="_blank" rel="noopener noreferrer" class="social-pill" title="GitHub Profile 2"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/mdabunafisniloy" target="_blank" rel="noopener noreferrer" class="social-pill" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://x.com/MDAbuNafisNiloy" target="_blank" rel="noopener noreferrer" class="social-pill" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge-wrap">
+            <span class="hero-badge"><span class="highlight">Founder</span> &bull; QCodeAI</span>
+            <span class="hero-badge"><span class="highlight">Agency</span> &bull; Founded Alpha Soft</span>
+            <span class="hero-badge"><span class="highlight">Open Source</span> &bull; Godot 4 AI Agent</span>
+          </div>
+
+          <h1 class="hero-name">MD Abu Nafis Niloy</h1>
+
+          <h2 class="hero-subheadline">
+            Self-taught programmer, entrepreneur & founder of <span class="accent-text">QCodeAI</span>.
+          </h2>
+
+          <p class="hero-supporting">
+            "I build software, experiment with AI, and turn ideas into working products."
+          </p>
+
+          <div class="hero-positioning">
+            "I started by teaching myself how to build software, then spent years building real products for businesses and customers. Today, I'm focused on building AI-powered software products of my own."
+          </div>
+
+          <div class="hero-actions">
+            <a href="#work" class="btn btn-primary">
+              <span>View My Work</span>
+              <i class="fas fa-arrow-down"></i>
             </a>
+            <a href="#about" class="btn btn-secondary">
+              <span>About Me</span>
+            </a>
+          </div>
 
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center gap-12 bg-white/5 backdrop-blur-md px-8 py-3 rounded-full border border-white/10">
-                <a href="#about" class="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 hover:text-white transition-colors">About</a>
-                <a href="#work" class="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 hover:text-white transition-colors">Work</a>
-                <a href="#contact" class="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 hover:text-white transition-colors">Contact</a>
+          <!-- Dual GitHub and Social Profiles -->
+          <div class="hero-socials">
+            <a href="https://github.com/nafisniloy" target="_blank" rel="noopener noreferrer" class="social-pill social-pill-gh" title="Personal & Experimental Projects">
+              <i class="fab fa-github"></i>
+              <span>github.com/nafisniloy</span>
+            </a>
+            <a href="https://github.com/mdabunafisniloy" target="_blank" rel="noopener noreferrer" class="social-pill social-pill-gh" title="AI Agent & Organization Projects">
+              <i class="fab fa-github"></i>
+              <span>github.com/mdabunafisniloy</span>
+            </a>
+            <a href="https://www.linkedin.com/in/mdabunafisniloy" target="_blank" rel="noopener noreferrer" class="social-pill" title="LinkedIn Profile">
+              <i class="fab fa-linkedin-in"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://x.com/MDAbuNafisNiloy" target="_blank" rel="noopener noreferrer" class="social-pill" title="X / Twitter">
+              <i class="fab fa-x-twitter"></i>
+              <span>@MDAbuNafisNiloy</span>
+            </a>
+          </div>
+
+          <!-- Credibility Proof Strip -->
+          <div class="hero-credibility-bar">
+            <div class="credibility-item">
+              <div class="credibility-icon"><i class="fas fa-briefcase"></i></div>
+              <div class="credibility-text">
+                <span class="credibility-val">30+ Direct Clients</span>
+                <span class="credibility-desc">Business systems delivered</span>
+              </div>
             </div>
-
-            <!-- Mobile Toggle -->
-            <button id="menu-btn" class="md:hidden text-white z-50 text-2xl p-2"><i class="fas fa-bars"></i></button>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-40 flex flex-col justify-center items-center gap-8 opacity-0 pointer-events-none transition-opacity duration-500">
-            <a href="#about" class="text-3xl font-serif italic hover:text-accent transition-colors mobile-link">About Me</a>
-            <a href="#work" class="text-3xl font-serif italic hover:text-accent transition-colors mobile-link">Selected Work</a>
-            <a href="#contact" class="text-3xl font-serif italic hover:text-accent transition-colors mobile-link">Get in Touch</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <!-- Increased padding-top (pt-40) to prevent overlap with header on desktop -->
-    <section class="relative min-h-screen flex flex-col justify-center items-center px-4 md:px-6 pt-32 md:pt-40">
-        <div class="max-w-6xl w-full text-center z-10">
-            <p class="text-xs md:text-base text-accent uppercase tracking-[0.3em] mb-4 md:mb-6 font-bold hero-anim opacity-0 translate-y-10">Web & Game Developer</p>
-            
-            <h1 class="font-sans font-extrabold text-5xl sm:text-6xl md:text-8xl lg:text-9xl leading-[0.9] mb-6 md:mb-8 mix-blend-overlay opacity-90">
-                <div class="overflow-hidden"><span class="block hero-title-line">NAFIS</span></div>
-                <div class="overflow-hidden"><span class="block hero-title-line text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">NILOY</span></div>
-            </h1>
-
-            <div class="max-w-xl md:max-w-2xl mx-auto mb-12 hero-anim opacity-0 translate-y-10 px-4">
-                <p class="text-base md:text-2xl font-serif italic text-gray-400 leading-relaxed">
-                    "Crafting digital masterpieces where logic meets <span class="text-white not-italic decoration-accent decoration-1 underline-offset-4">pure imagination</span>."
-                </p>
+            <div class="credibility-item">
+              <div class="credibility-icon" style="color: var(--accent-violet); background: rgba(167, 139, 250, 0.1);"><i class="fas fa-robot"></i></div>
+              <div class="credibility-text">
+                <span class="credibility-val">Godot Asset #5383</span>
+                <span class="credibility-desc">Alpha AI Agent (MIT)</span>
+              </div>
             </div>
-
-            <div class="hero-anim opacity-0 translate-y-10">
-                <a href="#work" class="group relative inline-flex items-center gap-4 px-6 py-3 md:px-8 md:py-4 bg-white text-black rounded-full font-bold overflow-hidden transition-all hover:pr-6 text-sm md:text-base">
-                    <span class="relative z-10">View Projects</span>
-                    <div class="w-6 h-6 md:w-8 md:h-8 bg-black rounded-full text-white flex items-center justify-center transition-transform group-hover:rotate-90">
-                        <i class="fas fa-arrow-down text-xs md:text-sm"></i>
-                    </div>
-                </a>
+            <div class="credibility-item">
+              <div class="credibility-icon" style="color: var(--accent-amber); background: rgba(251, 191, 36, 0.1);"><i class="fab fa-opera"></i></div>
+              <div class="credibility-text">
+                <span class="credibility-val">440 Downloads</span>
+                <span class="credibility-desc">Shelf Shuffle Opera game</span>
+              </div>
             </div>
+            <div class="credibility-item">
+              <div class="credibility-icon" style="color: var(--accent-emerald); background: rgba(52, 211, 153, 0.1);"><i class="fas fa-rocket"></i></div>
+              <div class="credibility-text">
+                <span class="credibility-val">Founder &bull; QCodeAI</span>
+                <span class="credibility-desc">AI software platform</span>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
-            <span class="text-[10px] uppercase tracking-widest">Scroll</span>
-            <div class="w-[1px] h-8 md:h-12 bg-gradient-to-b from-white to-transparent"></div>
-        </div>
+      </div>
     </section>
 
-    <!-- About / Stack Section -->
-    <section id="about" class="py-20 md:py-32 px-4 md:px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
-                
-                <!-- Image with Parallax -->
-                <div class="w-full lg:w-5/12 relative group">
-                    <div class="absolute -inset-2 bg-gradient-to-br from-accent to-blue-600 rounded-xl opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-700"></div>
-                    <div class="relative h-[400px] md:h-[600px] w-full rounded-xl overflow-hidden glass-card">
-                        <img src="web.png" alt="Workspace" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000'">
-                        
-                        <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 bg-gradient-to-t from-black to-transparent">
-                            <h3 class="text-2xl md:text-3xl font-serif italic">The Architect</h3>
-                            <p class="text-xs md:text-sm text-gray-400 mt-2">Based in Dhaka, Bangladesh</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Content -->
-                <div class="w-full lg:w-7/12 pt-0 lg:pt-10">
-                    <h2 class="text-xs md:text-sm text-accent font-bold tracking-[0.2em] uppercase mb-4 md:mb-6">About Me</h2>
-                    <h3 class="text-3xl md:text-5xl font-bold leading-tight mb-6 md:mb-8">
-                        I translate complex problems into <br>
-                        <span class="font-serif italic font-normal text-gray-400">elegant, interactive solutions.</span>
-                    </h3>
-                    
-                    <div class="space-y-4 md:space-y-6 text-base md:text-lg text-gray-400 font-light leading-relaxed mb-8 md:mb-12">
-                        <p>
-                            Hello, I'm <strong class="text-white">Nafis Niloy</strong>. I exist at the intersection of creative design and technical engineering. My passion lies in building software that feels alive—whether it's a high-performance web application or an immersive game environment.
-                        </p>
-                        <p>
-                            With expertise in <span class="text-white">React, Laravel, and Godot</span>, I don't just write code; I orchestrate experiences.
-                        </p>
-                    </div>
-
-                    <!-- Modern Skill Grid -->
-                    <div class="grid grid-cols-2 xs:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                        <div class="p-3 md:p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
-                            <i class="fab fa-js text-xl md:text-2xl text-yellow-400 mb-2"></i>
-                            <div class="font-bold text-xs md:text-sm">JavaScript</div>
-                        </div>
-                        <div class="p-3 md:p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
-                            <i class="fab fa-react text-xl md:text-2xl text-cyan-400 mb-2"></i>
-                            <div class="font-bold text-xs md:text-sm">React</div>
-                        </div>
-                        <div class="p-3 md:p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
-                            <i class="fab fa-laravel text-xl md:text-2xl text-red-500 mb-2"></i>
-                            <div class="font-bold text-xs md:text-sm">Laravel</div>
-                        </div>
-                        <div class="p-3 md:p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
-                            <i class="fas fa-gamepad text-xl md:text-2xl text-green-400 mb-2"></i>
-                            <div class="font-bold text-xs md:text-sm">Godot</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- ABOUT ME SECTION -->
+    <section id="about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fas fa-user"></i> Background</span>
+          <h2 class="section-title">About Me</h2>
+          <p class="section-subtitle">A technical founder driven by self-directed learning, practical product delivery, and real-world software engineering.</p>
         </div>
+
+        <div class="about-grid">
+          <div class="about-text-content">
+            <p>
+              I'm <strong>MD Abu Nafis Niloy</strong>, a self-taught programmer and entrepreneur from Bangladesh, currently studying Zoology at Noakhali Science and Technology University.
+            </p>
+            <p>
+              I started programming around 2020 and became deeply involved in software development around 2022. Since then, I've learned by building — from small experiments and games to business software and AI-powered tools.
+            </p>
+            <p>
+              In 2024, I started <strong>Alpha Soft</strong>, a local software agency where I worked directly with more than 30 clients and businesses in Bangladesh. That experience exposed me to a wide range of real-world software requirements, from e-commerce and CRM systems to POS software, news portals, directories, and custom business solutions.
+            </p>
+            <p>
+              Over time, my interests expanded toward AI and developer tools. I built <strong>Alpha AI Agent</strong>, an open-source AI agent for Godot 4, and I'm now building <strong>QCodeAI</strong>, my main startup.
+            </p>
+            <p style="color: var(--accent-cyan); font-weight: 500;">
+              "I enjoy understanding a problem, figuring out how it should work, and then building the system behind it."
+            </p>
+
+            <div class="about-meta-grid">
+              <div class="about-meta-card">
+                <div class="about-meta-label">Location</div>
+                <div class="about-meta-value">Bangladesh</div>
+              </div>
+              <div class="about-meta-card">
+                <div class="about-meta-label">Education</div>
+                <div class="about-meta-value">Zoology &bull; NSTU</div>
+              </div>
+              <div class="about-meta-card">
+                <div class="about-meta-label">Programming Since</div>
+                <div class="about-meta-value">2020 (Deep dev 2022)</div>
+              </div>
+              <div class="about-meta-card">
+                <div class="about-meta-label">Current Role</div>
+                <div class="about-meta-value">Founder at QCodeAI</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-photo-wrapper">
+            <img src="assets/images/niloy-portrait.jpg" alt="MD Abu Nafis Niloy" class="about-photo">
+            <div class="about-photo-badge">
+              <strong>MD Abu Nafis Niloy</strong>
+              <span>Technical Founder & AI Software Builder</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- Selected Works -->
-    <section id="work" class="py-20 md:py-32 px-4 md:px-6 relative">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-4 md:gap-6">
-                <div>
-                    <h2 class="text-xs md:text-sm text-accent font-bold tracking-[0.2em] uppercase mb-2 md:mb-4">Portfolio</h2>
-                    <h3 class="text-4xl md:text-6xl font-serif italic">Selected Works</h3>
-                </div>
-                <div class="h-[1px] bg-white/10 flex-grow mx-8 mb-4 hidden md:block"></div>
-                <div class="text-left md:text-right">
-                    <p class="text-gray-400 text-sm">Explore my recent<br> digital creations.</p>
-                </div>
+    <!-- MY JOURNEY (TIMELINE) SECTION -->
+    <section id="journey">
+      <div class="container">
+        <div class="section-header" style="text-align: center; max-width: 700px; margin-left: auto; margin-right: auto;">
+          <span class="section-tag"><i class="fas fa-stream"></i> Narrative</span>
+          <h2 class="section-title">My Journey</h2>
+          <p class="section-subtitle">How self-taught experimentation evolved into client delivery, product shipping, and AI startup development.</p>
+        </div>
+
+        <div class="timeline">
+          <!-- 2020 -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="glass-card timeline-content-card">
+              <span class="timeline-year">2020</span>
+              <h3>Started Learning Programming</h3>
+              <p>Began experimenting with programming and learning the fundamentals independently through documentation, projects, and hands-on experimentation.</p>
             </div>
+          </div>
 
-            <!-- Projects Grid (Single column on mobile) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                
-                <!-- Project 1 (Visible) -->
-                <a href="https://knight.alphasoft.website" target="_blank" class="group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-56 md:h-64 overflow-hidden relative">
-                        <img src="mygame.png" alt="Shelf Shuffle" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Game+Project'">
-                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    </div>
-                    <div class="p-6 md:p-8">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-[10px] md:text-xs font-bold text-accent uppercase tracking-widest border border-accent/30 px-2 py-1 rounded">Game Dev</span>
-                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-accent transition-colors">Shelf Shuffle</h4>
-                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">A strategic puzzle game built with Godot. Shuffle shelves, solve logic puzzles, and advance levels.</p>
-                    </div>
-                </a>
-
-                <!-- Project 2 (Visible) -->
-                <a href="https://alphanews.alphasoft.website" target="_blank" class="group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-56 md:h-64 overflow-hidden relative">
-                        <img src="alphanews.png" alt="AlphaNews" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Web+App'">
-                    </div>
-                    <div class="p-6 md:p-8">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-[10px] md:text-xs font-bold text-blue-400 uppercase tracking-widest border border-blue-400/30 px-2 py-1 rounded">Web App</span>
-                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors">AlphaNews</h4>
-                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">A comprehensive news portal with dynamic content management capabilities powered by PHP.</p>
-                    </div>
-                </a>
-
-                <!-- Project 3 (Visible) -->
-                <a href="https://goodmartbd.com" target="_blank" class="group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-56 md:h-64 overflow-hidden relative">
-                        <img src="goodmart.png" alt="GoodMart" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Ecommerce'">
-                    </div>
-                    <div class="p-6 md:p-8">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-[10px] md:text-xs font-bold text-green-400 uppercase tracking-widest border border-green-400/30 px-2 py-1 rounded">Ecommerce</span>
-                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-green-400 transition-colors">GoodMart BD</h4>
-                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">Full-stack ecommerce solution with web & mobile app integration using React Native.</p>
-                    </div>
-                </a>
-
-                <!-- Project 4 (Visible) -->
-                <a href="https://alphasoft.website" target="_blank" class="group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-56 md:h-64 overflow-hidden relative">
-                        <img src="alphasoft.png" alt="AlphaSoft" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Portfolio'">
-                    </div>
-                    <div class="p-6 md:p-8">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-[10px] md:text-xs font-bold text-orange-400 uppercase tracking-widest border border-orange-400/30 px-2 py-1 rounded">Portfolio</span>
-                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-orange-400 transition-colors">AlphaSoft</h4>
-                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">Corporate portfolio design showcasing digital services and brand identity.</p>
-                    </div>
-                </a>
-
-                <!-- Hidden Projects (Initially is-hidden) -->
-                
-                <a href="https://juthisbloom.com" target="_blank" class="is-hidden hidden-project group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-56 md:h-64 overflow-hidden relative">
-                        <img src="juthisbloom.png" alt="Juthis Bloom" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=Laravel'">
-                    </div>
-                    <div class="p-6 md:p-8">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-[10px] md:text-xs font-bold text-red-400 uppercase tracking-widest border border-red-400/30 px-2 py-1 rounded">Laravel</span>
-                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-red-400 transition-colors">Juthis Bloom</h4>
-                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">Floral ecommerce platform built with robust Laravel backend architecture.</p>
-                    </div>
-                </a>
-
-                <a href="https://github.com/Nafisniloy/MyChat" target="_blank" class="is-hidden hidden-project group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-56 md:h-64 overflow-hidden relative">
-                        <img src="mychat.png" alt="My Chat" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=App'">
-                    </div>
-                    <div class="p-6 md:p-8">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-[10px] md:text-xs font-bold text-yellow-400 uppercase tracking-widest border border-yellow-400/30 px-2 py-1 rounded">React</span>
-                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-yellow-400 transition-colors">My Chat</h4>
-                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">Real-time messaging application powered by Firebase and React frontend.</p>
-                    </div>
-                </a>
-
-                <a href="https://github.com/Nafisniloy/quiz" target="_blank" class="is-hidden hidden-project group glass-card rounded-2xl overflow-hidden block">
-                    <div class="h-56 md:h-64 overflow-hidden relative">
-                        <img src="quiz.png" alt="Quiz App" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/ffffff?text=JS+App'">
-                    </div>
-                    <div class="p-6 md:p-8">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-[10px] md:text-xs font-bold text-pink-400 uppercase tracking-widest border border-pink-400/30 px-2 py-1 rounded">JavaScript</span>
-                            <i class="fas fa-arrow-up-right text-gray-500 group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-pink-400 transition-colors">Quiz App</h4>
-                        <p class="text-gray-400 text-xs md:text-sm line-clamp-2">Interactive quiz logic built with pure JavaScript and dynamic API integration.</p>
-                    </div>
-                </a>
-
+          <!-- 2022 -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="glass-card timeline-content-card">
+              <span class="timeline-year">2022</span>
+              <h3>Deep Software Development</h3>
+              <p>Moved from casual experimentation toward deeper software development, writing complex backend logic, designing databases, and building complete web applications.</p>
             </div>
+          </div>
 
-            <!-- Robust Load More Button -->
-            <div class="mt-12 md:mt-20 flex justify-center">
-                <button id="load-more-btn" class="relative overflow-hidden px-8 py-3 md:px-10 md:py-4 bg-transparent border border-white/20 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest hover:border-white transition-colors group">
-                    <span class="relative z-10 group-hover:text-black transition-colors">Load All Projects</span>
-                    <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+          <!-- 2024 -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="glass-card timeline-content-card">
+              <span class="timeline-year">2024</span>
+              <h3>Founded Alpha Soft</h3>
+              <p>Started a local software agency in Bangladesh, establishing direct relationships with local businesses to solve actual operational challenges with custom digital tools.</p>
+            </div>
+          </div>
+
+          <!-- 30+ Clients -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="glass-card timeline-content-card">
+              <span class="timeline-year">30+ Clients</span>
+              <h3>Real-World Client Delivery</h3>
+              <p>Worked directly with more than 30 clients and businesses across diverse project types including e-commerce platforms, custom CRM systems, POS software, news portals, and local directories.</p>
+            </div>
+          </div>
+
+          <!-- AI & Open Source -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="glass-card timeline-content-card">
+              <span class="timeline-year">AI & Open Source</span>
+              <h3>Alpha AI Agent for Godot 4</h3>
+              <p>Started exploring AI-powered development tools and built Alpha AI Agent, an in-editor agentic coding assistant for Godot 4, published open-source to the official Godot Asset Library.</p>
+            </div>
+          </div>
+
+          <!-- QCodeAI -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="glass-card timeline-content-card" style="border-color: rgba(56, 189, 248, 0.3);">
+              <span class="timeline-year" style="background: rgba(56, 189, 248, 0.2); color: #fff;">Present &bull; Flagship</span>
+              <h3 style="color: var(--accent-cyan);">Building QCodeAI</h3>
+              <p>Started building QCodeAI, an AI software creation platform focused on turning natural-language intent into working web applications for creators and non-technical founders.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLAGSHIP PROJECT 1: QCODEAI -->
+    <section id="qcodeai">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fas fa-rocket"></i> Main Startup</span>
+          <h2 class="section-title">Current Focus: QCodeAI</h2>
+          <p class="section-subtitle">Bridging the gap between conceptual ideas and production web applications using specialized generative engineering.</p>
+        </div>
+
+        <div class="flagship-card">
+          <div class="flagship-grid">
+            <div>
+              <div class="flagship-header-badge">
+                <i class="fas fa-sparkles"></i>
+                <span>AI Software Creation Platform</span>
+              </div>
+              <h3 class="flagship-title">QCodeAI</h3>
+              <p class="flagship-tagline">Turn natural language intent into functional, full-stack web applications.</p>
+
+              <p class="flagship-desc">
+                QCodeAI is my current startup, focused on making software creation accessible to people who have ideas but don't have deep technical knowledge. Users describe what they want to build in natural language, and QCodeAI is designed to understand the user's intent and handle much of the engineering required to turn that intent into a working web application.
+              </p>
+
+              <div class="flagship-philosophy">
+                "The goal isn't simply to generate code. It's to reduce the amount of technical knowledge required between having a software idea and getting to a working product."
+              </div>
+
+              <div class="flagship-capabilities">
+                <div class="cap-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Business Applications & CRM</span>
+                </div>
+                <div class="cap-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>E-Commerce Applications</span>
+                </div>
+                <div class="cap-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Authentication & Access Roles</span>
+                </div>
+                <div class="cap-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Database & Backend Logic</span>
+                </div>
+                <div class="cap-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Admin Dashboards</span>
+                </div>
+                <div class="cap-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Functional UI Components</span>
+                </div>
+              </div>
+
+              <div class="flagship-actions">
+                <a href="https://qcodeai.app" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">
+                  <span>Visit Website</span>
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+                <button type="button" class="btn btn-secondary trigger-qcode-video" id="open-qcode-video">
+                  <i class="fas fa-play" style="color: var(--accent-cyan);"></i>
+                  <span>Watch Demo Video</span>
                 </button>
+                <a href="https://youtu.be/Nr6aQLnXgzg" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size: 0.875rem;">
+                  <i class="fab fa-youtube" style="color: #ef4444;"></i>
+                  <span>Open on YouTube</span>
+                </a>
+              </div>
+
+              <div class="flagship-status-note">
+                <i class="fas fa-info-circle"></i> Note: Currently being developed toward MVP and early-user validation.
+              </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 md:py-32 px-4 md:px-6">
-        <div class="max-w-5xl mx-auto glass-card rounded-3xl p-6 md:p-16 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-accent/20 blur-[100px]"></div>
-            
-            <div class="grid md:grid-cols-2 gap-8 md:gap-12 relative z-10">
-                <div>
-                    <h2 class="text-4xl md:text-6xl font-serif italic mb-4 md:mb-6">Let's Talk.</h2>
-                    <p class="text-sm md:text-base text-gray-400 mb-6 md:mb-8">Have a project in mind? I'm always open to discussing new ideas, creative opportunities, or just having a chat.</p>
-                    
-                    <div class="space-y-4">
-                        <a href="mailto:mdabunafisniloy@gmail.com" class="flex items-center gap-4 text-base md:text-xl hover:text-accent transition-colors">
-                            <div class="w-8 h-8 md:w-10 md:h-10 border border-white/20 rounded-full flex items-center justify-center"><i class="fas fa-envelope text-xs md:text-sm"></i></div>
-                            <span class="text-sm md:text-base break-all">mdabunafisniloy@gmail.com</span>
-                        </a>
-                        <a href="tel:+8801888606568" class="flex items-center gap-4 text-base md:text-xl hover:text-accent transition-colors">
-                            <div class="w-8 h-8 md:w-10 md:h-10 border border-white/20 rounded-full flex items-center justify-center"><i class="fas fa-phone text-xs md:text-sm"></i></div>
-                            <span class="text-sm md:text-base">+880 1888606568</span>
-                        </a>
-                    </div>
-
-                    <div class="mt-8 md:mt-10 flex gap-4">
-                        <a href="https://github.com/Nafisniloy" target="_blank" class="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all transform hover:-translate-y-1"><i class="fab fa-github"></i></a>
-                        <a href="#" class="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all transform hover:-translate-y-1"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all transform hover:-translate-y-1"><i class="fab fa-instagram"></i></a>
-                    </div>
+            <div class="flagship-visual">
+              <div class="flagship-preview-card">
+                <img src="assets/images/qcodeai-ui.png" alt="QCodeAI Platform Preview" class="flagship-banner-img">
+                <div class="flagship-video-overlay trigger-qcode-video" id="open-qcode-video-overlay" role="button" tabindex="0" aria-label="Play QCodeAI demo video">
+                  <div class="play-btn-circle">
+                    <i class="fas fa-play"></i>
+                  </div>
+                  <span class="video-overlay-text">Watch Prototype Demo</span>
                 </div>
-
-                <form id="contact-form" class="space-y-4 md:space-y-6 mt-4">
-                    <div>
-                        <label class="text-[10px] md:text-xs uppercase tracking-widest text-gray-500 mb-2 block">Your Name</label>
-                        <input type="text" class="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-sm md:text-base text-white focus:outline-none focus:border-accent transition-colors" placeholder="John Doe" required>
-                    </div>
-                    <div>
-                        <label class="text-[10px] md:text-xs uppercase tracking-widest text-gray-500 mb-2 block">Your Email</label>
-                        <input type="email" class="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-sm md:text-base text-white focus:outline-none focus:border-accent transition-colors" placeholder="john@example.com" required>
-                    </div>
-                    <div>
-                        <label class="text-[10px] md:text-xs uppercase tracking-widest text-gray-500 mb-2 block">Message</label>
-                        <textarea rows="4" class="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-sm md:text-base text-white focus:outline-none focus:border-accent transition-colors" placeholder="Hello..." required></textarea>
-                    </div>
-                    <button type="submit" class="w-full py-3 md:py-4 bg-accent text-white font-bold uppercase tracking-widest hover:bg-purple-600 transition-colors text-sm md:text-base">Send Message</button>
-                </form>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-8 text-center border-t border-white/5 text-gray-600 text-xs md:text-sm px-4">
-        <p>&copy; 2025 Nafis Niloy. Designed with <i class="fas fa-heart text-red-500"></i> in Bangladesh.</p>
-    </footer>
+    <!-- FLAGSHIP PROJECT 2: ALPHA AI AGENT FOR GODOT -->
+    <section id="alpha-ai">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fas fa-code-branch"></i> Open Source Developer Tool</span>
+          <h2 class="section-title">Alpha AI Agent for Godot</h2>
+          <p class="section-subtitle">An in-editor agentic coding assistant built specifically for Godot 4 developers.</p>
+        </div>
 
-    <!-- EmailJS -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+        <div class="agent-showcase">
+          <div class="agent-grid">
+            <div class="agent-preview-wrapper">
+              <div class="agent-screenshot-card">
+                <img src="assets/images/alpha-ai-godot.png" alt="Alpha AI Agent running inside Godot 4 Editor" class="agent-screenshot-img">
+                <div class="agent-screenshot-badge">
+                  <i class="fas fa-gamepad"></i>
+                  <span>Godot 4.x In-Editor Assistant</span>
+                </div>
+              </div>
+              <div style="font-size: 0.8rem; color: #a78bfa; display: flex; align-items: center; gap: 8px; padding: 2px 4px;">
+                <i class="fas fa-shield-alt"></i>
+                <span>Truth-log inspection via <code>user://logs/godot.log</code></span>
+              </div>
+            </div>
 
-    <!-- Scripts -->
-    <script>
-        // 1. Custom Cursor Script
-        // We select the elements
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorRing = document.querySelector('.cursor-ring');
+            <div>
+              <div class="agent-header-badge">
+                <i class="fab fa-github"></i>
+                <span>MIT Licensed &bull; Godot Asset Library #5383</span>
+              </div>
+              <h3 style="font-size: 2rem; margin-bottom: 8px;">In-Editor Agentic Assistance</h3>
 
-        // We use a simple event listener without media query checks
-        window.addEventListener('mousemove', (e) => {
-            // Get mouse coordinates
-            const { clientX: x, clientY: y } = e;
-            
-            // Move the dot instantly
-            if(cursorDot) {
-                cursorDot.style.left = `${x}px`;
-                cursorDot.style.top = `${y}px`;
-            }
-            
-            // Move the ring with animation for smooth delay
-            if(cursorRing) {
-                cursorRing.animate({
-                    left: `${x}px`,
-                    top: `${y}px`
-                }, { duration: 500, fill: "forwards" });
-            }
-        });
+              <div class="pipeline-pill">
+                <span>Pipeline:</span>
+                <strong>ANALYZE &rarr; EXECUTE &rarr; VERIFY</strong>
+              </div>
 
-        // 2. GSAP Reveal Animations
-        gsap.registerPlugin(ScrollTrigger);
+              <p style="color: #cbd5e1; font-size: 1.025rem; line-height: 1.65; margin-bottom: 20px;">
+                Alpha AI Agent is not a simple chat prompt window. It is an agentic development tool that reads the user's project structure, generates and modifies GDScript, modifies Godot <code>.tscn</code> scene files, connects signals, executes multi-file changes, and verifies execution by inspecting actual runtime logs.
+              </p>
 
-        // Hero Reveal
-        const titleLines = document.querySelectorAll('.hero-title-line');
-        const heroAnim = document.querySelectorAll('.hero-anim');
+              <ul class="agent-features-list">
+                <li><i class="fas fa-check"></i> <span>Reads full project context & node trees</span></li>
+                <li><i class="fas fa-check"></i> <span>Generates & edits GDScript 2.0</span></li>
+                <li><i class="fas fa-check"></i> <span>Modifies scene files & auto-wires signals</span></li>
+                <li><i class="fas fa-check"></i> <span>Multi-file execution with diff safety</span></li>
+                <li><i class="fas fa-check"></i> <span>One-click snapshot revert manager</span></li>
+                <li><i class="fas fa-check"></i> <span>BYOK Multi-Model API Architecture</span></li>
+              </ul>
 
-        gsap.to(titleLines, {
-            y: 0,
-            duration: 1.5,
-            stagger: 0.1,
-            ease: "power4.out",
-            delay: 0.2
-        });
+              <div class="hero-actions" style="margin-bottom: 0;">
+                <a href="https://godotengine.org/asset-library/asset/5383" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                  <i class="fas fa-box" style="color: var(--accent-violet);"></i>
+                  <span>Godot Asset Library</span>
+                </a>
+                <a href="https://github.com/MdAbuNafisNiloy/Alpha-Ai-Plugin" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                  <i class="fab fa-github"></i>
+                  <span>View Repository</span>
+                </a>
+                <a href="https://nafisniloy.itch.io/alpha-ai-agent" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                  <i class="fab fa-itch-io"></i>
+                  <span>itch.io Page</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        gsap.to(heroAnim, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power3.out",
-            delay: 0.8
-        });
+    <!-- ALPHA SOFT SECTION -->
+    <section id="alphasoft">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fas fa-building"></i> Agency Experience</span>
+          <h2 class="section-title">Alpha Soft</h2>
+          <p class="section-subtitle">Real-world software delivery for local businesses and organizations in Bangladesh.</p>
+        </div>
 
-        // 3. Robust Load More Logic
-        const loadMoreBtn = document.getElementById('load-more-btn');
-        const hiddenProjects = document.querySelectorAll('.hidden-project');
+        <div class="glass-card agency-card">
+          <h3 style="font-size: 1.75rem; margin-bottom: 8px;">Software Agency Founded in Bangladesh</h3>
+          <p style="color: #cbd5e1; font-size: 1.05rem; line-height: 1.7; max-width: 820px;">
+            I founded Alpha Soft around 2024 and worked directly with more than 30 clients and businesses, building software around their individual operational requirements. That practical experience gave me direct exposure to how real businesses handle data, customer transactions, inventory, and workflows.
+          </p>
 
-        loadMoreBtn.addEventListener('click', () => {
-            hiddenProjects.forEach(project => {
-                // 1. Remove the 'display: none' utility
-                project.classList.remove('is-hidden');
-                // 2. Add animation class
-                project.classList.add('fade-in-up');
-            });
-            // Hide the button
-            loadMoreBtn.style.display = 'none';
-        });
+          <div class="agency-stats-banner">
+            <div class="agency-stat">
+              <span class="stat-number">30+</span>
+              <span class="stat-label">Clients & Businesses Served Directly</span>
+            </div>
+            <div class="agency-stat">
+              <span class="stat-number">8+</span>
+              <span class="stat-label">Software Application Domains</span>
+            </div>
+            <div class="agency-stat">
+              <span class="stat-number">2024</span>
+              <span class="stat-label">Founded in Bangladesh</span>
+            </div>
+          </div>
 
-        // 4. Mobile Menu
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-        let isMenuOpen = false;
+          <div style="margin-bottom: 12px; font-weight: 600; font-size: 0.95rem; color: #f1f5f9;">
+            Client Work Categories Covered:
+          </div>
+          <div class="domain-chips">
+            <span class="domain-chip">E-Commerce Platforms</span>
+            <span class="domain-chip">Custom CRM Systems</span>
+            <span class="domain-chip">News Portals & CMS</span>
+            <span class="domain-chip">Point of Sale (POS) Systems</span>
+            <span class="domain-chip">Business Management & Inventory</span>
+            <span class="domain-chip">Local Directory & Listing Platforms</span>
+            <span class="domain-chip">Blogs & Publishing Platforms</span>
+            <span class="domain-chip">Custom Business Solutions</span>
+          </div>
 
-        menuBtn.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.style.pointerEvents = 'auto';
-                mobileMenu.style.opacity = '1';
-                menuBtn.innerHTML = '<i class="fas fa-times"></i>';
-            } else {
-                mobileMenu.style.pointerEvents = 'none';
-                mobileMenu.style.opacity = '0';
-                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        });
+          <div class="hero-actions" style="margin-top: 28px; margin-bottom: 0;">
+            <a href="https://alphasoft.website/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              <i class="fas fa-globe"></i>
+              <span>Alpha Soft Website</span>
+            </a>
+            <a href="https://www.facebook.com/alphasoft.website" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              <i class="fab fa-facebook"></i>
+              <span>Facebook Page</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                isMenuOpen = false;
-                mobileMenu.style.pointerEvents = 'none';
-                mobileMenu.style.opacity = '0';
-                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            });
-        });
+    <!-- SELECTED CLIENT & PRODUCT WORK -->
+    <section id="work">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fas fa-laptop-code"></i> Portfolio</span>
+          <h2 class="section-title">Selected Client & Business Work</h2>
+          <p class="section-subtitle">Real-world software systems, SaaS products, open-source projects, and games built over years of hands-on development.</p>
+        </div>
 
-        // 5. Contact Form Visual
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = this.querySelector('button');
-            const originalText = btn.innerText;
-            btn.innerText = 'Sent!';
-            btn.style.backgroundColor = '#10b981';
-            setTimeout(() => {
-                this.reset();
-                btn.innerText = originalText;
-                btn.style.backgroundColor = '';
-            }, 3000);
-        });
-    </script>
+        <!-- Filter Controls -->
+        <div class="filter-container">
+          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn" data-filter="flagship">Flagships & Startups</button>
+          <button class="filter-btn" data-filter="client">Client Systems</button>
+          <button class="filter-btn" data-filter="saas">SaaS & Products</button>
+          <button class="filter-btn" data-filter="opensource">Open Source</button>
+          <button class="filter-btn" data-filter="games">Games</button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+
+          <!-- 1. QCodeAI -->
+          <div class="glass-card project-card" data-category="flagship saas">
+            <div class="project-img-wrap">
+              <img src="assets/images/qcodeai-ui.png" alt="QCodeAI Platform" class="project-img">
+              <div class="project-badge-overlay highlight-blue">Active Startup</div>
+            </div>
+            <div class="project-body">
+              <div class="project-category">AI Software Creation Platform</div>
+              <h3 class="project-title">QCodeAI</h3>
+              <p class="project-desc">
+                An AI-powered software creation platform designed to transform natural language intent into working web applications, handling business logic, databases, and full application structure.
+              </p>
+              <div class="project-highlights">
+                Currently in active development toward MVP and early-user validation.
+              </div>
+              <div class="project-tech">
+                <span class="tech-pill">AI Agents</span>
+                <span class="tech-pill">Next.js</span>
+                <span class="tech-pill">Full-Stack</span>
+                <span class="tech-pill">LLM Tooling</span>
+              </div>
+              <div class="project-links">
+                <a href="https://qcodeai.app" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-cyan">
+                  <span>Visit Website</span>
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+                <a href="https://youtu.be/Nr6aQLnXgzg" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary trigger-qcode-video">
+                  <i class="fas fa-play"></i>
+                  <span>Demo Video</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Alpha AI Agent for Godot -->
+          <div class="glass-card project-card" data-category="flagship opensource">
+            <div class="project-img-wrap">
+              <img src="assets/images/alpha-ai-godot.png" alt="Alpha AI Agent for Godot" class="project-img">
+              <div class="project-badge-overlay highlight-purple">Godot Asset Library #5383</div>
+            </div>
+            <div class="project-body">
+              <div class="project-category">AI Developer Tools / Open Source</div>
+              <h3 class="project-title">Alpha AI Agent for Godot</h3>
+              <p class="project-desc">
+                An in-editor agentic coding assistant built specifically for Godot 4. Analyzes project context, modifies GDScript and scene files, executes multi-file changes, and verifies code via runtime truth logs.
+              </p>
+              <div class="project-highlights">
+                Published to Godot Asset Library &bull; MIT Licensed
+              </div>
+              <div class="project-tech">
+                <span class="tech-pill">Godot 4</span>
+                <span class="tech-pill">GDScript 2.0</span>
+                <span class="tech-pill">Agentic Pipeline</span>
+                <span class="tech-pill">BYOK APIs</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/MdAbuNafisNiloy/Alpha-Ai-Plugin" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                  <i class="fab fa-github"></i>
+                  <span>GitHub</span>
+                </a>
+                <a href="https://godotengine.org/asset-library/asset/5383" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                  <i class="fas fa-box"></i>
+                  <span>Asset Library</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Hishab Khata -->
+          <div class="glass-card project-card" data-category="saas client">
+            <div class="project-img-wrap">
+              <img src="assets/images/hishabkhata-dashboard.png" alt="Hishab Khata Cloud Business Management" class="project-img" style="object-fit: cover; object-position: top center;">
+              <div class="project-badge-overlay highlight-green">Product Launch</div>
+            </div>
+            <div class="project-body">
+              <div class="project-category">SaaS / Business Management</div>
+              <h3 class="project-title">Hishab Khata</h3>
+              <p class="project-desc">
+                A cloud-based business management platform built for small businesses in Bangladesh. Features digital ledgers, POS billing, inventory tracking, automated SMS payment reminders, and AI-assisted financial summaries.
+              </p>
+              <div class="project-highlights">
+                Acquired first paying customer on the first day of launch.
+              </div>
+              <div class="project-tech">
+                <span class="tech-pill">React Native</span>
+                <span class="tech-pill">Expo</span>
+                <span class="tech-pill">PHP Backend</span>
+                <span class="tech-pill">MySQL</span>
+                <span class="tech-pill">SMS Gateway</span>
+              </div>
+              <div class="project-links">
+                <span style="font-size: 0.8rem; color: var(--text-muted);">
+                  <i class="fas fa-check-circle" style="color: var(--accent-emerald);"></i> Offline-first SQLite + Cloud Sync architecture
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Shelf Shuffle -->
+          <div class="glass-card project-card" data-category="games">
+            <div class="project-img-wrap">
+              <img src="assets/images/mygame.png" onerror="this.src='assets/images/shelfshuffle.png'" alt="Shelf Shuffle: Sort & Match" class="project-img">
+              <div class="project-badge-overlay highlight-amber">Opera Addons</div>
+            </div>
+            <div class="project-body">
+              <div class="project-category">Game Development / Browser Extension</div>
+              <h3 class="project-title">Shelf Shuffle: Sort & Match</h3>
+              <p class="project-desc">
+                A cozy puzzle game published on the Opera browser sidebar. Players organize shelves by matching items into groups of three, utilizing holding-bay mechanics to solve increasingly complex layouts.
+              </p>
+              <div class="project-highlights">
+                440 downloads &bull; 1 rating on Opera Addons Marketplace
+              </div>
+              <div class="project-tech">
+                <span class="tech-pill">Game Dev</span>
+                <span class="tech-pill">Browser Extension</span>
+                <span class="tech-pill">JavaScript</span>
+                <span class="tech-pill">Opera API</span>
+              </div>
+              <div class="project-links">
+                <a href="https://addons.opera.com/en/extensions/details/shelf-shuffle-sort-match/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                  <i class="fab fa-opera"></i>
+                  <span>Opera Addons</span>
+                </a>
+                <a href="https://nafisniloy.itch.io/shelf-shuffle" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                  <i class="fab fa-itch-io"></i>
+                  <span>itch.io</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. GoodMart BD -->
+          <div class="glass-card project-card" data-category="client">
+            <div class="project-img-wrap">
+              <img src="assets/images/goodmart.png" alt="GoodMart BD" class="project-img">
+              <div class="project-badge-overlay">Client Project</div>
+            </div>
+            <div class="project-body">
+              <div class="project-category">Full-Stack E-Commerce</div>
+              <h3 class="project-title">GoodMart BD</h3>
+              <p class="project-desc">
+                Full-stack e-commerce solution with web catalog, inventory tracking, order management system, and mobile app integration built with React Native.
+              </p>
+              <div class="project-highlights">
+                End-to-end multi-platform integration for retail operations.
+              </div>
+              <div class="project-tech">
+                <span class="tech-pill">React</span>
+                <span class="tech-pill">React Native</span>
+                <span class="tech-pill">Node.js</span>
+                <span class="tech-pill">MySQL</span>
+              </div>
+              <div class="project-links">
+                <span style="font-size: 0.8rem; color: var(--text-muted);">
+                  <i class="fas fa-layer-group"></i> Web storefront & Mobile integration
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. AlphaNews -->
+          <div class="glass-card project-card" data-category="client">
+            <div class="project-img-wrap">
+              <img src="assets/images/alphanews.png" alt="AlphaNews Portal" class="project-img">
+              <div class="project-badge-overlay">Client Project</div>
+            </div>
+            <div class="project-body">
+              <div class="project-category">Digital Publishing & CMS</div>
+              <h3 class="project-title">AlphaNews</h3>
+              <p class="project-desc">
+                Dynamic news portal and content management system featuring categorized article publishing, rich-media embedding, breaking-news tickers, and editorial role control.
+              </p>
+              <div class="project-highlights">
+                High-volume article ingestion and dynamic category routing.
+              </div>
+              <div class="project-tech">
+                <span class="tech-pill">PHP</span>
+                <span class="tech-pill">MySQL</span>
+                <span class="tech-pill">CMS Architecture</span>
+                <span class="tech-pill">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <span style="font-size: 0.8rem; color: var(--text-muted);">
+                  <i class="fas fa-newspaper"></i> Editorial workflow & Custom CMS
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Juthis Bloom -->
+          <div class="glass-card project-card" data-category="client">
+            <div class="project-img-wrap">
+              <img src="assets/images/juthisbloom.png" alt="Juthis Bloom" class="project-img">
+              <div class="project-badge-overlay">Client Project</div>
+            </div>
+            <div class="project-body">
+              <div class="project-category">E-Commerce Platform</div>
+              <h3 class="project-title">Juthis Bloom</h3>
+              <p class="project-desc">
+                E-commerce retail platform built with a robust Laravel backend, structured product catalog, cart flows, checkout processing, and inventory management.
+              </p>
+              <div class="project-highlights">
+                Engineered with custom MVC architecture and relational schema.
+              </div>
+              <div class="project-tech">
+                <span class="tech-pill">Laravel</span>
+                <span class="tech-pill">PHP</span>
+                <span class="tech-pill">MySQL</span>
+                <span class="tech-pill">Tailwind CSS</span>
+              </div>
+              <div class="project-links">
+                <span style="font-size: 0.8rem; color: var(--text-muted);">
+                  <i class="fas fa-shopping-bag"></i> Relational product database & checkout
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. MyChat -->
+          <div class="glass-card project-card" data-category="opensource">
+            <div class="project-img-wrap">
+              <img src="assets/images/mychat.png" alt="MyChat Messenger" class="project-img">
+              <div class="project-badge-overlay highlight-blue">Open Source</div>
+            </div>
+            <div class="project-body">
+              <div class="project-category">Real-time Messaging</div>
+              <h3 class="project-title">MyChat</h3>
+              <p class="project-desc">
+                A real-time messaging application built with React and Firebase, enabling instant chat sessions, user presence, and real-time database synchronization.
+              </p>
+              <div class="project-tech">
+                <span class="tech-pill">React</span>
+                <span class="tech-pill">Firebase</span>
+                <span class="tech-pill">Real-time DB</span>
+                <span class="tech-pill">MUI</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/Nafisniloy/MyChat" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                  <i class="fab fa-github"></i>
+                  <span>GitHub Repository</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. JavaScript Quiz App -->
+          <div class="glass-card project-card" data-category="opensource">
+            <div class="project-img-wrap">
+              <img src="assets/images/quiz.png" alt="Quiz Application" class="project-img">
+              <div class="project-badge-overlay highlight-blue">Open Source</div>
+            </div>
+            <div class="project-body">
+              <div class="project-category">Web Application</div>
+              <h3 class="project-title">JavaScript Quiz App</h3>
+              <p class="project-desc">
+                Interactive quiz application featuring dynamic external API question fetching, timer mechanics, live score calculation, and responsive layout.
+              </p>
+              <div class="project-tech">
+                <span class="tech-pill">JavaScript</span>
+                <span class="tech-pill">REST API</span>
+                <span class="tech-pill">HTML5</span>
+                <span class="tech-pill">CSS3</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/Nafisniloy/quiz" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                  <i class="fab fa-github"></i>
+                  <span>GitHub Repository</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL SKILLS SECTION -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fas fa-layer-group"></i> Expertise</span>
+          <h2 class="section-title">Technologies I Have Worked With</h2>
+          <p class="section-subtitle">A realistic, non-inflated inventory of the tools, frameworks, and stacks I use to engineer products.</p>
+        </div>
+
+        <div class="skills-container">
+          <!-- Programming Languages -->
+          <div class="glass-card skill-category-card">
+            <h3 class="skill-category-title">
+              <i class="fas fa-terminal"></i>
+              <span>Programming Languages</span>
+            </h3>
+            <div class="skills-list">
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">PHP</span>
+              <span class="skill-tag">GDScript</span>
+              <span class="skill-tag">HTML</span>
+              <span class="skill-tag">CSS</span>
+            </div>
+          </div>
+
+          <!-- Frameworks & Technologies -->
+          <div class="glass-card skill-category-card">
+            <h3 class="skill-category-title">
+              <i class="fas fa-code"></i>
+              <span>Frameworks & Libraries</span>
+            </h3>
+            <div class="skills-list">
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">React Native</span>
+              <span class="skill-tag">Next.js</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">Django</span>
+              <span class="skill-tag">Laravel</span>
+              <span class="skill-tag">Tailwind CSS</span>
+              <span class="skill-tag">Bootstrap</span>
+              <span class="skill-tag">Gradio</span>
+            </div>
+          </div>
+
+          <!-- Backend & Infrastructure -->
+          <div class="glass-card skill-category-card">
+            <h3 class="skill-category-title">
+              <i class="fas fa-server"></i>
+              <span>Backend & Infrastructure</span>
+            </h3>
+            <div class="skills-list">
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">SQLite</span>
+              <span class="skill-tag">Supabase</span>
+              <span class="skill-tag">Firebase</span>
+              <span class="skill-tag">PocketBase</span>
+              <span class="skill-tag">VPS-based Deployment</span>
+            </div>
+          </div>
+
+          <!-- AI & LLM Systems -->
+          <div class="glass-card skill-category-card">
+            <h3 class="skill-category-title">
+              <i class="fas fa-brain"></i>
+              <span>AI & Agentic Tooling</span>
+            </h3>
+            <div class="skills-list">
+              <span class="skill-tag">Autonomous Agent Workflows</span>
+              <span class="skill-tag">Multi-Model Orchestration</span>
+              <span class="skill-tag">System Prompt Architecture</span>
+              <span class="skill-tag">Structured Outputs & Tool Calling</span>
+              <span class="skill-tag">Code Generation Pipelines</span>
+              <span class="skill-tag">BYOK Architecture</span>
+              <span class="skill-tag">Agentic Verification & Truth Logs</span>
+              <span class="skill-tag">Context Engineering</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT I BUILD & HOW I BUILD SECTION -->
+    <section id="how-i-build">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fas fa-compass"></i> Engineering Philosophy</span>
+          <h2 class="section-title">How I Build</h2>
+          <p class="section-subtitle">Four core principles forged through self-directed development and direct client engagements.</p>
+        </div>
+
+        <div class="principles-grid">
+          <div class="glass-card principle-card">
+            <div class="principle-step">01</div>
+            <h3 class="principle-title">Understand the Problem</h3>
+            <p class="principle-desc">
+              I start by understanding what the user or business actually needs before jumping into implementation or choosing tech stacks.
+            </p>
+          </div>
+
+          <div class="glass-card principle-card">
+            <div class="principle-step">02</div>
+            <h3 class="principle-title">Design the System</h3>
+            <p class="principle-desc">
+              I think about how the different pieces — databases, APIs, state machines, and interfaces — need to work together sustainably.
+            </p>
+          </div>
+
+          <div class="glass-card principle-card">
+            <div class="principle-step">03</div>
+            <h3 class="principle-title">Build the Product</h3>
+            <p class="principle-desc">
+              I prefer building complete working systems rather than isolated demos or fragmented snippets that never see real users.
+            </p>
+          </div>
+
+          <div class="glass-card principle-card">
+            <div class="principle-step">04</div>
+            <h3 class="principle-title">Iterate from Reality</h3>
+            <p class="principle-desc">
+              Working with real clients and users has taught me to adapt products based on actual requirements and feedback, not assumptions.
+            </p>
+          </div>
+        </div>
+
+        <!-- What I Build Categories -->
+        <div class="section-header" style="margin-top: 40px; margin-bottom: 32px;">
+          <h3 style="font-size: 1.75rem;">What I Build</h3>
+          <p class="section-subtitle">Demonstrated breadth connected by a passion for complete systems.</p>
+        </div>
+
+        <div class="what-i-build-grid">
+          <div class="build-item">
+            <h4><i class="fas fa-briefcase"></i> Business Software</h4>
+            <p>CRM, POS, inventory, management systems, and custom operational tools built for businesses.</p>
+          </div>
+          <div class="build-item">
+            <h4><i class="fas fa-globe"></i> Web Products</h4>
+            <p>E-commerce, news portals, directories, blogs, and interactive customer-facing web applications.</p>
+          </div>
+          <div class="build-item">
+            <h4><i class="fas fa-robot"></i> AI Tools</h4>
+            <p>Agentic workflows, editor plugins, and developer tools powered by modern language models.</p>
+          </div>
+          <div class="build-item">
+            <h4><i class="fas fa-gamepad"></i> Games & Interactive</h4>
+            <p>Published browser extensions, puzzle games, and experimental interactive applications.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER STORY STRIP -->
+    <section>
+      <div class="container">
+        <div class="story-callout">
+          <div class="story-quote-lines">
+            "I didn't start with a computer science degree or a traditional software engineering path.<br>
+            I started <span class="highlight">learning programming on my own</span>.<br>
+            Then I started <span class="highlight">building</span>.<br>
+            Then I started <span class="highlight">working with businesses</span>.<br>
+            Then I started <span class="highlight">building products of my own</span>.<br>
+            Then I became <span class="highlight">interested in AI</span>.<br>
+            Now I'm building <span class="highlight">QCodeAI</span>."
+          </div>
+        </div>
+
+        <!-- CURRENTLY SECTION -->
+        <div class="currently-card">
+          <span class="section-tag" style="margin-bottom: 12px;"><i class="fas fa-bullseye"></i> Current Focus</span>
+          <h3>Currently</h3>
+          <p>
+            My main focus is <strong>QCodeAI</strong> — building an AI-powered software creation platform and taking it from a working prototype toward an MVP and early users.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div>
+              <span class="section-tag"><i class="fas fa-envelope"></i> Let's Connect</span>
+              <h2 class="contact-headline">Let's build something.</h2>
+              <p class="contact-subtext">
+                I'm always interested in interesting products, technical problems, AI, and people building ambitious things.
+              </p>
+            </div>
+
+            <div class="contact-channels">
+              <!-- Email -->
+              <div class="channel-card">
+                <div class="channel-left">
+                  <div class="channel-icon"><i class="fas fa-envelope"></i></div>
+                  <div>
+                    <div class="channel-label">Direct Email</div>
+                    <div class="channel-value">mdabunafisniloy@gmail.com</div>
+                  </div>
+                </div>
+                <button type="button" class="copy-btn copy-email-btn" title="Copy email address">
+                  <i class="far fa-copy"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
+
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/in/mdabunafisniloy" target="_blank" rel="noopener noreferrer" class="channel-card">
+                <div class="channel-left">
+                  <div class="channel-icon" style="color: #0077b5; background: rgba(0, 119, 181, 0.1);"><i class="fab fa-linkedin-in"></i></div>
+                  <div>
+                    <div class="channel-label">LinkedIn</div>
+                    <div class="channel-value">mdabunafisniloy</div>
+                  </div>
+                </div>
+                <i class="fas fa-arrow-up-right-from-square" style="color: var(--text-muted);"></i>
+              </a>
+
+              <!-- GitHub Profile 1 -->
+              <a href="https://github.com/nafisniloy" target="_blank" rel="noopener noreferrer" class="channel-card">
+                <div class="channel-left">
+                  <div class="channel-icon"><i class="fab fa-github"></i></div>
+                  <div>
+                    <div class="channel-label">GitHub (Personal & Experiments)</div>
+                    <div class="channel-value">github.com/nafisniloy</div>
+                  </div>
+                </div>
+                <i class="fas fa-arrow-up-right-from-square" style="color: var(--text-muted);"></i>
+              </a>
+
+              <!-- GitHub Profile 2 -->
+              <a href="https://github.com/mdabunafisniloy" target="_blank" rel="noopener noreferrer" class="channel-card">
+                <div class="channel-left">
+                  <div class="channel-icon"><i class="fab fa-github"></i></div>
+                  <div>
+                    <div class="channel-label">GitHub (AI & Founder Profile)</div>
+                    <div class="channel-value">github.com/mdabunafisniloy</div>
+                  </div>
+                </div>
+                <i class="fas fa-arrow-up-right-from-square" style="color: var(--text-muted);"></i>
+              </a>
+
+              <!-- X / Twitter -->
+              <a href="https://x.com/MDAbuNafisNiloy" target="_blank" rel="noopener noreferrer" class="channel-card">
+                <div class="channel-left">
+                  <div class="channel-icon"><i class="fab fa-x-twitter"></i></div>
+                  <div>
+                    <div class="channel-label">X / Twitter</div>
+                    <div class="channel-value">@MDAbuNafisNiloy</div>
+                  </div>
+                </div>
+                <i class="fas fa-arrow-up-right-from-square" style="color: var(--text-muted);"></i>
+              </a>
+
+              <!-- Telegram -->
+              <a href="https://t.me/mdabunafisniloy" target="_blank" rel="noopener noreferrer" class="channel-card">
+                <div class="channel-left">
+                  <div class="channel-icon" style="color: #229ed9; background: rgba(34, 158, 217, 0.1);"><i class="fab fa-telegram-plane"></i></div>
+                  <div>
+                    <div class="channel-label">Telegram</div>
+                    <div class="channel-value">t.me/mdabunafisniloy</div>
+                  </div>
+                </div>
+                <i class="fas fa-arrow-up-right-from-square" style="color: var(--text-muted);"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="glass-card contact-form-card">
+            <h3 style="font-size: 1.35rem; margin-bottom: 8px;">Send a Direct Note</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px;">
+              Have a question, collaboration proposal, or want to discuss QCodeAI? Drop a line here.
+            </p>
+
+            <form class="contact-form" id="contact-form">
+              <div class="form-group">
+                <label for="sender-name" class="form-label">Your Name</label>
+                <input type="text" id="sender-name" class="form-input" placeholder="e.g. Alex Morgan" required>
+              </div>
+
+              <div class="form-group">
+                <label for="sender-email" class="form-label">Your Email</label>
+                <input type="email" id="sender-email" class="form-input" placeholder="e.g. alex@company.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="sender-message" class="form-label">Message</label>
+                <textarea id="sender-message" class="form-textarea" placeholder="Tell me about what you're building or what you'd like to discuss..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <span>Send Message</span>
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-text">
+        &copy; 2026 MD Abu Nafis Niloy. Built with craft, simplicity, and real engineering.
+      </div>
+      <div class="footer-socials">
+        <a href="https://github.com/nafisniloy" target="_blank" rel="noopener noreferrer" title="GitHub 1"><i class="fab fa-github"></i></a>
+        <a href="https://github.com/mdabunafisniloy" target="_blank" rel="noopener noreferrer" title="GitHub 2"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/mdabunafisniloy" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://x.com/MDAbuNafisNiloy" target="_blank" rel="noopener noreferrer" title="X"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://t.me/mdabunafisniloy" target="_blank" rel="noopener noreferrer" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- VIDEO MODAL (QCodeAI Demo) -->
+  <div class="modal-backdrop" id="video-modal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fas fa-play-circle" style="color: var(--accent-cyan);"></i>
+          <span>QCodeAI Prototype Demo</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <a href="https://youtu.be/Nr6aQLnXgzg" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; color: var(--accent-cyan); display: flex; align-items: center; gap: 6px; font-weight: 500;">
+            <span>Watch on YouTube</span>
+            <i class="fas fa-external-link-alt"></i>
+          </a>
+          <button class="modal-close-btn" id="video-modal-close" aria-label="Close modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="modal-video-aspect">
+        <iframe id="video-modal-iframe" src="" title="QCodeAI Demo Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
 </body>
 </html>
